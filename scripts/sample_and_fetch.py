@@ -28,7 +28,7 @@ DEPLOY_BADGES = ("vercel.com/new", "render.com/deploy", "railway.app/new", "rail
 
 def gh_json(path: str) -> dict | list | None:
     """Call the GitHub REST API through gh and return parsed JSON, or None on error."""
-    res = subprocess.run(["gh", "api", path], capture_output=True, text=True, encoding="utf-8", errors="replace")
+    res = subprocess.run(["gh", "api", path], capture_output=True, text=True, encoding="utf-8", errors="replace", check=False)
     if res.returncode != 0:
         return None
     return json.loads(res.stdout)
@@ -41,7 +41,7 @@ def sample(rows: list[dict], per_tag: int = 6) -> list[dict]:
         by_tag.setdefault(r["query_tag"], []).append(r)
     chosen: list[dict] = []
     seen: set[str] = set()
-    for tag, items in by_tag.items():
+    for items in by_tag.values():
         items.sort(key=lambda r: -int(r["stars"]))
         top = items[:3]
         lower = items[len(items) // 2:] or items
