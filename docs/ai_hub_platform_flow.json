@@ -1,0 +1,472 @@
+{
+  "title": "How the AI_Hub gateway works — one six-hourly cycle",
+  "lanes": [
+    {
+      "title": "Scheduler",
+      "sub": "GitHub Actions, no servers",
+      "colour": "orange"
+    },
+    {
+      "title": "Pipeline",
+      "sub": "Python back end",
+      "colour": "aubergine"
+    },
+    {
+      "title": "Data",
+      "sub": "state store and outputs",
+      "colour": "matcha"
+    },
+    {
+      "title": "Site and reader",
+      "sub": "Astro static site on Cloudflare Pages",
+      "colour": "cobalt"
+    },
+    {
+      "title": "Po",
+      "sub": "maintainer, about 15 min a month",
+      "colour": "plum"
+    }
+  ],
+  "nodes": {
+    "start": {
+      "lane": 0,
+      "row": 0,
+      "kind": "start",
+      "label": "Every 6 hours\ncron 17 */6, or a manual run"
+    },
+    "pull": {
+      "lane": 1,
+      "row": 1,
+      "kind": "box",
+      "label": "Pull last state\nrelease asset data-latest"
+    },
+    "d_state": {
+      "lane": 2,
+      "row": 1,
+      "kind": "doc",
+      "label": "gateway.sqlite\nrepos · snapshots · scores · run_log"
+    },
+    "ingest": {
+      "lane": 1,
+      "row": 2,
+      "kind": "box",
+      "label": "Ingest from GitHub GraphQL\nsix coding-agent queries\nmetadata, releases, README hash"
+    },
+    "block": {
+      "lane": 4,
+      "row": 2,
+      "kind": "box",
+      "label": "Blocklist a reported\nmalicious repo\nremoved within 24 h"
+    },
+    "enrich": {
+      "lane": 1,
+      "row": 3,
+      "kind": "box",
+      "label": "Enrich each repo\ndeps.dev · OpenSSF Scorecard\nHugging Face · Hacker News"
+    },
+    "score": {
+      "lane": 1,
+      "row": 4,
+      "kind": "box",
+      "label": "Trust score 0 to 100\nlicence · maintenance · Scorecard\nstars carry no weight"
+    },
+    "label": {
+      "lane": 1,
+      "row": 5,
+      "kind": "box",
+      "label": "Label level and topic\nClaude API, cached by README hash\nbeginner · intermediate · advanced"
+    },
+    "gold": {
+      "lane": 4,
+      "row": 5,
+      "kind": "doc",
+      "label": "gold_labels.csv\nPo's reviewed 100 repos\nlabeller must agree 85%"
+    },
+    "sandbox": {
+      "lane": 0,
+      "row": 6,
+      "kind": "box",
+      "label": "Nightly 02:00\nsandbox install test\nclean Docker, 20-min cap"
+    },
+    "sres": {
+      "lane": 2,
+      "row": 6,
+      "kind": "doc",
+      "label": "tested: pass / fail / untested\nwith the date"
+    },
+    "export": {
+      "lane": 1,
+      "row": 7,
+      "kind": "box",
+      "label": "Export listings.json\nten per topic, level filter\npydantic-validated"
+    },
+    "d_json": {
+      "lane": 2,
+      "row": 7,
+      "kind": "doc",
+      "label": "listings.json\n+ evidence.jsonl (not shipped)"
+    },
+    "gates": {
+      "lane": 1,
+      "row": 8,
+      "kind": "decision",
+      "label": "All six gates pass?\ntests · schema · data quality\nlabels · site · security"
+    },
+    "fail": {
+      "lane": 0,
+      "row": 8,
+      "kind": "box",
+      "label": "Keep the last good site\nopen a GitHub issue\nemail Po"
+    },
+    "d_fail": {
+      "lane": 0,
+      "row": 9,
+      "kind": "doc",
+      "label": "failures.jsonl\nrun id, failing gate, counts"
+    },
+    "runbook": {
+      "lane": 4,
+      "row": 9,
+      "kind": "box",
+      "label": "Runbook fix\nrate limit · quota · drift\nstale copy · site build"
+    },
+    "promote": {
+      "lane": 1,
+      "row": 10,
+      "kind": "box",
+      "label": "Promote state\nupload data-latest"
+    },
+    "d_state2": {
+      "lane": 2,
+      "row": 10,
+      "kind": "doc",
+      "label": "gateway.sqlite\nupdated, history kept"
+    },
+    "deploy": {
+      "lane": 0,
+      "row": 11,
+      "kind": "box",
+      "label": "Build the Astro site\ndeploy to Cloudflare Pages"
+    },
+    "site": {
+      "lane": 3,
+      "row": 11,
+      "kind": "box",
+      "label": "Static site\nhome · topic · level filter\nrepo page · how we grade"
+    },
+    "digest": {
+      "lane": 0,
+      "row": 12,
+      "kind": "box",
+      "label": "Monday 07:00\nweekly digest + RSS"
+    },
+    "reader": {
+      "lane": 3,
+      "row": 12,
+      "kind": "box",
+      "label": "Reader picks a level and topic\ngets the first command to run\nand the reason to trust it"
+    },
+    "monthly": {
+      "lane": 4,
+      "row": 12,
+      "kind": "box",
+      "label": "Monthly check, 15 min\nissues · run log\nlabel agreement trend"
+    },
+    "end": {
+      "lane": 3,
+      "row": 13,
+      "kind": "end",
+      "label": "A running starter\nin one sitting"
+    }
+  },
+  "edges": [
+    {
+      "from": "start",
+      "to": "pull"
+    },
+    {
+      "from": "d_state",
+      "to": "pull",
+      "from_side": "left",
+      "to_side": "right",
+      "label": "download",
+      "at": [
+        "grid",
+        1.5,
+        1,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "pull",
+      "to": "ingest"
+    },
+    {
+      "from": "block",
+      "to": "ingest",
+      "from_side": "left",
+      "to_side": "right",
+      "dashed": true,
+      "label": "excluded on the next run",
+      "at": [
+        "grid",
+        2.5,
+        2,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "ingest",
+      "to": "enrich"
+    },
+    {
+      "from": "enrich",
+      "to": "score"
+    },
+    {
+      "from": "score",
+      "to": "label"
+    },
+    {
+      "from": "gold",
+      "to": "label",
+      "from_side": "left",
+      "to_side": "right",
+      "dashed": true,
+      "label": "agreement check every run",
+      "at": [
+        "grid",
+        2.5,
+        5,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "label",
+      "to": "export"
+    },
+    {
+      "from": "sandbox",
+      "to": "sres",
+      "label": "records",
+      "at": [
+        "grid",
+        1,
+        6,
+        0,
+        -10
+      ]
+    },
+    {
+      "path": [
+        [
+          "node",
+          "sres",
+          "bottom"
+        ],
+        [
+          "node",
+          "sres",
+          "bottom",
+          0,
+          22
+        ],
+        [
+          "node",
+          "export",
+          "top",
+          40,
+          -23
+        ],
+        [
+          "node",
+          "export",
+          "top",
+          40,
+          0
+        ]
+      ],
+      "label": "tested badge only with a dated pass",
+      "at": [
+        "grid",
+        1.6,
+        6.55,
+        0,
+        -6
+      ]
+    },
+    {
+      "from": "export",
+      "to": "d_json",
+      "label": "writes",
+      "at": [
+        "grid",
+        1.5,
+        7,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "export",
+      "to": "gates"
+    },
+    {
+      "from": "gates",
+      "to": "fail",
+      "from_side": "left",
+      "to_side": "right",
+      "label": "No",
+      "at": [
+        "node",
+        "gates",
+        "left",
+        -22,
+        -8
+      ]
+    },
+    {
+      "from": "fail",
+      "to": "d_fail"
+    },
+    {
+      "path": [
+        [
+          "node",
+          "d_fail",
+          "right"
+        ],
+        [
+          "node",
+          "runbook",
+          "left"
+        ]
+      ],
+      "label": "Po reads the issue and fixes",
+      "at": [
+        "grid",
+        2,
+        9,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "gates",
+      "to": "promote",
+      "label": "Yes",
+      "at": [
+        "node",
+        "gates",
+        "bottom",
+        18,
+        16
+      ]
+    },
+    {
+      "from": "promote",
+      "to": "d_state2",
+      "label": "upload",
+      "at": [
+        "grid",
+        1.5,
+        10,
+        0,
+        -10
+      ]
+    },
+    {
+      "path": [
+        [
+          "node",
+          "promote",
+          "left"
+        ],
+        [
+          "grid",
+          0,
+          10
+        ],
+        [
+          "node",
+          "deploy",
+          "top"
+        ]
+      ]
+    },
+    {
+      "from": "deploy",
+      "to": "site",
+      "label": "only after all gates pass",
+      "at": [
+        "grid",
+        1.5,
+        11,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "digest",
+      "to": "reader",
+      "dashed": true,
+      "label": "digest and RSS",
+      "at": [
+        "grid",
+        1.5,
+        12,
+        0,
+        -10
+      ]
+    },
+    {
+      "from": "site",
+      "to": "reader"
+    },
+    {
+      "from": "reader",
+      "to": "end"
+    },
+    {
+      "path": [
+        [
+          "node",
+          "d_fail",
+          "bottom"
+        ],
+        [
+          "grid",
+          0,
+          9.6
+        ],
+        [
+          "grid",
+          3.5,
+          9.6
+        ],
+        [
+          "grid",
+          3.5,
+          12
+        ],
+        [
+          "node",
+          "monthly",
+          "left"
+        ]
+      ],
+      "dashed": true,
+      "label": "issues and run log",
+      "at": [
+        "grid",
+        3.5,
+        10.5,
+        8,
+        0
+      ]
+    }
+  ]
+}

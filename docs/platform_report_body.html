@@ -1,0 +1,184 @@
+<header>
+  <div class="wrap">
+    <div class="kicker">AI_Hub · personal project · platform structure</div>
+    <h1>How the gateway works <span class="v">— from trending repo to a running starter</span></h1>
+    <div class="frame">One scheduled pipeline, one state file, one static site. No servers. <span class="tag">V1 · Po</span></div>
+    <div class="sub">Every six hours the pipeline pulls AI repos, scores trust, labels skill level, tests that they run, and publishes a static site only if six gates pass. <b>Stars never decide the ranking; a dated test and a trust score do.</b></div>
+    <div class="meta">
+      <span><b>Project</b> AI_Hub</span>
+      <span><b>CRS</b> none (no spatial data)</span>
+      <span><b>Units</b> metric</span>
+      <span><b>Version</b> V1</span>
+      <span><b>Date</b> 07 November 2026</span>
+      <span><b>Author</b> PNC</span>
+      <span><b>Audience</b> Po (owner)</span>
+    </div>
+  </div>
+</header>
+
+<div class="defbar">
+  <div class="wrap">
+    <div class="row"><span class="k">MCP</span><p><b>Model Context Protocol</b> — the plug-in standard that lets coding agents call external tools; MCP servers are one of the three listing types.</p></div>
+    <div class="row"><span class="k">Scorecard</span><p><b>OpenSSF Scorecard</b> — a free, weekly security health score for public repositories; one input to the trust score.</p></div>
+    <div class="row"><span class="k">Gate</span><p><b>Test gate</b> — an automatic check in the pipeline; the site is deployed only when all six pass.</p></div>
+    <div class="row"><span class="k">Cron</span><p><b>Schedule</b> — GitHub Actions runs the pipeline at minute 17 of every sixth hour, nightly at 02:00 and on Mondays at 07:00.</p></div>
+    <div class="row"><span class="k">SQLite</span><p><b>State store</b> — one database file, gateway.sqlite, that keeps every snapshot and score; kept as a GitHub release asset, never in git.</p></div>
+    <div class="row"><span class="k">Astro</span><p><b>Static site builder</b> — turns listings.json into plain HTML pages served by Cloudflare Pages.</p></div>
+  </div>
+</div>
+
+<div style="background:#fff;border-bottom:1px solid var(--line)">
+  <div class="wrap legend">
+    <span class="lbl">Status:</span>
+    <span class="chip built">Built</span><span class="chip setup">To set up</span><span class="chip revise">To be confirmed</span><span class="chip miss">Data needed</span>
+  </div>
+</div>
+
+<div class="band">
+  <div class="wrap">
+    <h2>Timeline &amp; deliverables</h2>
+    <p class="h2sub">Phase 0 is done; phase 1 is five build requests run through the dual-agent workflow.</p>
+    <div class="tl">
+      <div class="tlstep"><div class="pc">100%</div><div class="dt">07 Nov 2026</div><p>Phase 0: research, gap table, 100-repo sample</p></div>
+      <div class="tlstep"><div class="pc">60%</div><div class="dt">07 Nov 2026</div><p>Request 1: ingestion, store, scoring built; gates, CLI, workflow in progress</p></div>
+      <div class="tlstep"><div class="pc">0%</div><div class="dt">next</div><p>Request 2: labeller against Po's gold labels</p></div>
+      <div class="tlstep"><div class="pc">0%</div><div class="dt">then</div><p>Requests 3 and 4: sandbox tests, trust layer</p></div>
+      <div class="tlstep"><div class="pc">0%</div><div class="dt">last</div><p>Request 5: static site, digest, deploy</p></div>
+    </div>
+    <div class="delv">
+      <div class="d"><b>Pipeline</b><p>Python package, six-hourly, zero manual steps a week</p></div>
+      <div class="d"><b>listings.json</b><p>Ten repos per topic with level, trust score, dated test result</p></div>
+      <div class="d"><b>Static site</b><p>Home, topic, level filter, repo page, weekly digest, how we grade</p></div>
+      <div class="d"><b>Runbook</b><p>Each known failure with its fix; issues open themselves</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="band" style="border-top:none">
+  <div class="wrap">
+    <h2>The workflow</h2>
+    <p class="h2sub">Read top to bottom: the scheduler starts a run, the pipeline fills the data, six gates decide, the site is rebuilt, Po only steps in when an issue opens.</p>
+    <div style="background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;overflow-x:auto">
+{{SVG}}
+    </div>
+    <p class="h2sub" style="margin-top:10px">Editable source: docs/ai_hub_platform_flow.json. Solid arrows are the main run; dashed arrows are inputs that change rarely.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="board">
+    <div>
+      <div class="lanehdr A">Scheduler and pipeline — what each stage does</div>
+      <div class="dcard A">
+        <div class="head"><span class="num">1</span><div><h3>Pull state</h3><div class="tool">gh release download</div></div></div>
+        <div class="deck">Downloads the last good gateway.sqlite so history and velocity survive between runs.</div>
+        <div class="io"><span class="k">In</span><span class="val">release asset data-latest</span><span class="k">Out</span><span class="val">working copy of the database</span></div>
+        <div class="badges"><span class="chip built">Built</span></div>
+      </div>
+      <div class="dcard A">
+        <div class="head"><span class="num">2</span><div><h3>Ingest</h3><div class="tool">GitHub GraphQL</div></div></div>
+        <div class="deck">Six coding-agent-stack queries; metadata, latest release, contributor proxy, README hash; budget of 2,500 points a run.</div>
+        <div class="io"><span class="k">In</span><span class="val">query list in pipeline/config.py</span><span class="k">Out</span><span class="val">repos and snapshots tables</span></div>
+        <div class="badges"><span class="chip built">Built</span></div>
+      </div>
+      <div class="dcard B">
+        <div class="head"><span class="num">3</span><div><h3>Enrich and score</h3><div class="tool">deps.dev · Scorecard · Hugging Face · Hacker News</div></div></div>
+        <div class="deck">Four adapters add evidence; the trust score weights licence, maintenance, Scorecard and mentions. Stars and velocity carry zero weight.</div>
+        <div class="io"><span class="k">In</span><span class="val">repo list</span><span class="k">Out</span><span class="val">score 0 to 100 with coverage and version</span></div>
+        <div class="badges"><span class="chip built">Built</span><span class="chip revise">Weights v0 to be confirmed</span></div>
+      </div>
+      <div class="dcard B">
+        <div class="head"><span class="num">4</span><div><h3>Label level and topic</h3><div class="tool">Claude API, cached by README hash</div></div></div>
+        <div class="deck">Beginner, intermediate, advanced or not runnable, with a one-line reason. Must agree with Po's gold labels at 85 per cent or the run keeps the old labels.</div>
+        <div class="io"><span class="k">In</span><span class="val">README and file tree</span><span class="k">Out</span><span class="val">level, topic, label_status</span></div>
+        <div class="badges"><span class="chip setup">To set up (request 2)</span><span class="chip miss">Gold labels needed</span></div>
+      </div>
+      <div class="dcard B">
+        <div class="head"><span class="num">5</span><div><h3>Sandbox test</h3><div class="tool">nightly Docker job</div></div></div>
+        <div class="deck">Follows each README quickstart in a clean container with a 20-minute cap. Only a dated pass earns the "works first try" badge.</div>
+        <div class="io"><span class="k">In</span><span class="val">new and week-old listings</span><span class="k">Out</span><span class="val">tested: pass, fail or untested, with date</span></div>
+        <div class="badges"><span class="chip setup">To set up (request 3)</span></div>
+      </div>
+      <div class="dcard C">
+        <div class="head"><span class="num">6</span><div><h3>Export and gates</h3><div class="tool">pydantic · pytest · Playwright</div></div></div>
+        <div class="deck">Writes listings.json, then six gates: unit tests, schema, data quality, label agreement, site smoke test, security audit. Any failure keeps the last site and opens an issue.</div>
+        <div class="io"><span class="k">In</span><span class="val">scored, labelled repos</span><span class="k">Out</span><span class="val">listings.json or failures.jsonl</span></div>
+        <div class="badges"><span class="chip built">Export built</span><span class="chip setup">Gates in progress</span></div>
+      </div>
+      <div class="dcard C">
+        <div class="head"><span class="num">7</span><div><h3>Promote, deploy, digest</h3><div class="tool">GitHub release · Cloudflare Pages · RSS</div></div></div>
+        <div class="deck">Replaces the state file only after the gates pass, uploads it, builds the Astro site, deploys. Mondays add a digest.</div>
+        <div class="io"><span class="k">In</span><span class="val">listings.json</span><span class="k">Out</span><span class="val">live site and data-latest</span></div>
+        <div class="badges"><span class="chip setup">To set up (request 5)</span></div>
+      </div>
+    </div>
+    <aside>
+      <div class="linchpin"><h4>The linchpin</h4><p>Nothing is ranked by stars and nothing is called "tested" without a dated sandbox run. Every other site stops at popularity; this one shows a reason to trust and the first command to run.</p></div>
+      <h2>Sources of truth</h2>
+      <div class="truth a"><h4>gateway.sqlite</h4><div class="owner">pipeline</div><p>Every snapshot, score and run; kept as a release asset, never in git.</p></div>
+      <div class="truth b"><h4>listings.json</h4><div class="owner">pipeline to site</div><p>What the site shows; validated before every deploy.</p></div>
+      <div class="truth c"><h4>gold_labels.csv</h4><div class="owner">Po</div><p>100 reviewed repos; the labeller is scored against it every run.</p></div>
+      <div class="truth d"><h4>docs/runbook.md</h4><div class="owner">Po and pipeline</div><p>One entry per known failure with the fix; grows with every incident.</p></div>
+    </aside>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="blk">
+    <h2>What runs when</h2>
+    <p class="h2sub">Everything is a GitHub Actions job; the only human slot is a monthly check.</p>
+    <table>
+      <tr><th>When</th><th>Job</th><th>What happens</th><th>If it fails</th></tr>
+      <tr><td>Every 6 hours</td><td>refresh.yml</td><td>pull state, ingest, enrich, score, label, export, gates, promote, deploy</td><td>last good site stays; GitHub issue; email to Po</td></tr>
+      <tr><td>Nightly 02:00</td><td>sandbox.yml</td><td>install-test new listings and anything not tested in 7 days</td><td>result recorded as untested, not failed</td></tr>
+      <tr><td>Monday 07:00</td><td>digest.yml</td><td>weekly digest and RSS, then a refresh</td><td>digest skipped; site unchanged</td></tr>
+      <tr><td>Two failures in a row</td><td>status.json</td><td>red "data is stale" banner on the site</td><td>Po follows the runbook</td></tr>
+      <tr><td>Monthly, 15 min</td><td>Po</td><td>read the issues, the run log and the label agreement trend</td><td>—</td></tr>
+    </table>
+  </section>
+
+  <section class="blk">
+    <h2>Targets built into the pipeline</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="n">6 h</div><div class="l">refresh interval</div></div>
+      <div class="kpi"><div class="n">6</div><div class="l">gates before any deploy</div></div>
+      <div class="kpi"><div class="n">85%</div><div class="l">label agreement with the gold set</div></div>
+      <div class="kpi"><div class="n">0</div><div class="l">manual steps a week</div></div>
+    </div>
+    <div class="splitcols">
+      <div class="sc auto"><h4>Automatic</h4><ul><li>Ingest, score, label, export, gates, deploy</li><li>Issue opened on any failure</li><li>Weekly digest</li></ul></div>
+      <div class="sc semi"><h4>Semi-automatic</h4><ul><li>Runbook fixes after an issue</li><li>Blocklisting a reported malicious repo (removed within 24 h)</li></ul></div>
+      <div class="sc manual"><h4>Manual, Po</h4><ul><li>Review 100 labels once</li><li>Monthly 15-minute check</li><li>Domain, Cloudflare account, secrets</li></ul></div>
+    </div>
+  </section>
+
+  <section class="blk">
+    <h2>Gaps &amp; what we need</h2>
+    <div class="needs">
+      <div class="need data"><h4>Data needed</h4><ul><li>gold_labels.csv from Po's review (before request 2)</li><li>Google Cloud key for GH Archive star-fraud checks (before request 4)</li></ul></div>
+      <div class="need confirm"><h4>To be confirmed</h4><ul><li>Scoring weights v0 and the advisories component (request 4)</li><li>Domain name</li></ul></div>
+      <div class="need setup"><h4>To set up</h4><ul><li>Labeller (request 2), sandbox job (request 3), trust layer (request 4), site and deploy (request 5)</li><li>Cloudflare account and four GitHub secrets</li></ul></div>
+    </div>
+    <div class="keynote"><b>Key point:</b> the back end is a batch job and the front end is static files, so there is nothing to keep running and nothing to patch at night.</div>
+  </section>
+
+  <section class="blk">
+    <h2>Dry run — proof of concept</h2>
+    <div class="dry">
+      <div class="drycard"><h4>Sample</h4><p>50 repos from the six coding-agent-stack queries (task T09, after block B3).</p></div>
+      <div class="drycard"><h4>What we run</h4><p>pipeline run --dry-run --limit 50 with the real network; no promotion, no upload.</p></div>
+      <div class="drycard"><h4>Output</h4><ul><li>listings.dry.json validated</li><li>wall time under 10 minutes</li><li>GitHub points and HTTP calls per source recorded</li></ul></div>
+      <div class="drycard"><h4>Gaps / next</h4><ul><li>Record one real response per adapter as a test fixture</li><li>Then requests 2 to 5</li></ul></div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <b>AI_Hub · platform structure · V1 · 07 November 2026 · PNC · Po.</b>
+    <div style="margin-top:8px">Companion documents: docs/phase1_architecture_and_operations.md · docs/dual_dev_requests.md · reports/AI repo gateway competitor landscape.md. Markdown twin: docs/ai_hub_platform_structure.md.</div>
+  </div>
+</footer>
+
+</body>
+</html>
