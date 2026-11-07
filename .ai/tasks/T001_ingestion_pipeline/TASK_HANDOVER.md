@@ -672,3 +672,29 @@ The live T09 dry run has not been repeated; Claude’s review remains pending. N
 - `uv run pytest --cov=pipeline --cov-fail-under=80`: 454 passed, coverage 98.44%.
 - `uv run ruff check .`: clean.
 - Codex run: 407 s, 57,811 tokens, weekly limit 28% used.
+
+## T09 — dry run against 50 repos (Claude), attempt 2, 07 November 2026
+
+### Summary
+`uv run pipeline run --dry-run --limit 50` with the real network after the T03 page-size fix (commit 898b859): exit 0, wall time 111 s, rows in 50, rows out 50, all gates passed, no promotion, no upload. Outputs `site/src/data/listings.dry.json` (193 KB, 50 rows, validates) and `listings.dry.evidence.jsonl` (262 KB, 200 evidence records), both git-ignored.
+
+### Budget and calls
+- GitHub GraphQL: 12 POST calls, 12 points of the 2,500 budget, 0 unmeasured.
+- HTTP calls per source: deps.dev 50, Scorecard 50, Hugging Face 50, Hacker News 50; all under the 1,000 limit each.
+
+### Live adapter results (first live confirmation, B2 audit F8)
+- deps.dev: present 40, absent 10, failed 0.
+- OpenSSF Scorecard: present 2, absent 48, failed 0. Spot checks by hand confirm HTTP 404 for Kilo-Org/kilocode, cline/cline and All-Hands-AI/OpenHands: Scorecard has not scanned most of this niche. Not an adapter defect; a coverage gap for request 4 (run the Scorecard CLI ourselves, or lower its weight).
+- Hugging Face: present 15, absent 35, failed 0.
+- Hacker News: present 7, absent 43, failed 0.
+- No source returned `failed`; no schema drift seen on the recorded shapes.
+
+### Scoring observations for request 4
+- Coverage per row: min 0.25, median 0.40, max 0.70. Most rows evaluate only licence, maintenance and contributors.
+- Totals saturate: median 99.6, 8 rows at 100.0, min 35.8. With three evaluated components the weighted mean rewards any maintained, permissively licensed repo equally. Weights v0 need rebalancing once Scorecard coverage and the fraud checks exist (request 4), as already recorded in DECISIONS.md.
+- Ordering by score differs from ordering by stars: only 2 of the top 10 overlap.
+- Labels: 5 rows provisional (from data/labelled_repos_for_review.csv), 45 pending, as expected before request 2. All rows `untested`, as expected before request 3.
+
+### Acceptance
+- Under 10 minutes: yes (111 s). listings.dry.json validates: yes (gates 2 and 3 passed in the run). No promotion, no upload: confirmed (state/gateway.sqlite absent, no `gh release` call in the log).
+- Project checks on the final tree: run at hand-off, see REVIEW.md.

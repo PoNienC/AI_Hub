@@ -133,4 +133,4 @@ Evidence (Claude probes, 07 November 2026, token-authenticated, header 2026-03-1
 
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
-| F1 | T03 | MEDIUM | 50-node GraphQL pages exceed GitHub's resource limit with `mentionableUsers` | ACCEPTED | every real run of the niche would fail at ingest | default page 25 (`AI_HUB_GITHUB_PAGE_SIZE`), adaptive halving on RESOURCE_LIMITS_EXCEEDED, tests | — (auto) | pending |
+| F1 | T03 | MEDIUM | 50-node GraphQL pages exceed GitHub's resource limit with `mentionableUsers` | ACCEPTED | every real run of the niche would fail at ingest | default page 25 (`AI_HUB_GITHUB_PAGE_SIZE`), adaptive halving on RESOURCE_LIMITS_EXCEEDED, tests | — (auto) | fixed in `898b859`; dry run attempt 2 passed |
