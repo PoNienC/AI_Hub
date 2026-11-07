@@ -1,0 +1,5 @@
+{%- if row.label_status == 'pending' -%}
+level not yet labelled
+{%- else -%}
+{{ row.level | replace('_', ' ') }} ({{ row.label_status }})
+{%- endif -%}

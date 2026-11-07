@@ -9,14 +9,14 @@
 - Allocation approved by the user: 07 November 2026
 - Hand-off: pending <!-- pending | `<commit>`, DD Month YYYY — see REVIEW.md -->
 - Close-out: automatic (approved at the combined gate) <!-- ask | automatic (approved at the combined gate) -->
-- Running now: B1_exec (Codex) 21:44 → codex/B1_exec_out.md <!-- every background job: step, started HH:MM, output file — e.g. "B1_audit_r1 (Codex) 14:05 → codex/B1_audit_r1_out.md" -->
-- Codex tokens so far: 142,376
+- Running now: B1_fix_r1 (Codex) 22:14 → codex/B1_fix_r1_out.md <!-- B1_audit_r1 done; 22:04 → subagent/B1_audit_r1_out.md <!-- B1_exec done; 21:44 → codex/B1_exec_out.md <!-- every background job: step, started HH:MM, output file — e.g. "B1_audit_r1 (Codex) 14:05 → codex/B1_audit_r1_out.md" -->
+- Codex tokens so far: 235,569
 
 | Task | Title | Executor | Reviewer | Block | Depends on | Risk | Status | Commit | Audit fix |
 |---|---|---|---|---|---|---|---|---|---|
-| T01 | Site generator, templates, dependencies | Codex | Claude subagent | B1 | — | medium | Pending | — | — |
-| T02 | Light gate 5, CLI and wiring | Codex | Claude subagent | B1 | T01 | medium | Pending | — | — |
-| T03 | Workflow, Pages deploy, docs | Codex | Claude subagent | B1 | T02 | medium | Pending | — | — |
+| T01 | Site generator, templates, dependencies | Codex | Claude subagent | B1 | — | medium | Corrections | abc99df | — |
+| T02 | Light gate 5, CLI and wiring | Codex | Claude subagent | B1 | T01 | medium | Corrections | abc99df | — |
+| T03 | Workflow, Pages deploy, docs | Codex | Claude subagent | B1 | T02 | medium | Corrections | abc99df | — |
 | T04 | Local acceptance run | Claude | Codex | B2 | T03 | low | Pending | — | — |
 
 Status values: Pending · In progress · Done, audit pending · In audit · Awaiting your review · Corrections · Complete · Blocked

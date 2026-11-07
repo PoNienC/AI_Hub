@@ -30,7 +30,7 @@ Repository layout: `pipeline/` (Python package, including `site/` builder and pa
 
 **Current: every 6 hours automatically after owner go-live; the weekly digest follows in request 6.**
 
-- `refresh.yml`: cron `17 */6 * * *`, plus manual dispatch. Steps: install/test/lint, download `data-latest`, ingest/enrich/score/export, build a staged site, run gates 2/3/5, promote locally, upload and verify `data-latest`, rebuild/check the published site, upload its Pages artefact, then deploy from `main`. Changed-README labelling follows in request 3.
+- `refresh.yml`: cron `17 */6 * * *`, plus manual dispatch. Steps: install/test/lint, download `data-latest`, ingest/enrich/score/export, build a staged site, run gates 2/3/5, promote locally, upload and verify `data-latest`, independently check the published data and site with `pipeline gates`, upload that site's Pages artefact without rebuilding, then deploy from `main`. Changed-README labelling follows in request 3.
 - `sandbox.yml`: nightly at 02:00 UK; tests new listings and re-tests every listed repo weekly. Writes results into the state store.
 - `digest.yml`: Mondays 07:00 UK; writes `site/src/data/digest.json` and RSS, then triggers `refresh.yml`.
 - Budgets per run: GitHub REST and GraphQL under 2,500 points; BigQuery under 5 GB scanned; Claude API under 200k tokens. The run aborts, not degrades, when a budget is crossed, and opens an issue.
@@ -44,16 +44,18 @@ Repository layout: `pipeline/` (Python package, including `site/` builder and pa
 3. Data quality gate: data age no greater than 7 hours; listed-repo count at least 90 per cent of the previous run; evaluated score and explicit licence status required. Pending topic/level remain allowed until request 3 enables `REQUIRE_LABELS`; no "tested" badge without a dated sandbox result.
 4. Labeller gate: agreement with the gold set (`data/gold_labels.csv`, Po-reviewed) at 85 per cent or better on level, 90 per cent on topic; measured every run on the gold rows.
 5. Current light site gate: Jinja2 build succeeds; all internal href/src links resolve within `dist`; no HTML page exceeds 200,000 bytes; the index links at least one topic. Request 6 adds Astro and browser smoke tests including the digest.
-6. Security gate: `pip-audit` is available as a documented local dependency check; enforced CI dependency auditing and the Node audit accompany the richer frontend. Dependabot already checks uv and GitHub Actions weekly.
+6. Security gate (target): `pip-audit` and `npm audit` on the pipeline and site; dependency updates via Dependabot weekly. Current (request 2): `pip-audit` is available as a documented local dependency check; enforced CI dependency auditing and the Node audit accompany the richer frontend. Dependabot already checks uv and GitHub Actions weekly.
 
-Current checks run on schedule/manual dispatch; this workflow has no pull-request or push trigger. Pull-request sample checks and the full six-gate suite are future work. The offline sample suite includes the site builder and gate 5.
+Target: pull requests run gates 1, 2, 5 and 6 on a sample dataset in under five minutes. The full gates run on the schedule and on merge to `main`.
+
+Current (request 2): checks run on schedule/manual dispatch; this workflow has no pull-request or push trigger. Pull-request sample checks and the full six-gate suite remain to be implemented. The offline sample suite includes the site builder and gate 5.
 
 ## 4. Deployment
 
 **Current: GitHub Pages from Actions, production on `main`. Cloudflare and pull-request previews are deferred to request 6.**
 
-- MVP authentication: `GH_TOKEN: ${{ github.token }}` and `GH_REPO: ${{ github.repository }}`. No custom secret is required. Refresh has contents/issues write access; only the deploy job has `pages: write` and `id-token: write`, using the `github-pages` environment. The built-in token's GraphQL allowance is shared per repository, and release assets must be in this repository; see the [runbook](runbook.md#built-in-token-limits).
-- Later integrations may need `ANTHROPIC_API_KEY` (request 3), `GCP_SA_KEY` (request 5) and `CLOUDFLARE_API_TOKEN` (request 6), never committed.
+- Target secrets in GitHub Actions: `GH_TOKEN` (fine-grained, read-only public repos), `ANTHROPIC_API_KEY`, `CLOUDFLARE_API_TOKEN`, `GCP_SA_KEY` (BigQuery read-only). Never in the repo.
+- Current (request 2): MVP authentication uses `GH_TOKEN: ${{ github.token }}` and `GH_REPO: ${{ github.repository }}` instead of a custom token secret. No custom secret is required. Refresh has contents/issues write access; only the deploy job has `pages: write` and `id-token: write`, using the `github-pages` environment. The built-in token's GraphQL allowance is shared per repository, and release assets must be in this repository; see the [runbook](runbook.md#built-in-token-limits). `ANTHROPIC_API_KEY`, `GCP_SA_KEY` and `CLOUDFLARE_API_TOKEN` belong to requests 3, 5 and 6 respectively.
 - Rollback: re-run only the last green deploy job while its Pages artefact is retained; re-running all jobs re-ingests data. See [site rollback](runbook.md#site-rollback).
 - MVP URL: `https://ponienc.github.io/AI_Hub/`. Owner steps are to merge to `main`, make it default, make the repository public at go-live, enable Pages with source "GitHub Actions", and dispatch once. GitHub Free requires a public repository; eligible paid plans permit private sources. See [Pages visibility](runbook.md#pages-visibility). A custom domain is a later owner decision.
 
@@ -61,8 +63,8 @@ Current checks run on schedule/manual dispatch; this workflow has no pull-reques
 
 **Answer: the pipeline reports its own failures; a runbook in `docs/runbook.md` covers each known failure with the fix.**
 
-- Alerts: refresh failures open a GitHub issue labelled `pipeline-failure` with a log link and the failing gate/stage. Deploy-job failures remain visible in Actions/the Pages environment. Email depends on the owner's notification settings. A failure-count banner is future work; the current site calculates age from its last successful export in the browser.
-- Observability: successful runs are recorded in SQLite `run_log`; failures append to `state/failures.jsonl` and diagnostic logs. `status.json` exposes generated time, run ID, score version, listing count and checks actually completed by that build. The footer displays time/age, run ID, score version and count.
+- Alerts (target): any failed scheduled run opens a GitHub issue labelled `pipeline-failure` with the log link and the failing gate, and emails Po. A second failure in a row pins a red "data is stale" banner on the site via a `status.json` file. Current (request 2): refresh failures open the issue; deploy-job failures remain visible in Actions/the Pages environment. Email depends on the owner's notification settings. The failure-count banner remains to be implemented; the current site calculates age from its last successful export in the browser.
+- Observability (target): each run writes `state/run_log.jsonl` (duration, API points used, tokens used, rows in and out, gate results). The site footer shows "data as of" and the last gate results. Current (request 2): successful runs are recorded in SQLite `run_log`; failures append to `state/failures.jsonl` and diagnostic logs. `status.json` exposes generated time, run ID, score version, listing count and checks actually completed by that build. The footer displays time/age, run ID, score version and count.
 - Runbook entries, written with the first request and extended on every incident:
   - GitHub API rate limit or schema change: run aborts; check the GraphQL error, adjust the query, re-run.
   - BigQuery quota exceeded: reduce the GH Archive window to 7 days; re-run.
@@ -71,7 +73,7 @@ Current checks run on schedule/manual dispatch; this workflow has no pull-reques
   - Site build or smoke test fails: the previous site stays live; fix on a branch; preview deploy; merge.
   - A listed repo reported as malicious: `pipeline/blocklist.yml` entry, immediate manual re-run, removal within 24 hours, a note in the digest.
   - Secrets expire: rotate in GitHub settings; nothing else changes.
-- Dependencies: Dependabot weekly; Python pinned with `uv.lock`. There is no Node frontend dependency tree in the MVP; a Node lockfile arrives with request 6.
+- Dependencies (target): Dependabot weekly; Python pinned with `uv.lock`; Node pinned with `pnpm-lock.yaml`. Current (request 2): there is no Node frontend dependency tree in the MVP; the Node lockfile arrives with request 6.
 - Monthly check by Po (15 minutes): read the month's issues, the run log summary and the labeller agreement trend.
 
 ## 6. What Po must do, and when

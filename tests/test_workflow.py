@@ -28,10 +28,13 @@ def test_workflow_checks_then_one_release_round_trip():
     ordered = ["uv sync --frozen", "uv run pytest --cov=pipeline --cov-fail-under=80",
                "uv run ruff check .", "uv run pipeline release pull",
                "uv run pipeline run --no-release", "uv run pipeline release push",
-               "uv run pipeline site build", "uv run pipeline gates"]
+               "uv run pipeline gates"]
     positions = [next(index for index, command in enumerate(commands) if value in command)
                  for value in ordered]
     assert positions == sorted(set(positions))
+    assert not any("pipeline site build" in command for command in commands)
+    assert commands.count("uv run pipeline run --no-release") == 1
+    assert commands.count("uv run pipeline gates") == 1
     for value in ordered[3:]:
         step = next(step for step in steps if step.get("run") == value)
         assert "if" not in step and not step.get("continue-on-error", False)

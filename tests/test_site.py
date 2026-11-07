@@ -2,6 +2,7 @@
 
 import json
 import re
+from datetime import datetime
 from html import unescape
 from pathlib import Path
 
@@ -59,10 +60,11 @@ def test_repository_fields(built, sample, field):
         "coverage": ["Coverage", f"{row.coverage * 100:.0f}%"],
         "components": ["Evaluated components and status", *details.component_statuses.values()],
         "licence": ["Licence class", details.licence_class, row.repo.licence_spdx or "unknown"],
-        "push": ["Last push", row.repo.pushed_at.isoformat() if row.repo.pushed_at else "unknown"],
+        "push": ["Last push", builder.display_date(row.repo.pushed_at)],
         "release": ["Latest release", row.repo.release_tag or "unknown",
-                    row.repo.release_published_at.isoformat() if row.repo.release_published_at else "unknown"],
-        "label": ["Label", row.topic or "pending", row.level or "pending"],
+                    builder.display_date(row.repo.release_published_at)],
+        "label": ["Label", builder.topic_name(row.topic) if row.topic else "level not yet labelled",
+                  row.level.replace("_", " ") if row.level else "level not yet labelled"],
         "label_status": ["Label status", row.label_status],
         "tested": ["Tested status", row.tested],
         "github": [f'href="{row.repo.html_url}"', "View on GitHub"],
@@ -225,3 +227,147 @@ def test_page_size_limit_is_bytes_and_inclusive(built):
         handle.write("x")
     with pytest.raises(SiteCheckError, match="size.html"):
         check(built)
+
+
+def test_large_topic_pagination_preserves_every_row(sample, tmp_path):
+    template = sample.listings[0]
+    details = sample.scoring_details[template.repo.github_id]
+    sample.listings, sample.scoring_details = [], {}
+    for number in range(1500):
+        row = template.model_copy(deep=True)
+        repo_id = f"repo_{number}"
+        row.repo.github_id = row.score.repo_id = repo_id
+        row.repo.full_name = f"owner/repo_{number}"
+        row.topic, row.level, row.label_status = None, None, "pending"
+        sample.listings.append(row)
+        cloned_details = details.model_copy(deep=True)
+        for evidence in cloned_details.evidence:
+            evidence.repo_id = repo_id
+        sample.scoring_details[repo_id] = cloned_details
+    built = builder.build(save(sample, tmp_path), tmp_path / "dist")
+    routes = ["pending.html", *(f"pending_{page}.html" for page in range(2, 9))]
+    observed = []
+    for page, route in enumerate(routes):
+        path = built / "topics" / route
+        html = path.read_text(encoding="utf-8")
+        ids = re.findall(r'href="../repos/([^"]+)\.html"', html)
+        assert len(ids) == (100 if page == 7 else 200)
+        observed.extend(ids)
+        assert f'<ol start="{page * 200 + 1}">' in html
+        assert path.stat().st_size <= 200_000
+        assert ('rel="prev"' in html) == (page > 0)
+        assert ('rel="next"' in html) == (page < 7)
+        if page:
+            assert f'href="{routes[page - 1]}" rel="prev"' in html
+        if page < 7:
+            assert f'href="{routes[page + 1]}" rel="next"' in html
+    assert observed == [row.repo.github_id for row in sample.listings]
+    check(built)
+
+
+def test_backup_cleanup_failure_logs_without_failing_publication(tmp_path, monkeypatch, caplog):
+    output, staged = tmp_path / "dist", tmp_path / "staged"
+    output.mkdir()
+    staged.mkdir()
+    (output / "old.html").write_text("old", encoding="utf-8")
+    (staged / "index.html").write_text("new", encoding="utf-8")
+
+    def locked_cleanup(cls, name, ignore_errors=False, repeated=False):
+        if not ignore_errors:
+            raise PermissionError("previous site locked")
+
+    monkeypatch.setattr(builder.TemporaryDirectory, "_rmtree", classmethod(locked_cleanup))
+    with builder.replace_directory(staged, output):
+        pass
+    assert (output / "index.html").read_text(encoding="utf-8") == "new"
+    assert "previous site clean-up incomplete" in caplog.text
+    assert len(list(tmp_path.glob(".dist-previous-*/site/old.html"))) == 1
+
+
+@pytest.mark.parametrize("host", sorted(builder.POLICY_HOSTS))
+def test_policy_references_are_preserved_and_pass_gate(tmp_path, host):
+    policy = tmp_path / "scoring.md"
+    policy.write_text(f'[reference](https://{host}/docs#section)', encoding="utf-8")
+    built = builder.build(SAMPLE, tmp_path / "dist", scoring_path=policy)
+    html = (built / "how_we_grade.html").read_text(encoding="utf-8")
+    assert f'href="https://{host}/docs#section"' in html
+    check(built)
+    (built / "repos/external.html").write_text(f'<a href="https://{host}/">ref</a>', encoding="utf-8")
+    with pytest.raises(SiteCheckError, match="repos/external.html"):
+        check(built)
+
+
+@pytest.mark.parametrize("url", [
+    "http://docs.deps.dev/", "https://docs.deps.dev.evil.example/",
+    "https://docs.deps.dev@evil.example/", "https://docs.deps.dev:443/",
+    "https://evil.example/", "https://docs.deps.dev/with space",
+    "https://docs.deps.dev/\\escape",
+])
+def test_policy_disallows_unapproved_urls(built, url):
+    assert not builder.policy_url(url)
+    (built / "how_we_grade.html").write_text(f'<a href="{url}">ref</a>', encoding="utf-8")
+    with pytest.raises(SiteCheckError, match="how_we_grade.html"):
+        check(built)
+
+
+def test_index_only_nonempty_topics_in_export_order_pending_last(sample, tmp_path):
+    for index, row in enumerate(sample.listings):
+        row.topic, row.level, row.label_status = None, None, "pending"
+        if index in (1, 2):
+            row.topic = "rag_knowledge" if index == 1 else "mcp_server_or_skill"
+            row.level, row.label_status = "beginner", "provisional"
+    built = builder.build(save(sample, tmp_path), tmp_path / "dist")
+    html = (built / "index.html").read_text(encoding="utf-8")
+    assert re.findall(r'<section data-topic="([^"]+)"', html) == [
+        "rag_knowledge", "mcp_server_or_skill", "pending",
+    ]
+    assert "MCP server or skill" in html and "RAG knowledge" in html
+    assert "beginner (provisional)" in html
+    assert "level not yet labelled" in html
+    assert "pending · pending" not in html
+    assert "pending · pending" not in (built / "topics/pending.html").read_text(encoding="utf-8")
+    assert "<title>AI Hub</title>" in html
+    assert "<title>MCP server or skill · AI Hub</title>" in (
+        built / "topics/mcp_server_or_skill.html"
+    ).read_text(encoding="utf-8")
+
+
+def test_index_retains_top_ten_per_selected_level(sample, tmp_path):
+    for index, row in enumerate(sample.listings):
+        row.topic, row.label_status = "coding_agent", "provisional"
+        row.level = "beginner" if index < 12 else "advanced"
+    built = builder.build(save(sample, tmp_path), tmp_path / "dist")
+    html = (built / "index.html").read_text(encoding="utf-8")
+    rows = re.findall(r'<li data-views="([^"]+)"( hidden)?><a href="repos/([^"]+)\.html"', html)
+    assert [repo_id for _, hidden, repo_id in rows if not hidden] == [
+        row.repo.github_id for row in sample.listings[:10]
+    ]
+    for level, expected in (("beginner", sample.listings[:10]), ("advanced", sample.listings[12:22])):
+        assert [repo_id for views, _, repo_id in rows if level in views.split()] == [
+            row.repo.github_id for row in expected
+        ]
+    assert all("intermediate" not in views.split() for views, _, _ in rows)
+
+
+def test_empty_index_has_one_empty_state(sample, tmp_path):
+    sample.listings = []
+    built = builder.build(save(sample, tmp_path), tmp_path / "dist")
+    html = (built / "index.html").read_text(encoding="utf-8")
+    assert '<section data-topic=' not in html
+    assert '<p id="empty">No entries for this level.</p>' in html
+    assert html.count("No entries") == 1
+
+
+def test_display_dates_use_english_utc_and_status_keeps_iso(sample, tmp_path):
+    timestamp = datetime.fromisoformat("2026-11-07T00:15:32.123456+02:00")
+    sample.generated_at = timestamp
+    row = sample.listings[0]
+    row.repo.pushed_at = row.repo.release_published_at = timestamp
+    built = builder.build(save(sample, tmp_path), tmp_path / "dist")
+    html = (built / f"repos/{row.repo.github_id}.html").read_text(encoding="utf-8")
+    assert "<dd>06 Nov 2026</dd>" in html
+    assert " · 06 Nov 2026</dd>" in html
+    assert ">06 Nov 2026 22:15 UTC</time>" in html
+    assert f'datetime="{timestamp.isoformat()}"' in html
+    assert json.loads((built / "status.json").read_text(encoding="utf-8"))["generated_at"] == timestamp.isoformat()
+    assert builder.display_date(None) == "unknown"

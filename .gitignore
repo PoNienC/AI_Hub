@@ -19,6 +19,7 @@ __pycache__/
 .env.*
 site/dist/
 site/dist.dry/
+site/.*/
 .coverage
 htmlcov/
 .pytest_cache/

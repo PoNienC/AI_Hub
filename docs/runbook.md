@@ -62,7 +62,6 @@ The equivalent split used in CI is:
 uv run pipeline release pull
 uv run pipeline run --no-release
 uv run pipeline release push
-uv run pipeline site build
 uv run pipeline gates
 ```
 
@@ -112,8 +111,10 @@ without settings, credentials or network access; defaults are
 not certify freshness or run gate 5. `pipeline gates` checks production data and
 `site/dist/`; a `--path` ending in `.dry.json` checks `site/dist.dry/` instead.
 For a custom preview directory, call `pipeline.gates.gate_5(Path(...))` directly.
-The CI build after release push is checked again before its Pages artefact is
-uploaded. `status.json` identifies the export run and lists completed checks;
+CI uploads the site already built and gated by `pipeline run`. After release
+push, an independent `pipeline gates` check re-verifies it before the Pages
+upload without rebuilding or changing `status.json`.
+`status.json` identifies the export run and lists completed checks;
 standalone builds record schema validation only, while `pipeline run` also
 records gates 2, 3 and 5. The browser calculates age from `generated_at`.
 

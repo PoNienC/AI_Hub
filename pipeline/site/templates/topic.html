@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ topic | replace('_', ' ') | capitalize }}</h1>
-<ol>{% for row in rows %}
-  <li><a href="../repos/{{ row.repo.github_id }}.html">{{ row.repo.full_name }}</a> — {{ '%.1f' | format(row.score.total) }}/100 · {{ '%.0f' | format(row.coverage * 100) }}% coverage · {{ row.level or 'pending' }} · {{ row.label_status }} · {{ row.tested }}</li>
+<h1>{{ topic | topic_name }}</h1>
+<ol start="{{ start }}">{% for row in rows %}
+  <li><a href="../repos/{{ row.repo.github_id }}.html">{{ row.repo.full_name }}</a> — {{ '%.1f' | format(row.score.total) }}/100 · {{ '%.0f' | format(row.coverage * 100) }}% coverage · {% include 'label.html' %} · {{ row.tested }}</li>
 {% else %}<li>No entries for this topic.</li>{% endfor %}</ol>
+{% if page_count > 1 %}
+<nav aria-label="Topic pages">
+  {% if previous %}<a href="{{ previous }}" rel="prev">Previous</a>{% endif %}
+  <span>Page {{ page_number }} of {{ page_count }}</span>
+  {% if next_page %}<a href="{{ next_page }}" rel="next">Next</a>{% endif %}
+</nav>
+{% endif %}
 {% endblock %}

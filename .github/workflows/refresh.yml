@@ -51,8 +51,6 @@ jobs:
         run: uv run pipeline run --no-release
       - name: Upload and verify promoted state
         run: uv run pipeline release push
-      - name: Build published site
-        run: uv run pipeline site build
       - name: Check published site and data
         run: uv run pipeline gates
       - name: Upload Pages artefact

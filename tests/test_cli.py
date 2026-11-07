@@ -155,7 +155,13 @@ def test_real_run_order_and_success_log(setup, offline, monkeypatch):
         assert json.loads(gates) == {"gate_2": True, "gate_3": True, "gate_5": True}
         assert conn.execute("SELECT COUNT(*) FROM snapshots").fetchone()[0] == 1
         assert conn.execute("SELECT COUNT(*) FROM scores").fetchone()[0] == 1
+    status_path = Path("site/dist/status.json")
+    before = status_path.read_bytes()
+    assert {item["name"] for item in json.loads(before)["checks"]} == {
+        "listings_schema", "gate_2", "gate_3", "gate_5",
+    }
     assert cli.main(["gates"]) == 0
+    assert status_path.read_bytes() == before
 
 
 @pytest.mark.parametrize("fault", ["gate_2", "gate_3", "gate_5", "github_budget", "http_budget", "export"])

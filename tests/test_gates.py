@@ -183,3 +183,26 @@ def test_gate_5_rejects_site_and_names_page(site, fault, rule, page):
         gate_5(site)
     assert (caught.value.gate, caught.value.rule) == ("gate_5", rule)
     assert page in str(caught.value)
+
+
+@pytest.mark.parametrize("reference", [
+    "../Index.html", "../Topics/pending.html", "../topics/Pending.html",
+    "../Topics/", "../topics/index.HTML", "../topics/%50ending.html",
+    "/TOPICS/pending.html",
+])
+def test_gate_5_rejects_case_mismatches_on_every_platform(site, reference):
+    (site / "topics/index.html").write_text("<h1>Topics</h1>", encoding="utf-8")
+    (site / "repos/case.html").write_text(f'<a href="{reference}">link</a>', encoding="utf-8")
+    with pytest.raises(GateFailure) as caught:
+        gate_5(site)
+    assert (caught.value.gate, caught.value.rule) == ("gate_5", "links")
+    assert "repos/case.html" in str(caught.value)
+    assert reference in str(caught.value)
+
+
+def test_gate_5_requires_exact_index_name(site):
+    # Use an intermediate name so the rename also changes case on Windows.
+    (site / "index.html").rename(site / "temporary.html")
+    (site / "temporary.html").rename(site / "Index.html")
+    with pytest.raises(GateFailure, match="missing index page"):
+        gate_5(site)

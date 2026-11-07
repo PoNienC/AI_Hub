@@ -7,9 +7,9 @@
   <dt>Score</dt><dd>{{ '%.1f' | format(row.score.total) }}/100 ({{ row.score_version }})</dd>
   <dt>Coverage</dt><dd>{{ '%.0f' | format(row.coverage * 100) }}% of weighted evidence evaluated</dd>
   <dt>Licence class</dt><dd>{{ details.licence_class }} · {{ row.repo.licence_spdx or 'unknown' }}</dd>
-  <dt>Last push</dt><dd>{{ row.repo.pushed_at.isoformat() if row.repo.pushed_at else 'unknown' }}</dd>
-  <dt>Latest release</dt><dd>{{ row.repo.release_tag or 'unknown' }} · {{ row.repo.release_published_at.isoformat() if row.repo.release_published_at else 'unknown' }}</dd>
-  <dt>Label</dt><dd>{{ row.topic or 'pending' }} · {{ row.level or 'pending' }}</dd>
+  <dt>Last push</dt><dd>{{ row.repo.pushed_at | display_date }}</dd>
+  <dt>Latest release</dt><dd>{{ row.repo.release_tag or 'unknown' }} · {{ row.repo.release_published_at | display_date }}</dd>
+  <dt>Label</dt><dd>{% if row.topic %}{{ row.topic | topic_name }} · {% endif %}{% include 'label.html' %}</dd>
   <dt>Label status</dt><dd>{{ row.label_status }}</dd>
   <dt>Tested status</dt><dd>{{ row.tested }}</dd>
 </dl>

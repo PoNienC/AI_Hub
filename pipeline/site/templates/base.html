@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ title }} · AI Hub</title>
+  <title>{{ title }}{% if title != 'AI Hub' %} · AI Hub{% endif %}</title>
   <style>
     :root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.6; }
     body { max-width: 70rem; margin: auto; padding: 1.5rem; }
@@ -23,7 +23,7 @@
   <p class="note">Provisional labels are unreviewed; pending labels are unassigned; untested means no dated sandbox run.</p>
   <main>{% block content %}{% endblock %}</main>
   <footer>
-    <p>Data generated <time id="data-time" datetime="{{ document.generated_at.isoformat() }}">{{ document.generated_at.isoformat() }}</time> · <span id="data-age"></span></p>
+    <p>Data generated <time id="data-time" datetime="{{ document.generated_at.isoformat() }}">{{ document.generated_at | display_date(true) }}</time> · <span id="data-age"></span></p>
     <p>Score {{ document.score_version }} · Run {{ document.run_id }} · {{ document.listings | length }} listings</p>
   </footer>
   <script>

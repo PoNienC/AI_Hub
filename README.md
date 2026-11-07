@@ -78,8 +78,10 @@ Owner go-live steps, after review:
    production URL. The existing six-hour schedule then refreshes it.
 
 CI uses the built-in token; no personal token secret is needed. The Pages
-upload follows the verified release push and a final site build/check. Only
-the deploy job receives Pages/OIDC write permissions and deploys from `main`.
+upload follows the verified release push and an independent `pipeline gates`
+check. It uploads the site already built by `pipeline run`, preserving the
+completed checks in `status.json`. Only the deploy job receives Pages/OIDC
+write permissions and deploys from `main`.
 
 ## Checks
 
