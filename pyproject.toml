@@ -9,8 +9,16 @@ description = "Repository ingestion and evidence for the AI Hub gateway"
 requires-python = ">=3.13"
 dependencies = ["httpx>=0.28,<1", "pydantic>=2.10,<3"]
 
+[project.scripts]
+pipeline = "pipeline.cli:main"
+
 [dependency-groups]
-dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "ruff>=0.9,<1"]
+dev = [
+    "pytest>=8,<10",
+    "pytest-cov>=6,<8",
+    "pyyaml>=6,<7",
+    "ruff>=0.9,<1",
+]
 
 [tool.setuptools.packages.find]
 include = ["pipeline*"]

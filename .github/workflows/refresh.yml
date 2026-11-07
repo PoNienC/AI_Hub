@@ -1,0 +1,79 @@
+name: Refresh repository data
+
+"on":
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      UV_CACHE_DIR: ${{ github.workspace }}/_build/uv-cache
+      UV_PYTHON_INSTALL_DIR: ${{ github.workspace }}/_build/uv-python
+      UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/.venv
+      UV_FROZEN: "true"
+      PYTEST_DEBUG_TEMPROOT: ${{ github.workspace }}/_build/pytest
+      PIPELINE_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+          persist-credentials: false
+      - name: Set up uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          version: "0.11.19"
+          enable-cache: true
+      - name: Install locked dependencies
+        run: uv sync --frozen
+      - name: Run unit tests
+        run: |
+          mkdir -p "$PYTEST_DEBUG_TEMPROOT"
+          uv run pytest --cov=pipeline --cov-fail-under=80
+      - name: Lint
+        run: uv run ruff check .
+      - name: Pull last successful state
+        run: uv run pipeline release pull
+      - name: Ingest, gate and promote
+        run: uv run pipeline run --no-release
+      - name: Upload and verify promoted state
+        run: uv run pipeline release push
+      - name: Report failure
+        if: failure()
+        shell: bash
+        run: |
+          mkdir -p state
+          if [ ! -s state/failure-title.txt ] || [ ! -s state/failure-body.md ]; then
+            printf '%s\n' 'Pipeline failure: workflow setup or checks' > state/failure-title.txt
+            printf '%s\n' 'The workflow failed before a pipeline failure record was available. See the Actions log for the failing step; row counts are unavailable.' > state/failure-body.md
+          fi
+          printf '\nActions log: %s\n' "$PIPELINE_LOG_URL" >> state/failure-body.md
+          gh label create pipeline-failure --color B60205 --description 'Pipeline refresh failure' --force
+          gh issue create --label pipeline-failure --title "$(cat state/failure-title.txt)" --body-file state/failure-body.md
+      - name: Retain state and diagnostics
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: refresh-${{ github.run_id }}-${{ github.run_attempt }}
+          retention-days: 14
+          if-no-files-found: ignore
+          path: |
+            state/gateway.sqlite
+            state/evidence.jsonl
+            state/failures.jsonl
+            state/failure-title.txt
+            state/failure-body.md
+            state/logs/
+            site/src/data/listings.json

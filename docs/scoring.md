@@ -163,3 +163,16 @@ and evidence, including `state/evidence.jsonl`, untouched. If overriding
 `evidence_path`, use a separate dry-run destination such as
 `Path("state/evidence.dry.jsonl")`. No canonical state is promoted, release
 uploaded or site deployed by scoring/export.
+
+## CLI publication and release retention
+
+`pipeline run` stages the export and validates the on-disk `Listings` envelope
+with gates 2 and 3 before replacing production files. The CLI explicitly routes
+full production evidence to `state/evidence.jsonl` and uploads it alongside
+`state/gateway.sqlite` on the `data-latest` release. It never relies on
+`write_listings`' default sibling evidence path for production publication.
+`pipeline run --dry-run` uses temporary state and writes only
+`site/src/data/listings.dry.json` and `listings.dry.evidence.jsonl` as data
+outputs, with no promotion or release transfer. Run diagnostics remain in
+`state/`. See the [runbook](runbook.md) for gates, failure history, publication
+ordering and recovery from interrupted multi-file updates.

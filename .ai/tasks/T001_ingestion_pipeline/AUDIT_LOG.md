@@ -71,7 +71,7 @@ Review: ask_high · HIGH present → reviewed by the user 07 November 2026: "A A
 ## B2 (T04-T05) — round 2 (re-check of the fix commit) · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
 
 Range: `4c87086..6653b63` (base `4c87086`, end `6653b63`) · raw report: subagent/B2_audit_r2_out.md
-Review: ask_high · no BLOCKER or HIGH → auto · the last automatic round; the LOW fixes below get no further audit
+Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026, fixes in `b6fcae5` (F1, F2, F5 ACCEPTED; F3, F4 DEFERRED to B3) · the last automatic round; the LOW fixes below get no further audit
 
 **In short:** PASS_WITH_FINDINGS · round-1 HIGH resolved and verified · findings B/H/M/L/N: 0/0/0/3/2 · needs you: no
 
@@ -83,8 +83,8 @@ Review: ask_high · no BLOCKER or HIGH → auto · the last automatic round; the
 
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
-| F1 | T05 | LOW | coverage test mode no longer reaches the envelope rule | ACCEPTED | lost regression guard | set row and score coverage to 0 | — (auto) | pending |
-| F2 | T05→T07 | LOW | default evidence path shared by dry and real runs | ACCEPTED | silent overwrite | derive from listings path | — (auto) | pending |
+| F1 | T05 | LOW | coverage test mode no longer reaches the envelope rule | ACCEPTED | lost regression guard | set row and score coverage to 0 | — (auto) | fixed in `b6fcae5` |
+| F2 | T05→T07 | LOW | default evidence path shared by dry and real runs | ACCEPTED | silent overwrite | derive from listings path | — (auto) | fixed in `b6fcae5` |
 | F3 | T05→T07/T08 | LOW | evidence.jsonl discarded on the Actions runner | DEFERRED | belongs to the release round trip | T07 uploads it with the SQLite asset | — (auto) | deferred |
 | F4 | T05→T06 | NOTE | gate 2 must validate PublishedListing | DEFERRED | T06 not written yet | in the B3 brief | — (auto) | deferred |
-| F5 | T05 | NOTE | licence canary raises KeyError | ACCEPTED | clearer failure | pytest.fail message | — (auto) | pending |
+| F5 | T05 | NOTE | licence canary raises KeyError | ACCEPTED | clearer failure | pytest.fail message | — (auto) | fixed in `b6fcae5` |
