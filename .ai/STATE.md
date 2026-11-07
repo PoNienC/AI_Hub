@@ -1,13 +1,25 @@
-# State — 07 November 2026
+# State — 07 November 2026 (close-out of T001)
 
-- Branch: `dual_dev_setup` (stacked on an unborn `main`; no commits yet).
-- Last commit: none.
-- Work in flight: dual_dev setup (this branch). Phase 1 request 1 (ingestion pipeline) is next, from `docs/dual_dev_requests.md`.
-- Other branches touching AGENTS.md or CLAUDE.md: none (fresh repository).
-- Codex probes passed 07 November 2026 (read: 95 s, 12,387 tokens; write: 7,819 tokens; weekly limit 21 per cent used).
-- Known issues: labels in `data/labelled_repos_for_review.csv` are unreviewed LLM candidates; no repo has been executed; `data/readmes/` is ignored and must be re-fetched with `scripts/sample_and_fetch.py`.
-- Owner actions pending: review the 100 labels into `data/gold_labels.csv` before request 2; domain, Cloudflare account and four GitHub secrets before request 5.
+- Branch: `dual_dev/T001_ingestion_pipeline`, stacked on `dual_dev_setup`; `main` still has no commits. No remote.
+- Last commit: T001 close-out (see `git log -1`). Hand-off commit `4f743c1`.
+- Request T001 (ingestion pipeline and state store): COMPLETE. Nine tasks, four audit scopes closed, no BLOCKER or HIGH open. 454 tests, coverage 98.44 per cent, ruff clean. Live dry run: 50 repos in 111 s.
+- Codex totals for T001: 765,096 tokens; weekly limit 28 per cent used (resets Wednesday 11 November 10:05).
+- Work in flight: none. Next: request 2 (labeller and gold-set gate) from `docs/dual_dev_requests.md`.
+- Untracked, outside T001: `docs/ai_hub_platform_*` (flowchart and report), `docs/build_platform_report.py`, `docs/platform_report_body.html`, `.claude/launch.json`. Commit separately when Po says so.
+
+## Owner actions pending
+1. Review `data/labelled_repos_for_review.csv` into `data/gold_labels.csv` — due now, before request 2 starts (about one hour).
+2. Create the GitHub remote under PoNienC, push the branches on approval, then run `pipeline release pull` once by hand and one `workflow_dispatch` before enabling the schedule (runbook).
+3. Before request 4: Google Cloud service account for BigQuery. Before request 5: domain, Cloudflare account, four secrets.
+
+## Carry-forwards into later requests
+- Request 2: labeller; gate 2 validates `pipeline.export.Listings`; capture one sanitised live response per adapter as fixtures (B2 F8, B4 F1); gold labels keyed by github_id.
+- Request 4: rebalance weights v0 (advisories and release cadence unevaluated, max coverage 0.70; scores saturate near 100 with three components); Scorecard covers 2 of 50 niche repos, so run the Scorecard CLI or lower its weight; deps.dev package resolution; GH Archive fake-star check needs the Google key.
+- Request 3: sandbox tests; `tested` is `untested` everywhere until then.
+
+## Known issues
+- `PYTEST_DEBUG_TEMPROOT=_build/pytest` is for Codex's sandbox only; on Po's shell it fails with PermissionError because the folder belongs to the sandbox user. Run pytest without it.
+- Release round trip and workflow are unit-tested with a fake `gh` and verified action pins, not yet exercised live (no remote).
 
 ## Sources
-- Repository contents on 07 November 2026; `docs/phase1_architecture_and_operations.md` section 6.
-- Root `HANDOVER.md` (personal, ignored): the approval of phase 1 and the niche on 07 November 2026, and the pending-actions list.
+- `.ai/tasks/T001_ingestion_pipeline/` (REVIEW.md, TASKS.md, AUDIT_LOG.md, TASK_HANDOVER.md); root `HANDOVER.md` (personal) for the owner-action dates.

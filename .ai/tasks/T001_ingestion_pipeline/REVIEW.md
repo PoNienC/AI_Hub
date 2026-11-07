@@ -64,7 +64,18 @@ Send notes in chat; please do not edit repo files until completion (fixes land h
 
 ## Changes since the hand-off
 
-None yet.
+~~~text
+ .ai/tasks/T001_ingestion_pipeline/AUDIT_LOG.md     |  16 +++
+ .ai/tasks/T001_ingestion_pipeline/REVIEW.md        | 128 +++++++++++++++++++++
+ .ai/tasks/T001_ingestion_pipeline/TASKS.md         |   8 +-
+ .ai/tasks/T001_ingestion_pipeline/TASK_HANDOVER.md |   2 +-
+ .../codex/B4_audit_r1_brief.md                     |  54 +++++++++
+ .../codex/B4_audit_r1_out.md                       |  36 ++++++
+ 6 files changed, 239 insertions(+), 5 deletions(-)
+~~~
+
+- ad0a891 — B4 audit fixes (T09): record wording (F2); fixture capture deferred to request 2 (F1). No source change.
+- close-out commit — STATE.md, DECISIONS.md, this section.
 
 ## Detail
 
