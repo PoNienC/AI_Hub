@@ -40,5 +40,5 @@ A gateway that groups trending AI GitHub repositories, agent skills and MCP serv
 - Commit format: `T01 <task title>` (default). Setup commit: `Set up dual-agent workflow (AGENTS.md contract, .ai shared state)`.
 - Push policy: no push without the user's explicit approval. Commit only what the user ordered or approved (user's global rules).
 - Pull requests: not yet required (solo project, no remote). When a remote exists, request branches merge to `main` through a pull request reviewed by the user.
-- GitHub account for this remote: `PoNienC` (personal; decided by Po, 07 November 2026). The GitHub CLI also holds `PoNienChenPP` (work); switch with `gh auth switch -u PoNienC` only after telling the user. No remote configured yet.
+- GitHub account for this remote: `PoNienC` (personal; decided by Po, 07 November 2026). The GitHub CLI also holds `PoNienChenPP` (work); switch with `gh auth switch -u PoNienC` only after telling the user. Remote `origin` = https://github.com/PoNienC/AI_Hub (private, created 07 November 2026).
 - Codex execution on this machine (PRIORPLAP180): available (07 November 2026). Read probe: exit 0, write to repo blocked. Write probe in a throwaway repo: exit 0, file created. Model default gpt-6-astra.
