@@ -1,0 +1,28 @@
+{
+  "data": {
+    "search": {
+      "nodes": [
+        {
+          "id": "R_1", "nameWithOwner": "example/agent", "url": "https://github.com/example/agent",
+          "description": "An example coding agent", "stargazerCount": 120, "forkCount": 7,
+          "pushedAt": "2026-11-06T10:00:00Z", "createdAt": "2025-01-01T00:00:00Z",
+          "primaryLanguage": {"name": "Python"}, "licenseInfo": {"spdxId": "MIT"},
+          "issues": {"totalCount": 4},
+          "repositoryTopics": {"nodes": [{"topic": {"name": "ai-agents"}}, {"topic": {"name": "mcp"}}]},
+          "latestRelease": {"tagName": "v1.2.0", "publishedAt": "2026-11-01T12:00:00Z"},
+          "mentionableUsers": {"totalCount": 12}, "readme": {"oid": "1111111111111111111111111111111111111111"}
+        },
+        {
+          "id": "R_2", "nameWithOwner": "example/tool", "url": "https://github.com/example/tool",
+          "description": null, "stargazerCount": 50, "forkCount": 1,
+          "pushedAt": null, "createdAt": "2026-01-01T00:00:00Z",
+          "primaryLanguage": null, "licenseInfo": null, "issues": {"totalCount": 0},
+          "repositoryTopics": {"nodes": []}, "latestRelease": null,
+          "mentionableUsers": {"totalCount": 0}, "readme": null
+        }
+      ],
+      "pageInfo": {"hasNextPage": true, "endCursor": "cursor_1"}
+    },
+    "rateLimit": {"cost": 2, "remaining": 4998}
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "data": {
+    "search": null,
+    "rateLimit": {"cost": 2, "remaining": 4998}
+  },
+  "errors": [{"type": "FORBIDDEN", "path": ["search", "nodes", 0, "mentionableUsers"], "message": "Fixture: field access denied"}]
+}

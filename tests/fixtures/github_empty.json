@@ -1,0 +1,6 @@
+{
+  "data": {
+    "search": {"nodes": [], "pageInfo": {"hasNextPage": false, "endCursor": null}},
+    "rateLimit": {"cost": 1, "remaining": 4999}
+  }
+}

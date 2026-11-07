@@ -16,3 +16,9 @@ __pycache__/
 .env
 .env.*
 site/dist/
+.coverage
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+_build/
+*.egg-info/
