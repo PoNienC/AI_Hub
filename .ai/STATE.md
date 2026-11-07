@@ -1,7 +1,7 @@
 # State — 07 November 2026 (close-out of T001)
 
 - Branch: `dual_dev/T001_ingestion_pipeline`, stacked on `dual_dev_setup`; `main` still has no commits.
-- Remote: https://github.com/PoNienC/AI_Hub (private, created 07 November 2026, HTTPS, credentials via `gh auth setup-git`). `dual_dev_setup` pushed and is the default branch for now. `dual_dev/T001_ingestion_pipeline` NOT yet pushed: GitHub rejected it because the PoNienC token lacks the `workflow` scope needed for `.github/workflows/refresh.yml`. Po must run `gh auth switch -u PoNienC` then `gh auth refresh -h github.com -s workflow` (browser login), after which the push works.
+- Remote: https://github.com/PoNienC/AI_Hub (private, created 07 November 2026, HTTPS, credentials via `gh auth setup-git`). `dual_dev_setup` pushed and is the default branch for now. `dual_dev/T001_ingestion_pipeline` pushed on 07 November 2026 after Po granted the `workflow` scope to the PoNienC token. Scheduled workflows run only from the default branch, which is `dual_dev_setup` without the workflow file, so nothing runs on GitHub until the request branch is merged or made default. Pushing from this PC needs `gh auth switch -u PoNienC` first (HTTPS credentials come from the active gh account); switch back to PoNienChenPP afterwards.
 - Extra commit after close-out on the request branch: a98beda "Add platform structure flowchart and report" (docs and launch.json, outside the request).
 - Last commit: T001 close-out (see `git log -1`). Hand-off commit `4f743c1`.
 - Request T001 (ingestion pipeline and state store): COMPLETE. Nine tasks, four audit scopes closed, no BLOCKER or HIGH open. 454 tests, coverage 98.44 per cent, ruff clean. Live dry run: 50 repos in 111 s.
