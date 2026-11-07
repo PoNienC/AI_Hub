@@ -11,7 +11,7 @@ from urllib.parse import quote
 
 from pipeline.http import HttpClient
 from pipeline.models import Evidence, RepoRecord
-from pipeline.sources._enrichment import failed, fetch_json
+from pipeline.sources._enrichment import failed, fetch_json, links_repo
 
 
 def fetch(repo: RepoRecord, http: HttpClient, *, fetched_at: datetime | None = None) -> Evidence:
@@ -28,6 +28,8 @@ def fetch(repo: RepoRecord, http: HttpClient, *, fetched_at: datetime | None = N
         identifier = evidence.data["projectKey"]["id"]
         if not isinstance(identifier, str) or not identifier.startswith("github.com/"):
             raise ValueError("Invalid project identifier")
+        if not links_repo("https://" + identifier, repo):
+            return failed(evidence, "Mismatched repository")
     except (KeyError, TypeError, ValueError):
         return failed(evidence, "Malformed deps.dev project")
     return evidence.model_copy(update={

@@ -1,6 +1,8 @@
 """Scoring policy tests independent of live services and wall-clock time."""
 
+import csv
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 
 import pytest
 
@@ -9,6 +11,10 @@ from pipeline.scoring import score_repo
 from pipeline.store import StateStore
 
 NOW = datetime(2026, 11, 7, tzinfo=UTC)
+with (Path(__file__).resolve().parents[1] / "data/candidate_repos.csv").open(
+    encoding="utf-8", newline="",
+) as candidates:
+    CANDIDATE_LICENCES = sorted({row["license"] for row in csv.DictReader(candidates)})
 
 
 def evidence(repo, source, data=None, status="present"):
@@ -85,6 +91,46 @@ def test_licence_classes(repo, spdx, total, status, licence_class):
     result = score_repo(repo.model_copy(update={"licence_spdx": spdx}), [], run_id="run", now=NOW)
     assert result.score.total == total
     assert result.details.component_statuses["licence"] == status
+    assert result.details.licence_class == licence_class
+
+
+@pytest.mark.parametrize("spdx", CANDIDATE_LICENCES)
+def test_actual_candidate_licences(repo, spdx):
+    expected = {
+        "": (None, "absent", "absent"),
+        "NOASSERTION": (None, "absent", "absent"),
+        "MIT": (100, "present", "permissive"),
+        "Apache-2.0": (100, "present", "permissive"),
+        "BSD-2-Clause": (100, "present", "permissive"),
+        "BSD-3-Clause": (100, "present", "permissive"),
+        "CC0-1.0": (100, "present", "permissive"),
+        "Unlicense": (100, "present", "permissive"),
+        "MPL-2.0": (80, "present", "weak_copyleft"),
+        "LGPL-3.0": (80, "present", "weak_copyleft"),
+        "GPL-3.0": (60, "present", "strong_copyleft"),
+        "AGPL-3.0": (60, "present", "strong_copyleft"),
+        "CC-BY-4.0": (None, "unsupported", "unknown"),
+    }
+    value, status, licence_class = expected[spdx]
+    result = score_repo(repo.model_copy(update={"licence_spdx": spdx}), [], run_id="run", now=NOW)
+    assert result.score.components["licence"] == value
+    assert result.score.total == value
+    assert result.score.coverage == (0.15 if status == "present" else 0)
+    assert result.details.component_statuses["licence"] == status
+    assert result.details.licence_class == licence_class
+
+
+@pytest.mark.parametrize("spdx,value,licence_class", [
+    ("GPL-2.0", 60, "strong_copyleft"), ("GPL-3.0", 60, "strong_copyleft"),
+    ("AGPL-3.0", 60, "strong_copyleft"), ("LGPL-2.0", 80, "weak_copyleft"),
+    ("LGPL-2.1", 80, "weak_copyleft"), ("LGPL-3.0", 80, "weak_copyleft"),
+])
+@pytest.mark.parametrize("suffix", ["", "-only", "-or-later"])
+def test_copyleft_spdx_variants(repo, spdx, value, licence_class, suffix):
+    result = score_repo(repo.model_copy(update={"licence_spdx": spdx + suffix}), [],
+                        run_id="run", now=NOW)
+    assert result.score.total == value and result.score.coverage == 0.15
+    assert result.details.component_statuses["licence"] == "present"
     assert result.details.licence_class == licence_class
 
 

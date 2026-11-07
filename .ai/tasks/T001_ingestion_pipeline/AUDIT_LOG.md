@@ -37,3 +37,33 @@ Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user) · closed
 | F6 | T02→T07/T08 | NOTE | stale working copy blocks every later run | DEFERRED | CLI and runbook belong to T07/T08 | pre-flight message; runbook entry; B3 brief | — (auto) | deferred |
 | F7 | T01 | NOTE | config and test-isolation rough edges | ACCEPTED (a, c) | cheap now | ValueError wrap; explicit mapping in test | — (auto) | fixed in `9793c48` |
 
+
+## B2 (T04-T05) — round 1 · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
+
+Range: `9793c48..4c87086` (base `9793c48`, end `4c87086`)
+Review: ask_high · HIGH present → reviewed by the user 07 November 2026: "A Approve as proposed" (every proposed resolution stands) · raw report: subagent/B2_audit_r1_out.md
+
+**In short:** PASS_WITH_FINDINGS · findings B/H/M/L/N: 0/1/3/4/1 · needs you: yes (one HIGH)
+
+- **F1 (HIGH, T05) Copyleft licences never recognised** → ACCEPTED: GitHub emits `GPL-3.0`, `AGPL-3.0`, `LGPL-2.1` without `-only`/`-or-later`; normalise the id and test against the real values in data/candidate_repos.csv; fix docs/scoring.md.
+- **F2 (MEDIUM, cross-task) Advisories weight is dead by construction** → PARTIALLY_ACCEPTED: expose `coverage` on each listing row now and record the decision; full deps.dev package resolution and any weight rebalance go to request 4 (trust layer), where the fake-star and typosquat components also land and the score version changes once.
+- **F3 (MEDIUM, T05) Raw adapter payloads in listings.json** → ACCEPTED: compact per-source summary in listings.json; full evidence to `state/evidence.jsonl` (not shipped); per-row size-bound test.
+- **F4 (MEDIUM, T04) Null HN url fails the component** → ACCEPTED: skip the hit; fixture with `url: null`.
+- **F5 (LOW, T04) 404 from search endpoints reported as absent** → ACCEPTED: `absent_statuses` argument; search adapters map 404 to failed.
+- **F6 (LOW, T04) deps.dev identity check weaker** → ACCEPTED: same `links_repo` check as Scorecard.
+- **F7 (LOW, T05) Labels join by name only** → ACCEPTED (documentation only): note in docs/scoring.md; keyed by github_id when gold labels arrive (request 2).
+- **F8 (LOW, T04) Live API shapes unverified** → DEFERRED to T09: record one real response per adapter as a fixture.
+- **F9 (NOTE) Lint intent and test hygiene** → PARTIALLY_ACCEPTED: close the client with `with`; E501 left off.
+
+| ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| F1 | T05 | HIGH | copyleft SPDX ids from GitHub (`GPL-3.0`, `AGPL-3.0`, `LGPL-2.1`) never match; copyleft repos lose the licence weight | ACCEPTED | ranking bias on about 9% of repos; proven by own CSVs | normalise suffixes and add GitHub ids; parametrised test over real licence values; docs fix | approve | pending |
+| F2 | T04/T05 | MEDIUM | advisories component always unsupported; max coverage 0.70; not visible on the row | PARTIALLY_ACCEPTED | design limit of deps.dev project endpoint; weight change belongs with request 4 | add `coverage` to the listing row; DECISIONS entry; request 4 resolves packages or rebalances | approve (partial: coverage on the row; rest to request 4) | pending |
+| F3 | T05 | MEDIUM | full adapter payloads serialised into the site JSON | ACCEPTED | multi-megabyte site file | compact summary in listings.json; full evidence to state/evidence.jsonl; size test | approve | pending |
+| F4 | T04 | MEDIUM | HN hit with null url raises and fails the component | ACCEPTED | benign input | skip null-url hits; fixture | approve | pending |
+| F5 | T04 | LOW | 404 from HF or HN search mapped to absent | ACCEPTED | silent signal loss | `absent_statuses` parameter | approve | pending |
+| F6 | T04 | LOW | deps.dev project identity not verified | ACCEPTED | parity with Scorecard | `links_repo` check | approve | pending |
+| F7 | T05 | LOW | provisional labels join by full_name only | ACCEPTED (docs) | gold labels not yet available | note in docs/scoring.md | approve (docs) | pending |
+| F8 | T04 | LOW | live API shapes unverified | DEFERRED | only T09 can confirm | record real fixtures in T09 | approve (defer to T09) | pending |
+| F9 | cross | NOTE | line-length advisory; unclosed client in a test | PARTIALLY_ACCEPTED | cosmetic | `with` on the client | approve (partial) | pending |
+

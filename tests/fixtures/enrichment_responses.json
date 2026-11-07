@@ -14,15 +14,16 @@
       {"name": "example/model", "type": "model", "isReadmeFile": true, "formatted": {"fileContent": [{"text": "[Code](https://github.com/", "type": "text"}, {"text": "example/agent", "type": "highlight"}, {"text": ")", "type": "text"}]}},
       {"name": "example/demo", "type": "space", "isReadmeFile": true, "formatted": {"fileContent": [{"text": "Code: https://github.com/example/agent/tree/main/demo", "type": "text"}]}}
     ]}},
-    "absent": {"status_code": 404, "body": {"error": "Not found"}},
+    "absent": {"status_code": 200, "body": {"estimatedTotalHits": 0, "hits": []}},
     "failed": {"status_code": 503, "body": {"error": "Service unavailable"}}
   },
   "hacker_news": {
-    "present": {"status_code": 200, "body": {"nbHits": 2, "exhaustiveNbHits": true, "hits": [
+    "present": {"status_code": 200, "body": {"nbHits": 3, "exhaustiveNbHits": true, "hits": [
       {"objectID": "1001", "title": "Agent launch", "url": "https://github.com/example/agent", "points": 10, "created_at_i": 1793923200},
-      {"objectID": "1002", "title": "Agent discussion", "url": "https://github.com/example/agent/", "points": 50, "created_at_i": 1793836800}
+      {"objectID": "1002", "title": "Agent discussion", "url": "https://github.com/example/agent/", "points": 50, "created_at_i": 1793836800},
+      {"objectID": "1003", "title": "Ask HN: agent tools?", "url": null, "points": 100, "created_at_i": 1793923200}
     ]}},
-    "absent": {"status_code": 404, "body": {"message": "Not found"}},
+    "absent": {"status_code": 200, "body": {"nbHits": 0, "hits": []}},
     "failed": {"status_code": 503, "body": {"message": "Service unavailable"}}
   }
 }

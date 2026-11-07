@@ -96,8 +96,54 @@ def test_unsupported_host_needs_no_call(adapter, repo):
 
 @pytest.mark.parametrize("adapter", ADAPTERS)
 def test_naive_time_rejected(adapter, repo):
-    with pytest.raises(ValueError, match="time zone"):
-        adapter.fetch(repo, HttpClient(Budget()), fetched_at=NOW.replace(tzinfo=None))
+    with HttpClient(Budget()) as http, pytest.raises(ValueError, match="time zone"):
+        adapter.fetch(repo, http, fetched_at=NOW.replace(tzinfo=None))
+
+
+@pytest.mark.parametrize("adapter,expected", [
+    (deps_dev, "absent"), (scorecard, "absent"),
+    (hugging_face, "failed"), (hacker_news, "failed"),
+])
+def test_not_found_depends_on_endpoint(adapter, expected, repo):
+    evidence, requests = call(adapter, repo, {"message": "Not found"}, 404)
+    assert evidence.status == expected and evidence.detail == "HTTP 404"
+    assert evidence.data == {} and len(requests) == 1
+
+
+@pytest.mark.parametrize("identifier,expected", [
+    ("github.com/example/agent-fork", "failed"),
+    ("github.com/other/agent", "failed"),
+    ("github.com/EXAMPLE/Agent.git", "present"),
+])
+def test_deps_dev_requires_matching_repository(identifier, expected, repo, load_fixture):
+    payload = load_fixture("enrichment_responses.json")["deps_dev"]["present"]["body"]
+    payload["projectKey"]["id"] = identifier
+    evidence, _ = call(deps_dev, repo, payload)
+    assert evidence.status == expected
+    if expected == "failed":
+        assert evidence.detail == "Mismatched repository" and evidence.data == {}
+
+
+def test_hn_null_url_is_skipped(repo, load_fixture):
+    payload = load_fixture("enrichment_responses.json")["hacker_news"]["present"]["body"]
+    null_hit = next(hit for hit in payload["hits"] if hit["url"] is None)
+    evidence, _ = call(hacker_news, repo, payload)
+    assert evidence.status == "present" and evidence.data["mention_count"] == 2
+    assert evidence.data["top_item"]["id"] == "1002"
+    evidence, _ = call(hacker_news, repo, {"nbHits": 1, "hits": [null_hit]})
+    assert evidence.status == "absent" and evidence.data["mention_count"] == 0
+
+
+@pytest.mark.parametrize("field,value", [
+    ("objectID", None), ("created_at_i", "yesterday"),
+    ("points", -1), ("title", None), ("url", 123),
+])
+def test_hn_invalid_story_still_fails(field, value, repo, load_fixture):
+    payload = load_fixture("enrichment_responses.json")["hacker_news"]["present"]["body"]
+    hit = next(hit for hit in payload["hits"] if hit["url"] is None)
+    hit[field] = value
+    evidence, _ = call(hacker_news, repo, payload)
+    assert evidence.status == "failed" and evidence.data == {}
 
 
 def test_endpoint_mapping_and_source_payloads(repo, load_fixture):

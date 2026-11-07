@@ -25,7 +25,7 @@ def fetch(repo: RepoRecord, http: HttpClient, *, fetched_at: datetime | None = N
                 "restrictSearchableAttributes": "url", "typoTolerance": "false",
                 "numericFilters": f"created_at_i>={int(start.timestamp())},created_at_i<={int(end.timestamp())}",
                 "hitsPerPage": SEARCH_LIMIT, "page": 0},
-        fetched_at=end,
+        fetched_at=end, absent_statuses=set(),
     )
     if evidence.status != "present":
         return evidence
@@ -40,8 +40,12 @@ def fetch(repo: RepoRecord, http: HttpClient, *, fetched_at: datetime | None = N
             identifier, created, points = hit["objectID"], hit["created_at_i"], hit["points"]
             if (not isinstance(identifier, str) or not identifier.isdigit()
                     or type(created) is not int or type(points) is not int or points < 0
-                    or not isinstance(hit["url"], str) or not isinstance(hit["title"], str)):
+                    or not isinstance(hit["title"], str)):
                 raise ValueError("Invalid story")
+            if hit["url"] is None:
+                continue
+            if not isinstance(hit["url"], str):
+                raise ValueError("Invalid story URL")
             if (int(start.timestamp()) <= created <= int(end.timestamp())
                     and links_repo(hit["url"], repo)):
                 matched[identifier] = {

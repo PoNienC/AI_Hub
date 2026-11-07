@@ -27,13 +27,9 @@ PERMISSIVE = {
     "CC0-1.0", "Zlib", "BSL-1.0",
 }
 WEAK_COPYLEFT = {
-    "MPL-2.0", "EPL-1.0", "EPL-2.0", "LGPL-2.0-only", "LGPL-2.0-or-later",
-    "LGPL-2.1-only", "LGPL-2.1-or-later", "LGPL-3.0-only", "LGPL-3.0-or-later",
+    "MPL-2.0", "EPL-1.0", "EPL-2.0", "LGPL-2.0", "LGPL-2.1", "LGPL-3.0",
 }
-STRONG_COPYLEFT = {
-    "GPL-2.0-only", "GPL-2.0-or-later", "GPL-3.0-only", "GPL-3.0-or-later",
-    "AGPL-3.0-only", "AGPL-3.0-or-later",
-}
+STRONG_COPYLEFT = {"GPL-2.0", "GPL-3.0", "AGPL-3.0"}
 
 
 class ScoreDetails(Record):
@@ -105,9 +101,10 @@ def _licence(spdx: str | None) -> tuple[float | None, EvidenceStatus, LicenceCla
         return None, "absent", "absent"
     if spdx in PERMISSIVE:
         return 100, "present", "permissive"
-    if spdx in WEAK_COPYLEFT:
+    copyleft_id = spdx.removesuffix("-only").removesuffix("-or-later")
+    if copyleft_id in WEAK_COPYLEFT:
         return 80, "present", "weak_copyleft"
-    if spdx in STRONG_COPYLEFT:
+    if copyleft_id in STRONG_COPYLEFT:
         return 60, "present", "strong_copyleft"
     return None, "unsupported", "unknown"
 

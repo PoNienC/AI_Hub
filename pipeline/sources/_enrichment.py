@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from collections.abc import Mapping
+from collections.abc import Mapping, Set
 from datetime import UTC, datetime
 from urllib.parse import urlsplit
 
@@ -44,12 +44,15 @@ def failed(evidence: Evidence, detail: str) -> Evidence:
 def fetch_json(
     repo: RepoRecord, http: HttpClient, *, source: str, url: str,
     fetched_at: datetime | None = None, params: Mapping[str, str | int] | None = None,
+    absent_statuses: Set[int] = frozenset({404}),
 ) -> Evidence:
     """Map HTTP outcomes to evidence; budget exhaustion deliberately propagates.
 
     One lookup is made for a supported repository. HttpClient charges each
     actual attempt, including retries. An unsupported host makes no request;
     a GitHub repository's programming language does not establish its ecosystem.
+    Search endpoints pass an empty absent_statuses set: only an empty successful
+    response establishes absence there, whereas an HTTP 404 means failure.
     """
     evidence = Evidence(
         repo_id=repo.github_id, source=source, status="unsupported", fetched_at=utc_time(fetched_at),
@@ -61,8 +64,10 @@ def fetch_json(
     except HttpRequestError:
         return failed(evidence, "Network request failed after bounded retries")
     try:
-        if response.status_code == 404:
-            return evidence.model_copy(update={"status": "absent", "detail": "HTTP 404"})
+        if response.status_code in absent_statuses:
+            return evidence.model_copy(update={
+                "status": "absent", "detail": f"HTTP {response.status_code}",
+            })
         if response.status_code != 200:
             return failed(evidence, f"HTTP {response.status_code}")
         try:

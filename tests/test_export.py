@@ -9,7 +9,9 @@ import pytest
 from pydantic import ValidationError
 
 from pipeline.budgets import Budget
-from pipeline.export import Listings, build_listings, load_provisional_labels, write_listings
+from pipeline.export import (
+    Listings, PublishedListing, build_listings, load_provisional_labels, write_listings,
+)
 from pipeline.http import HttpClient
 from pipeline.models import Evidence, Listing
 from pipeline.scoring import score_repo
@@ -85,13 +87,17 @@ def test_all_absent_excluded_but_diagnostics_retained(repo, labels_path):
 
 def test_json_validity_metadata_and_b1_listing_compatibility(repo, labels_path, tmp_path):
     output = document([repo], [score(repo)], labels_path)
-    path = write_listings(output, tmp_path / "site/src/data/listings.json")
+    path = write_listings(output, tmp_path / "site/src/data/listings.json",
+                          evidence_path=tmp_path / "state/evidence.jsonl")
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload["run_id"] == "run" and payload["score_version"] == "v0"
     assert payload["generated_at"] == "2026-11-07T00:00:00Z"
     assert payload["scoring_details"][repo.github_id]["velocity"] == -2
     assert Listings.model_validate(payload) == output
-    assert Listing.model_validate(payload["listings"][0]) == output.listings[0]
+    row = payload["listings"][0]
+    assert row["coverage"] == row["score"]["coverage"] == 0.25
+    assert PublishedListing.model_validate(row) == output.listings[0]
+    assert Listing.model_validate({key: value for key, value in row.items() if key != "coverage"})
 
 
 def test_default_output_location(repo, labels_path, tmp_path, monkeypatch):
@@ -99,6 +105,7 @@ def test_default_output_location(repo, labels_path, tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert write_listings(output) == Path("site/src/data/listings.json")
     assert Path("site/src/data/listings.json").is_file()
+    assert Path("state/evidence.jsonl").is_file()
 
 
 @pytest.mark.parametrize("csv_text", [
@@ -141,6 +148,7 @@ def test_join_integrity(repo, labels_path, mode):
 @pytest.mark.parametrize("mode", [
     "repo_id", "run_id", "null_score", "coverage", "label", "tested", "duplicate",
     "details", "stars", "statuses", "failure_flags", "evidence", "version",
+    "row_coverage", "missing_coverage",
 ])
 def test_export_schema_rejects_inconsistent_rows(repo, labels_path, mode):
     data = document([repo], [score(repo)], labels_path).model_dump(mode="json")
@@ -152,6 +160,10 @@ def test_export_schema_rejects_inconsistent_rows(repo, labels_path, mode):
         row["score"]["total"] = None
     elif mode == "coverage":
         row["score"]["coverage"] = 0
+    elif mode == "row_coverage":
+        row["coverage"] = 0.7
+    elif mode == "missing_coverage":
+        del row["coverage"]
     elif mode == "label":
         row["topic"] = "invalid"
     elif mode == "tested":
@@ -180,8 +192,9 @@ def test_validation_failure_preserves_existing_output(repo, labels_path, tmp_pat
     path.write_bytes(b"previous good export")
     output.listings[0].level = "invalid"
     with pytest.raises(ValidationError):
-        write_listings(output, path)
+        write_listings(output, path, evidence_path=tmp_path / "evidence.jsonl")
     assert path.read_bytes() == b"previous good export"
+    assert not (tmp_path / "evidence.jsonl").exists()
 
 
 def test_replace_failure_preserves_output_and_removes_temp(repo, labels_path, tmp_path, monkeypatch):
@@ -189,12 +202,16 @@ def test_replace_failure_preserves_output_and_removes_temp(repo, labels_path, tm
     path = tmp_path / "listings.json"
     path.write_bytes(b"previous good export")
 
+    original_replace = Path.replace
+
     def fail_replace(self, target):
-        raise OSError("simulated replacement failure")
+        if target == path:
+            raise OSError("simulated replacement failure")
+        return original_replace(self, target)
 
     monkeypatch.setattr(Path, "replace", fail_replace)
     with pytest.raises(OSError, match="simulated"):
-        write_listings(output, path)
+        write_listings(output, path, evidence_path=tmp_path / "evidence.jsonl")
     assert path.read_bytes() == b"previous good export"
     assert list(tmp_path.glob(".listings.json.*.tmp")) == []
 
@@ -218,7 +235,90 @@ def test_adapters_to_scoring_to_export_offline(repo, load_fixture, labels_path, 
     assert result.score.total == pytest.approx((78 * 0.25 + 40 * 0.05) / 0.3)
     assert result.details.component_statuses["advisories"] == "unsupported"
     output = document([repo], [result], labels_path)
-    path = write_listings(output, tmp_path / "listings.json")
+    evidence_path = tmp_path / "state/evidence.jsonl"
+    path = write_listings(output, tmp_path / "listings.json", evidence_path=evidence_path)
     restored = Listings.model_validate_json(path.read_text(encoding="utf-8"))
-    assert restored.scoring_details[repo.github_id].evidence == evidence
+    summaries = {item.source: item for item in restored.scoring_details[repo.github_id].evidence}
+    assert summaries["scorecard"].data == {"score": 7.8, "date": "2026-11-01"}
+    assert summaries["deps_dev"].data == {"advisory_count": None, "advisories_status": "unsupported"}
+    assert summaries["hacker_news"].data["mention_count"] == 2
+    assert summaries["hacker_news"].data["top_item"]["id"] == "1002"
+    assert summaries["hugging_face"].data["link_count"] == 2
+    records = [json.loads(line) for line in evidence_path.read_text(encoding="utf-8").splitlines()]
+    assert [Evidence.model_validate(record["evidence"]) for record in records] == evidence
+    assert all(record["run_id"] == "run" and record["score_version"] == "v0" for record in records)
     assert all(budget.http_calls[name] == 1 for name in by_host.values())
+
+
+@pytest.mark.parametrize("status", ["present", "absent", "unsupported", "failed"])
+def test_site_row_size_is_bounded_and_full_evidence_is_retained(
+    repo, load_fixture, labels_path, tmp_path, status,
+):
+    repo = repo.model_copy(update={"licence_spdx": "MIT"})
+    fixtures = load_fixture("enrichment_responses.json")
+    large_text = "診斷 evidence " * 10000
+    items = [
+        Evidence(repo_id=repo.github_id, source="scorecard", status=status, fetched_at=NOW,
+                 data=fixtures["scorecard"]["present"]["body"] | {"checks": [large_text] * 10}),
+        Evidence(repo_id=repo.github_id, source="deps_dev", status=status, fetched_at=NOW,
+                 data={"project": {"readme": large_text}, "advisories_status": "unsupported",
+                       "advisory_count": None}),
+        Evidence(repo_id=repo.github_id, source="hacker_news", status=status, fetched_at=NOW,
+                 data={"mention_count": 2, "top_item": {"id": "1002", "title": large_text,
+                       "discussion_url": "https://news.ycombinator.com/item?id=1002",
+                       "unexpected": large_text}}),
+        Evidence(repo_id=repo.github_id, source="hugging_face", status=status, fetched_at=NOW,
+                 detail=large_text, data={"link_status": "present", "search_truncated": False,
+                       "links": [{"type": "model", "id": f"example/model{i}",
+                                  "url": f"https://huggingface.co/example/model{i}",
+                                  "readme": large_text} for i in range(100)]}),
+        Evidence(repo_id=repo.github_id, source="future_source", status=status, fetched_at=NOW,
+                 data={"unknown_payload": large_text}),
+    ]
+    result = score_repo(repo, items, run_id="run", now=NOW)
+    output = document([repo], [result], labels_path)
+    before = output.model_dump()
+    evidence_path = tmp_path / "state/evidence.jsonl"
+    path = write_listings(output, tmp_path / "site/src/data/listings.json", evidence_path=evidence_path)
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    for row in payload["listings"]:
+        details = payload["scoring_details"][row["repo"]["github_id"]]
+        serialised = json.dumps({"listing": row, "scoring_details": details}, ensure_ascii=False, indent=2)
+        assert len(serialised.encode("utf-8")) < 8 * 1024
+    summaries = payload["scoring_details"][repo.github_id]["evidence"]
+    assert all(item["status"] == status for item in summaries)
+    hub = next(item["data"] for item in summaries if item["source"] == "hugging_face")
+    assert len(hub["links"]) == 3 and hub["link_count"] == 100 and hub["links_truncated"]
+    assert large_text not in path.read_text(encoding="utf-8")
+    records = [json.loads(line) for line in evidence_path.read_text(encoding="utf-8").splitlines()]
+    assert [Evidence.model_validate(record["evidence"]) for record in records] == items
+    assert output.model_dump() == before
+    Listings.model_validate(payload)
+
+
+def test_excluded_repository_full_evidence_is_saved(repo, labels_path, tmp_path):
+    item = Evidence(repo_id=repo.github_id, source="scorecard", status="failed",
+                    fetched_at=NOW, detail="HTTP 503")
+    output = document([repo], [score_repo(repo, [item], run_id="run", now=NOW)], labels_path)
+    evidence_path = tmp_path / "state/evidence.jsonl"
+    path = write_listings(output, tmp_path / "listings.json", evidence_path=evidence_path)
+    assert json.loads(path.read_text(encoding="utf-8"))["listings"] == []
+    record = json.loads(evidence_path.read_text(encoding="utf-8"))
+    assert Evidence.model_validate(record["evidence"]) == item
+    output.scoring_details[repo.github_id].evidence = []
+    write_listings(output, path, evidence_path=evidence_path)
+    assert evidence_path.read_text(encoding="utf-8") == ""
+
+
+def test_evidence_write_failure_preserves_site(repo, labels_path, tmp_path):
+    output = document([repo], [score(repo)], labels_path)
+    path = tmp_path / "listings.json"
+    path.write_bytes(b"previous good export")
+    blocked = tmp_path / "blocked"
+    blocked.write_text("file, not a directory", encoding="utf-8")
+    with pytest.raises(OSError):
+        write_listings(output, path, evidence_path=blocked / "evidence.jsonl")
+    assert path.read_bytes() == b"previous good export"
+    with pytest.raises(ValueError, match="separate paths"):
+        write_listings(output, path, evidence_path=path)
+    assert path.read_bytes() == b"previous good export"

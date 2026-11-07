@@ -23,7 +23,7 @@ def fetch(repo: RepoRecord, http: HttpClient, *, fetched_at: datetime | None = N
     evidence = fetch_json(
         repo, http, source="hugging_face", url="https://huggingface.co/api/search/full-text",
         params={"q": f'"https://github.com/{repo.full_name}"', "limit": SEARCH_LIMIT},
-        fetched_at=fetched_at,
+        fetched_at=fetched_at, absent_statuses=set(),
     )
     if evidence.status != "present":
         return evidence
