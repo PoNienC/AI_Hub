@@ -48,3 +48,17 @@ Coordinator observations from a local build (Claude, 07 November 2026, `pipeline
 - **C2 (LOW, T01) Pending rows read "pending · pending"** → fix: when the label is pending show "level not yet labelled" once; when provisional show "<level> (provisional)".
 - **C3 (LOW, T01) Page title duplicates the site name ("AI Hub · AI Hub")** → fix: index title is the site name alone; other pages "<page> · AI Hub".
 - **C4 (LOW, T01) Timestamps shown as raw ISO strings with microseconds** → fix: render dates as `DD Mon YYYY` (and `HH:MM UTC` for generated_at) in the templates; keep ISO in `status.json`.
+
+## B2 (T04) — round 1 · executor: Claude · reviewer: Codex (gpt-6-astra, xhigh) · 07 November 2026
+
+Range: `c05608b..8ad1ba6` (base `c05608b`, end `8ad1ba6`)
+Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026 · raw report: codex/B2_audit_r1_out.md (420 s, 91,682 tokens)
+
+**In short:** PASS_WITH_FINDINGS · acceptance met, every number reproduced by Codex except one · findings B/H/M/L/N: 0/0/0/1/0 · needs you: no
+
+- **F1 (LOW, T04) Recorded site size 185 KB does not match the artefacts (118,180 bytes of HTML)** → ACCEPTED: record corrected in the handover (the figure came from `du -sh`, which reports allocated disk blocks).
+
+| ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| F1 | T04 | LOW | site size recorded as 185 KB; artefacts total 118,434 bytes | ACCEPTED | precision | handover corrected | — (auto) | fixed in the close-out commit |
+

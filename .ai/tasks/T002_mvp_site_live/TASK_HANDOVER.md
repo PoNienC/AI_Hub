@@ -203,7 +203,7 @@ Live deployment and T04 acceptance remain outstanding. No staging, commits, bran
 
 ### Summary
 - `uv run pipeline run --dry-run --limit 20` with the real network: exit 0, 51 s, 20 in / 20 out, 6 GitHub points, 20 calls per enrichment source, gates passed; the run itself built `site/dist.dry/` with gates 2, 3 and 5 recorded.
-- `uv run pipeline site build --input site/src/data/listings.dry.json --output site/dist.dry` rebuilt it standalone: 37 HTML pages (index, how_we_grade, 15 topic pages, 20 repo pages), 185 KB, no page over 100 KB. `uv run pipeline gates --path site/src/data/listings.dry.json`: gates 2, 3 and 5 passed.
+- `uv run pipeline site build --input site/src/data/listings.dry.json --output site/dist.dry` rebuilt it standalone: 37 HTML pages (index, how_we_grade, 15 topic pages, 20 repo pages), 118,180 bytes of HTML (118,434 bytes with status.json; `du -sh` had reported 185K of allocated disk), largest page how_we_grade.html at 16,090 bytes. `uv run pipeline gates --path site/src/data/listings.dry.json`: gates 2, 3 and 5 passed.
 - Browser check (http://localhost:8766/index.html, the `site_preview` launch entry): only populated topics shown ("Coding agent" with two provisional-beginner rows, "Pending" last); rows read "beginner (provisional)" or "level not yet labelled"; title "AI Hub"; repo links route by GitHub id; level filter present. No rendering defect seen.
 - Pins verified live with `gh api`: actions/upload-pages-artifact 56afc609e74202658d3ffba0e8f6dda462b719fa = v3.0.1; actions/deploy-pages d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e = v4 (v4.0.5).
 

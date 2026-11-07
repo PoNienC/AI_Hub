@@ -1,27 +1,31 @@
-# State — 07 November 2026 (close-out of T001)
+# State — 07 November 2026 (close-out of T002)
 
-- Branch: `dual_dev/T001_ingestion_pipeline`, stacked on `dual_dev_setup`; `main` still has no commits.
-- Remote: https://github.com/PoNienC/AI_Hub (private, created 07 November 2026, HTTPS, credentials via `gh auth setup-git`). `dual_dev_setup` pushed and is the default branch for now. `dual_dev/T001_ingestion_pipeline` pushed on 07 November 2026 after Po granted the `workflow` scope to the PoNienC token. Scheduled workflows run only from the default branch, which is `dual_dev_setup` without the workflow file, so nothing runs on GitHub until the request branch is merged or made default. Pushing from this PC needs `gh auth switch -u PoNienC` first (HTTPS credentials come from the active gh account); switch back to PoNienChenPP afterwards.
-- Extra commit after close-out on the request branch: a98beda "Add platform structure flowchart and report" (docs and launch.json, outside the request).
-- Last commit: T001 close-out (see `git log -1`). Hand-off commit `4f743c1`.
-- Request T001 (ingestion pipeline and state store): COMPLETE. Nine tasks, four audit scopes closed, no BLOCKER or HIGH open. 454 tests, coverage 98.44 per cent, ruff clean. Live dry run: 50 repos in 111 s.
-- Codex totals for T001: 765,096 tokens; weekly limit 28 per cent used (resets Wednesday 11 November 10:05).
-- Work in flight: none. Next: request 2 = MVP site and live schedule (Po, 07 November 2026: "MVP next"); labeller is now request 3, sandbox 4, trust layer and weights v1 5, Astro and Cloudflare 6. See `docs/dual_dev_requests.md`.
-- Untracked, outside T001: `docs/ai_hub_platform_*` (flowchart and report), `docs/build_platform_report.py`, `docs/platform_report_body.html`, `.claude/launch.json`. Commit separately when Po says so.
+- Branch: `dual_dev/T002_mvp_site_live`, stacked on `dual_dev/T001_ingestion_pipeline` (both requests closed out). `main` still has no commits.
+- Remote: https://github.com/PoNienC/AI_Hub (private). Pushed: `dual_dev_setup`, `dual_dev/T001_ingestion_pipeline` (up to 3d044bc). NOT yet pushed: the request-reorder commit d73a1d2 on the T001 branch and the whole T002 branch. Pushes need `gh auth switch -u PoNienC` first, then switch back to PoNienChenPP.
+- Request T001 (ingestion pipeline): COMPLETE. Request T002 (MVP site and live schedule): COMPLETE. 535 tests, coverage 98.34 per cent, ruff clean. Live 20-repo dry run plus site build verified in the browser.
+- Codex totals: T001 765,096 tokens; T002 327,251 tokens; weekly limit 34 per cent used (resets Wednesday 11 November 10:05).
+- Work in flight: none. Next: go-live steps (owner), then request 3 (labeller and gold-set gate) from `docs/dual_dev_requests.md`.
+- Local preview: `.claude/launch.json` entries `docs_static` (port 8765, docs) and `site_preview` (port 8766, site/dist.dry).
 
-## Owner actions pending
-1. Review `data/labelled_repos_for_review.csv` into `data/gold_labels.csv` — due before request 3 (the labeller); can run in parallel with request 2.
-2. Create the GitHub remote under PoNienC, push the branches on approval, then run `pipeline release pull` once by hand and one `workflow_dispatch` before enabling the schedule (runbook).
-3. Before request 4: Google Cloud service account for BigQuery. Before request 5: domain, Cloudflare account, four secrets.
+## Go-live steps for Po (each asked separately by Claude)
+1. Push the T001 reorder commit and the T002 branch (PoNienC account).
+2. Merge `dual_dev_setup` → T001 → T002 into `main` (fast-forward) and make `main` the default branch on GitHub.
+3. Make the repository public (GitHub Pages on the free plan), then Settings → Pages → Source "GitHub Actions".
+4. Run `refresh.yml` once by hand (workflow_dispatch): first run creates the `data-latest` release and deploys https://ponienc.github.io/AI_Hub/. Then the 6-hourly schedule is live; failures open issues.
+
+## Owner actions pending after go-live
+- Review `data/labelled_repos_for_review.csv` into `data/gold_labels.csv` (before request 3, about one hour).
+- Google Cloud key (before request 5); Cloudflare account and domain (before request 6).
 
 ## Carry-forwards into later requests
-- Request 3: labeller; gate 2 validates `pipeline.export.Listings`; capture one sanitised live response per adapter as fixtures (B2 F8, B4 F1); gold labels keyed by github_id.
-- Request 5: rebalance weights v0 (advisories and release cadence unevaluated, max coverage 0.70; scores saturate near 100 with three components); Scorecard covers 2 of 50 niche repos, so run the Scorecard CLI or lower its weight; deps.dev package resolution; GH Archive fake-star check needs the Google key.
+- Request 3: labeller; gate 2 validates `pipeline.export.Listings`; capture one sanitised live response per adapter as fixtures; gold labels keyed by github_id; switch `REQUIRE_LABELS` on.
 - Request 4: sandbox tests; `tested` is `untested` everywhere until then.
+- Request 5: weights v1 (scores saturate near 100 with three components; Scorecard covers few niche repos); deps.dev package resolution; GH Archive fake-star check.
+- Request 6: Astro front end replaces the Jinja2 MVP; Cloudflare Pages and a domain.
 
 ## Known issues
-- `PYTEST_DEBUG_TEMPROOT=_build/pytest` is for Codex's sandbox only; on Po's shell it fails with PermissionError because the folder belongs to the sandbox user. Run pytest without it.
-- Release round trip and workflow are unit-tested with a fake `gh` and verified action pins, not yet exercised live (no remote).
+- `PYTEST_DEBUG_TEMPROOT=_build/pytest` is for Codex's sandbox only; run pytest without it on Po's shell.
+- The first live `pipeline release pull` and Pages deploy are exercised only at go-live; the runbook describes what to expect.
 
 ## Sources
-- `.ai/tasks/T001_ingestion_pipeline/` (REVIEW.md, TASKS.md, AUDIT_LOG.md, TASK_HANDOVER.md); root `HANDOVER.md` (personal) for the owner-action dates.
+- `.ai/tasks/T001_ingestion_pipeline/` and `.ai/tasks/T002_mvp_site_live/` (REVIEW.md, TASKS.md, AUDIT_LOG.md, TASK_HANDOVER.md); root `HANDOVER.md` (personal) for the owner-action dates.
