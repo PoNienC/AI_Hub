@@ -622,3 +622,53 @@ Live Actions execution was not performed. Actionlint was not run under the instr
 - `uv run pytest --cov=pipeline --cov-fail-under=80`: 434 passed, coverage 98.42%.
 - `uv run ruff check .`: clean.
 - Codex run: 516 s, 68,078 tokens, weekly limit 28% used.
+
+## T09 — dry run against 50 repos (Claude), attempt 1, 07 November 2026
+- Command: `uv run pipeline run --dry-run --limit 50` with GH_TOKEN from `gh auth token`.
+- Result: exit 1 after 7 s at stage ingest: `GitHub query 'coding_agent': GraphQL returned errors; partial data discarded`.
+- Diagnosis: GitHub GraphQL RESOURCE_LIMITS_EXCEEDED on 50-node pages with the full field set; pages of 25 succeed (probe table in AUDIT_LOG.md, T09 section). Fix sent to Codex as a T03 correction; dry run to be repeated after it.
+
+### T03 correction from the T09 finding — executor Codex, 07 November 2026
+
+#### Codex handover (verbatim)
+
+## T03 — GitHub GraphQL source and budget accounting
+
+### Summary
+
+Added `AI_HUB_GITHUB_PAGE_SIZE`, default 25, validated from 5–100. Resource-limit-only responses now discard partial data, halve the requested page size to a floor of 5, log the reduction and retry the same cursor.
+
+Other GraphQL errors remain fail-closed. Budget accounting, total caps and public signatures are preserved.
+
+### Files changed
+
+- [pipeline/config.py](/C:/Users/po.nienchen/repos/AI_Hub/pipeline/config.py)
+- [pipeline/sources/github.py](/C:/Users/po.nienchen/repos/AI_Hub/pipeline/sources/github.py)
+- [tests/test_config.py](/C:/Users/po.nienchen/repos/AI_Hub/tests/test_config.py)
+- [tests/test_github.py](/C:/Users/po.nienchen/repos/AI_Hub/tests/test_github.py)
+- [tests/fixtures/github_resource_limit.json](/C:/Users/po.nienchen/repos/AI_Hub/tests/fixtures/github_resource_limit.json)
+- [tests/fixtures/github_mixed_errors.json](/C:/Users/po.nienchen/repos/AI_Hub/tests/fixtures/github_mixed_errors.json)
+- [docs/runbook.md](/C:/Users/po.nienchen/repos/AI_Hub/docs/runbook.md)
+
+### Tests and checks run
+
+Used the worktree `.venv`, `PYTEST_DEBUG_TEMPROOT=_build/pytest` and frozen uv settings.
+
+- `.venv\Scripts\python -m pytest tests/test_github.py tests/test_config.py tests/test_budgets.py` — **PASS: 88 passed, 0 failed**.
+- `uv run pytest --cov=pipeline --cov-fail-under=80` — **PASS: 454 passed, 0 failed; 98.44% coverage**.
+- `uv run ruff check .` — **PASS: no issues**.
+
+No separate type-check command is specified.
+
+### Finding resolutions
+
+- **F1 — ACCEPTED:** live probes demonstrated oversized-page failures; implemented configurable sizing, bounded retries, regression fixtures/tests and documentation.
+
+### Known gaps and risks
+
+The live T09 dry run has not been repeated; Claude’s review remains pending. No Git mutations or `.ai/` edits were made.
+
+#### Coordinator checks (Claude)
+- `uv run pytest --cov=pipeline --cov-fail-under=80`: 454 passed, coverage 98.44%.
+- `uv run ruff check .`: clean.
+- Codex run: 407 s, 57,811 tokens, weekly limit 28% used.

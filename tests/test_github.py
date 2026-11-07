@@ -41,9 +41,9 @@ def test_two_pages_deduplicate_and_map_fields(load_fixture):
         assert source.budget.github_unmeasured_calls == 0
         assert source.rate_limit_remaining == 4995
     payloads = [json.loads(request.content) for request in requests]
-    assert payloads[0]["variables"] == {"query": QUERIES["mcp"], "first": 100, "after": None}
+    assert payloads[0]["variables"] == {"query": QUERIES["mcp"], "first": 25, "after": None}
     assert payloads[1]["variables"]["after"] == "cursor_1"
-    assert payloads[1]["variables"]["first"] == 98
+    assert payloads[1]["variables"]["first"] == 25
     record = records[0]
     assert record.stars == 120 and record.forks == 7 and record.open_issues == 4
     assert record.licence_spdx == "MIT" and record.language == "Python"
@@ -97,6 +97,146 @@ def test_partial_error_is_typed_charged_and_does_not_leak_token(load_fixture, ca
         assert source.budget.github_points == 2
         assert source.budget.http_calls["github"] == 1
     assert TOKEN not in caplog.text and TOKEN not in str(caught.value)
+
+
+@pytest.mark.parametrize("failed_page", [0, 1])
+def test_resource_limit_retries_same_cursor_and_discards_page(load_fixture, caplog, failed_page):
+    requests = []
+    payloads = [load_fixture("github_page_1.json"), load_fixture("github_page_2.json")]
+    resource_error = load_fixture("github_resource_limit.json")
+    resource_error["errors"][0]["message"] += TOKEN
+    payloads.insert(failed_page, resource_error)
+
+    def handler(request):
+        requests.append(json.loads(request.content)["variables"])
+        return httpx.Response(200, json=payloads[len(requests) - 1])
+
+    with (
+        httpx.Client(transport=httpx.MockTransport(handler)) as client,
+        GitHubSource(settings(http_retries=0), client=client) as source,
+    ):
+        records = source.search()
+        assert [record.github_id for record in records] == ["R_1", "R_2", "R_3"]
+        assert records[1].full_name == "example/tool-renamed"
+        assert source.budget.github_points == 7
+        assert source.budget.http_calls["github"] == len(requests) == 3
+        assert source.budget.github_unmeasured_calls == 0
+    assert [request["first"] for request in requests] == (
+        [25, 12, 12] if failed_page == 0 else [25, 25, 12]
+    )
+    assert [request["after"] for request in requests] == (
+        [None, None, "cursor_1"] if failed_page == 0 else [None, "cursor_1", "cursor_1"]
+    )
+    assert "mcp" in caplog.text
+    assert "reducing page size from 25 to 12" in caplog.text
+    assert TOKEN not in caplog.text
+
+
+@pytest.mark.parametrize("page_size,cap,retry,expected_sizes", [
+    (10, 23, False, [10, 10, 3]),
+    (100, 101, False, [100, 1]),
+    (25, 3, False, [3]),
+    (25, 28, True, [25, 12, 12, 4]),
+])
+def test_page_size_and_retries_preserve_total_cap(load_fixture, page_size, cap, retry, expected_sizes):
+    requests = []
+    delivered = 0
+
+    def handler(request):
+        nonlocal delivered
+        variables = json.loads(request.content)["variables"]
+        requests.append(variables)
+        if retry and len(requests) == 1:
+            return httpx.Response(200, json=load_fixture("github_resource_limit.json"))
+        assert variables["after"] == (f"cursor_{delivered}" if delivered else None)
+        payload = load_fixture("github_page_1.json")
+        page = payload["data"]["search"]
+        node = page["nodes"][0]
+        page["nodes"] = [dict(node, id=f"R_{index}") for index in range(delivered, delivered + variables["first"])]
+        delivered += variables["first"]
+        page["pageInfo"] = {"hasNextPage": True, "endCursor": f"cursor_{delivered}"}
+        return httpx.Response(200, json=payload)
+
+    with (
+        httpx.Client(transport=httpx.MockTransport(handler)) as client,
+        GitHubSource(settings(github_page_size=page_size), client=client) as source,
+    ):
+        assert len(source.search(per_query_cap=cap)) == delivered == cap
+        assert source.budget.http_calls["github"] == len(expected_sizes)
+        assert source.budget.github_points == 2 * len(expected_sizes)
+    assert [request["first"] for request in requests] == expected_sizes
+
+
+@pytest.mark.parametrize("page_size,cap,expected_sizes", [
+    (25, 100, [25, 12, 6, 5]),
+    (5, 100, [5]),
+    (25, 10, [10, 5]),
+    (25, 7, [7, 5]),
+    (25, 3, [3]),
+])
+def test_resource_limit_floor_fails_closed(load_fixture, page_size, cap, expected_sizes):
+    requests = []
+
+    def handler(request):
+        requests.append(json.loads(request.content)["variables"])
+        return httpx.Response(200, json=load_fixture("github_resource_limit.json"))
+
+    with (
+        httpx.Client(transport=httpx.MockTransport(handler)) as client,
+        GitHubSource(settings(github_page_size=page_size), client=client) as source,
+    ):
+        with pytest.raises(GraphQLError, match="mcp.*resource limit"):
+            source.search(per_query_cap=cap)
+        assert source.budget.github_points == 2 * len(expected_sizes)
+        assert source.budget.http_calls["github"] == len(expected_sizes)
+        assert source.budget.github_unmeasured_calls == 0
+    assert [request["first"] for request in requests] == expected_sizes
+    assert all(request["after"] is None for request in requests)
+
+
+def test_mixed_graphql_errors_fail_without_retry(load_fixture, caplog):
+    payload = load_fixture("github_mixed_errors.json")
+    with (
+        httpx.Client(transport=httpx.MockTransport(lambda _: httpx.Response(200, json=payload))) as client,
+        GitHubSource(settings(), client=client) as source,
+    ):
+        with pytest.raises(GraphQLError, match="mcp.*partial data discarded"):
+            source.search()
+        assert source.budget.github_points == 2
+        assert source.budget.http_calls["github"] == 1
+        assert source.budget.github_unmeasured_calls == 0
+    assert "reducing page size" not in caplog.text
+
+
+@pytest.mark.parametrize("errors", [
+    {"type": "RESOURCE_LIMITS_EXCEEDED"},
+    [{"type": "RESOURCE_LIMITS_EXCEEDED"}, {}],
+    [{"type": "RESOURCE_LIMITS_EXCEEDED"}, "unexpected error"],
+])
+def test_malformed_graphql_errors_fail_without_retry(load_fixture, errors):
+    payload = load_fixture("github_resource_limit.json")
+    payload["errors"] = errors
+    with (
+        httpx.Client(transport=httpx.MockTransport(lambda _: httpx.Response(200, json=payload))) as client,
+        GitHubSource(settings(), client=client) as source,
+    ):
+        with pytest.raises(GraphQLError, match="mcp"):
+            source.search()
+        assert source.budget.http_calls["github"] == 1
+
+
+@pytest.mark.parametrize("point_limit", [1, 2])
+def test_resource_limit_retries_cannot_bypass_budget(load_fixture, point_limit):
+    payload = load_fixture("github_resource_limit.json")
+    with (
+        httpx.Client(transport=httpx.MockTransport(lambda _: httpx.Response(200, json=payload))) as client,
+        GitHubSource(settings(github_point_limit=point_limit), client=client) as source,
+    ):
+        with pytest.raises(BudgetExceeded):
+            source.search()
+        assert source.budget.github_points == 2
+        assert source.budget.http_calls["github"] == 1
+        assert source.budget.github_unmeasured_calls == 0
 
 
 def test_reported_cost_aborts_on_crossing_call(load_fixture):

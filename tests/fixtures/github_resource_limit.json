@@ -1,0 +1,23 @@
+{
+  "data": {
+    "search": {
+      "nodes": [
+        {
+          "id": "R_discarded", "nameWithOwner": "example/discarded", "url": "https://github.com/example/discarded",
+          "description": null, "stargazerCount": 50, "forkCount": 1,
+          "pushedAt": null, "createdAt": "2026-01-01T00:00:00Z",
+          "primaryLanguage": null, "licenseInfo": null, "issues": {"totalCount": 0},
+          "repositoryTopics": {"nodes": []}, "latestRelease": null,
+          "mentionableUsers": {"totalCount": 0}, "readme": null
+        },
+        null
+      ],
+      "pageInfo": {"hasNextPage": false, "endCursor": "discarded_cursor"}
+    },
+    "rateLimit": {"cost": 2, "remaining": 4998}
+  },
+  "errors": [
+    {"type": "RESOURCE_LIMITS_EXCEEDED", "path": ["search", "nodes", 1, "mentionableUsers"], "message": "Fixture: query resource limit exceeded"},
+    {"type": "RESOURCE_LIMITS_EXCEEDED", "path": ["search", "nodes", 1, "latestRelease"], "message": "Fixture: query resource limit exceeded"}
+  ]
+}

@@ -1,5 +1,12 @@
 """GitHub GraphQL repository search with pagination and explicit cost accounting.
 
+AI_HUB_GITHUB_PAGE_SIZE defaults to 25 (configurable from 5 to 100); the
+per-query cap and CLI --limit still bound totals. A page containing only
+RESOURCE_LIMITS_EXCEEDED errors is discarded and retried at the same cursor
+with half the requested size, rounded down with a floor of 5. The reduced
+size is kept for the rest of that query. Errors at or below the floor and
+all other GraphQL errors fail closed; every attempt consumes budget.
+
 Contributor coverage uses mentionableUsers.totalCount as a proxy: mentionable
 users are not necessarily contributors. The optional REST fallback calls
 contributors?per_page=1&anon=true and reads the last-page Link-header count.
@@ -79,6 +86,10 @@ class GraphQLError(GitHubResponseError):
     """GraphQL reported errors, even if partial data was returned."""
 
 
+class _GraphQLResourceLimitError(GraphQLError):
+    """Only resource-limit errors were returned; a smaller page may succeed."""
+
+
 class GitHubRateLimitError(GitHubResponseError):
     """GitHub's remote allowance is exhausted."""
 
@@ -145,7 +156,15 @@ class GitHubSource:
                 GRAPHQL_ERROR_COST_ESTIMATE, response.status_code,
             )
             self.budget.record_graphql_cost(GRAPHQL_ERROR_COST_ESTIMATE)
-        if payload.get("errors"):
+        errors = payload.get("errors")
+        if errors:
+            if isinstance(errors, list) and all(
+                isinstance(error, dict) and error.get("type") == "RESOURCE_LIMITS_EXCEEDED"
+                for error in errors
+            ):
+                raise _GraphQLResourceLimitError(
+                    query_name, "GraphQL resource limit exceeded; partial data discarded",
+                )
             raise GraphQLError(query_name, "GraphQL returned errors; partial data discarded")
         if response.is_success and rate is None:
             raise GitHubResponseError(query_name, "missing rateLimit counters")
@@ -169,19 +188,30 @@ class GitHubSource:
         selected = self.settings.selected_queries(all_queries=all_queries) if queries is None else queries
         records: dict[str, RepoRecord] = {}
         for query_name, query in selected.items():
+            page_size = self.settings.github_page_size
             after = None
             seen_cursors: set[str] = set()
             visited = 0
             while visited < cap:
                 if self.rate_limit_remaining == 0:
                     raise GitHubRateLimitError(query_name, "remote rate limit exhausted")
-                first = min(100, cap - visited)
-                response = self.http.request(
-                    "POST", GRAPHQL_URL, source="github", headers=self._headers, retryable=True,
-                    json={"query": SEARCH_QUERY, "variables": {"query": query, "first": first, "after": after}},
-                    before_attempt=self.budget.reserve_graphql,
-                    on_response=lambda response, name=query_name: self._account_response(response, name),
-                )
+                first = min(page_size, cap - visited)
+                try:
+                    response = self.http.request(
+                        "POST", GRAPHQL_URL, source="github", headers=self._headers, retryable=True,
+                        json={"query": SEARCH_QUERY, "variables": {"query": query, "first": first, "after": after}},
+                        before_attempt=self.budget.reserve_graphql,
+                        on_response=lambda response, name=query_name: self._account_response(response, name),
+                    )
+                except _GraphQLResourceLimitError:
+                    if first <= 5:
+                        raise
+                    page_size = max(5, first // 2)
+                    LOG.warning(
+                        "GitHub query %r: RESOURCE_LIMITS_EXCEEDED; reducing page size from %d to %d and retrying the same cursor",
+                        query_name, first, page_size,
+                    )
+                    continue
                 if not response.is_success:
                     raise HttpRequestError("github", f"HTTP {response.status_code}")
                 try:

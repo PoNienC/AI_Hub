@@ -1,0 +1,10 @@
+{
+  "data": {
+    "search": null,
+    "rateLimit": {"cost": 2, "remaining": 4998}
+  },
+  "errors": [
+    {"type": "RESOURCE_LIMITS_EXCEEDED", "path": ["search", "nodes", 0, "mentionableUsers"], "message": "Fixture: query resource limit exceeded"},
+    {"type": "FORBIDDEN", "path": ["search", "nodes", 1, "id"], "message": "Fixture: field access denied"}
+  ]
+}

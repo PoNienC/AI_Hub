@@ -133,6 +133,24 @@ request; site and later gates arrive in subsequent requests.
   run the project checks and retry. Do not bypass gates or silently increase the
   budget. A failed run must leave the previous good production files intact.
 
+### GitHub resource limit
+
+- **Symptom:** ingestion logs `RESOURCE_LIMITS_EXCEEDED` and page-size reductions,
+  or aborts with a GitHub query resource-limit error even though points remain.
+- **Cause:** large GraphQL pages with expensive fields such as `mentionableUsers`
+  exceed GitHub's per-query resources. The 7 November 2026 probes failed at 50
+  nodes and succeeded at 25 for the affected queries.
+- **Fix:** use `AI_HUB_GITHUB_PAGE_SIZE` (default 25, allowed range 5–100) to set
+  the initial page size. A response containing only `RESOURCE_LIMITS_EXCEEDED`
+  errors is discarded, the requested size is halved (rounded down, floor 5),
+  and the same cursor is retried. Each reduction is logged and retained for the
+  rest of that query; every attempt consumes HTTP and GraphQL budget. The
+  per-query cap and `--limit` still bound totals and may request fewer than five
+  remaining nodes. A resource error at five or fewer nodes, a mixed-error page
+  or any other GraphQL error fails closed. If failures persist at the floor,
+  inspect the named query and reproduce with a sanitised fixture before changing
+  its fields; run the project checks and retry. Do not bypass errors or budgets.
+
 ### BigQuery quota exceeded — from request 4
 
 - **Symptom:** the future GH Archive job reports a scanned-byte or quota error.

@@ -92,7 +92,7 @@ Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026, fixe
 ## B3 (T06-T08) — round 1 · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
 
 Range: `b6fcae5..400f780` (base `b6fcae5`, end `400f780`) · raw report: subagent/B3_audit_r1_out.md
-Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user)
+Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026, fixes in `a6f4dea` (Codex: F1, F2, F4, F5, F7, F8, F9 ACCEPTED; F6 PARTIALLY_ACCEPTED; F3 resolved by verification; F10 retained as documented)
 
 **In short:** PASS_WITH_FINDINGS · findings B/H/M/L/N: 0/0/3/3/4 · needs you: no
 
@@ -109,14 +109,28 @@ Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user)
 
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
-| F1 | T07 | MEDIUM | fixed 60 s timeout on gh download and upload | ACCEPTED | asset growth would self-inflict an outage | `AI_HUB_RELEASE_TIMEOUT_SECONDS` default 600 for transfers; test | — (auto) | pending |
-| F2 | T07 | MEDIUM | unexpected errors recorded by class name only | ACCEPTED | runbook points at a log that has nothing | traceback to file handler at DEBUG; test | — (auto) | pending |
+| F1 | T07 | MEDIUM | fixed 60 s timeout on gh download and upload | ACCEPTED | asset growth would self-inflict an outage | `AI_HUB_RELEASE_TIMEOUT_SECONDS` default 600 for transfers; test | — (auto) | fixed in `a6f4dea` |
+| F2 | T07 | MEDIUM | unexpected errors recorded by class name only | ACCEPTED | runbook points at a log that has nothing | traceback to file handler at DEBUG; test | — (auto) | fixed in `a6f4dea` |
 | F3 | T08 | MEDIUM | action SHAs and uv version unverified | RESOLVED | verified live by Claude | none | — (auto) | verified, no change |
-| F4 | T07 | LOW | upload-skipped acceptance untested | ACCEPTED | explicit acceptance line | gate-failure case with transfer=True | — (auto) | pending |
-| F5 | T07 | LOW | dry-run outputs under site/ not ignored | ACCEPTED | full payloads could be committed | .gitignore lines; runbook | — (auto) | pending |
-| F6 | T07 | LOW | exact stderr match for first run | PARTIALLY_ACCEPTED | wording confirmed on gh 2.92.0 | tolerant match; version noted in runbook | — (auto) | pending |
-| F7 | T07 | NOTE | stale stage label during baseline read | ACCEPTED | cheap | `stage = "baseline"` | — (auto) | pending |
-| F8 | T07 | NOTE | `gates` command records failures | ACCEPTED | avoids confusing local state | skip record_failure | — (auto) | pending |
-| F9 | T08 | NOTE | no GH_REPO env | ACCEPTED | removes checkout dependency | add env | — (auto) | pending |
+| F4 | T07 | LOW | upload-skipped acceptance untested | ACCEPTED | explicit acceptance line | gate-failure case with transfer=True | — (auto) | fixed in `a6f4dea` |
+| F5 | T07 | LOW | dry-run outputs under site/ not ignored | ACCEPTED | full payloads could be committed | .gitignore lines; runbook | — (auto) | fixed in `a6f4dea` |
+| F6 | T07 | LOW | exact stderr match for first run | PARTIALLY_ACCEPTED | wording confirmed on gh 2.92.0 | tolerant match; version noted in runbook | — (auto) | fixed in `a6f4dea` |
+| F7 | T07 | NOTE | stale stage label during baseline read | ACCEPTED | cheap | `stage = "baseline"` | — (auto) | fixed in `a6f4dea` |
+| F8 | T07 | NOTE | `gates` command records failures | ACCEPTED | avoids confusing local state | skip record_failure | — (auto) | fixed in `a6f4dea` |
+| F9 | T08 | NOTE | no GH_REPO env | ACCEPTED | removes checkout dependency | add env | — (auto) | fixed in `a6f4dea` |
 | F10 | T07 | NOTE | order deviates from plan, documented | ACCEPTED AS DOCUMENTED | sound | none | — (auto) | no change |
 
+
+## T09 dry-run findings (live network) · found by: Claude (coordinator, executing T09) · scope: T03 (B1, Codex) · 07 November 2026
+
+Run `2ebf7d36` (dry run, limit 50) failed at ingest within 7 s. Review: ask_high · no BLOCKER or HIGH → auto · executor Codex fixes.
+
+**In short:** one MEDIUM live-API finding in T03; unit tests could not surface it.
+
+- **F1 (MEDIUM, T03) GitHub GraphQL returns RESOURCE_LIMITS_EXCEEDED for 50-node pages** → ACCEPTED: default page size 25; on a RESOURCE_LIMITS_EXCEEDED error halve the page and retry (floor 5) before failing closed; tests with a fixture error of that type.
+
+Evidence (Claude probes, 07 November 2026, token-authenticated, header 2026-03-10): queries `coding_agent` and `mcp` with the full field set: first=50 → 50 to 51 errors of type RESOURCE_LIMITS_EXCEEDED (paths under `mentionableUsers`, `latestRelease`, `id`), cost 2; first=25 → 0 errors, cost 1; first=10 → 0 errors. first=50 without `mentionableUsers` → 0 errors. `repositoryTopics(first: 20)` alone does not help. Query `claude_code` at first=50 → 0 errors (smaller repos). The pipeline raised `GraphQLError("GraphQL returned errors; partial data discarded")`, which is the intended fail-closed path; the page size is the defect.
+
+| ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| F1 | T03 | MEDIUM | 50-node GraphQL pages exceed GitHub's resource limit with `mentionableUsers` | ACCEPTED | every real run of the niche would fail at ingest | default page 25 (`AI_HUB_GITHUB_PAGE_SIZE`), adaptive halving on RESOURCE_LIMITS_EXCEEDED, tests | — (auto) | pending |

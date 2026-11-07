@@ -25,6 +25,7 @@ def test_niche_and_all_queries():
     assert Settings(all_queries=True).selected_queries() == QUERIES
     assert settings.github_point_limit == 2500
     assert settings.per_query_cap == 100
+    assert settings.github_page_size == 25
     settings.query_names.clear()
     assert Settings().query_names == NICHE_DEFAULT
 
@@ -32,6 +33,7 @@ def test_niche_and_all_queries():
 def test_environment_overrides():
     settings = Settings.from_env({
         "AI_HUB_PER_QUERY_CAP": "42",
+        "AI_HUB_GITHUB_PAGE_SIZE": "10",
         "GH_TOKEN": "secret-token", "GITHUB_TOKEN": "ignored-token",
         "AI_HUB_STATE_DIR": "custom_state", "AI_HUB_QUERY_NAMES": "mcp, agents,mcp",
         "AI_HUB_GITHUB_POINT_LIMIT": "1200", "AI_HUB_ALL_QUERIES": "true",
@@ -41,6 +43,7 @@ def test_environment_overrides():
     })
     assert settings.github_token.get_secret_value() == "secret-token"
     assert settings.per_query_cap == 42
+    assert settings.github_page_size == 10
     assert "secret-token" not in repr(settings)
     assert "secret-token" not in settings.model_dump_json()
     assert settings.state_dir.name == "custom_state"
@@ -73,6 +76,7 @@ def test_invalid_environment_http_limits(raw):
     {"query_names": ["typo"]}, {"query_names": []}, {"github_point_limit": -1},
     {"http_call_limits": {"scorecard": -1}}, {"http_call_limits": {"typo": 10}},
     {"http_timeout_seconds": 0}, {"per_query_cap": 1001},
+    {"github_page_size": 4}, {"github_page_size": 101}, {"github_page_size": 5.5},
 ])
 def test_invalid_settings(overrides):
     with pytest.raises(ValidationError):

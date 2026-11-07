@@ -57,6 +57,7 @@ class Settings(BaseModel):
     query_names: list[str] = Field(default_factory=lambda: NICHE_DEFAULT.copy())
     all_queries: bool = False
     per_query_cap: int = Field(default=100, ge=1, le=1000)
+    github_page_size: int = Field(default=25, ge=5, le=100)
     github_point_limit: int = Field(default=2500, ge=0)
     http_call_limits: dict[str, int] = Field(default_factory=HTTP_CALL_LIMITS.copy)
     http_timeout_seconds: float = Field(default=30, gt=0)
