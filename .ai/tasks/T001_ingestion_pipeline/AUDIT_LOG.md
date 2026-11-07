@@ -88,3 +88,35 @@ Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026, fixe
 | F3 | T05→T07/T08 | LOW | evidence.jsonl discarded on the Actions runner | DEFERRED | belongs to the release round trip | T07 uploads it with the SQLite asset | — (auto) | deferred |
 | F4 | T05→T06 | NOTE | gate 2 must validate PublishedListing | DEFERRED | T06 not written yet | in the B3 brief | — (auto) | deferred |
 | F5 | T05 | NOTE | licence canary raises KeyError | ACCEPTED | clearer failure | pytest.fail message | — (auto) | fixed in `b6fcae5` |
+
+## B3 (T06-T08) — round 1 · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
+
+Range: `b6fcae5..400f780` (base `b6fcae5`, end `400f780`) · raw report: subagent/B3_audit_r1_out.md
+Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user)
+
+**In short:** PASS_WITH_FINDINGS · findings B/H/M/L/N: 0/0/3/3/4 · needs you: no
+
+- **F1 (MEDIUM, T07) 60 s timeout on asset transfers** → ACCEPTED: configurable transfer timeout (default 600 s), 60 s kept for view/create; test.
+- **F2 (MEDIUM, T07) Unexpected errors logged by type name only** → ACCEPTED: traceback to the file handler only; issue text unchanged; test.
+- **F3 (MEDIUM, T08) Action SHAs and uv version unverified** → RESOLVED BY VERIFICATION (Claude, 07 November 2026, live `gh api`): checkout v6 = d23441a4…, setup-uv v7 = 37802adc…, upload-artifact v6 = b7c566a7…, all match; uv release 0.11.19 exists. No code change; recorded in the handover.
+- **F4 (LOW, T07) Upload-skipped-on-failure test is vacuous** → ACCEPTED: one gate-failure case with transfer on.
+- **F5 (LOW, T07) Dry-run outputs not git-ignored** → ACCEPTED: ignore `site/src/data/*.dry.*` and `*.evidence.jsonl`; runbook line.
+- **F6 (LOW, T07) First-run detection on exact stderr string** → PARTIALLY_ACCEPTED: wording confirmed live on gh 2.92.0 ("release not found"); add a tolerant match and record the version in the runbook; first-run `release pull` tried manually before enabling the schedule.
+- **F7 (NOTE, T07) Stale stage label** → ACCEPTED: `stage = "baseline"`.
+- **F8 (NOTE, T07) `pipeline gates` writes failure records** → ACCEPTED: skip `record_failure` for the read-only command.
+- **F9 (NOTE, T08) No GH_REPO in job env** → ACCEPTED: add it.
+- **F10 (NOTE, T07) run_log before promote** → ACCEPTED AS DOCUMENTED: plan line consciously superseded; no change.
+
+| ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| F1 | T07 | MEDIUM | fixed 60 s timeout on gh download and upload | ACCEPTED | asset growth would self-inflict an outage | `AI_HUB_RELEASE_TIMEOUT_SECONDS` default 600 for transfers; test | — (auto) | pending |
+| F2 | T07 | MEDIUM | unexpected errors recorded by class name only | ACCEPTED | runbook points at a log that has nothing | traceback to file handler at DEBUG; test | — (auto) | pending |
+| F3 | T08 | MEDIUM | action SHAs and uv version unverified | RESOLVED | verified live by Claude | none | — (auto) | verified, no change |
+| F4 | T07 | LOW | upload-skipped acceptance untested | ACCEPTED | explicit acceptance line | gate-failure case with transfer=True | — (auto) | pending |
+| F5 | T07 | LOW | dry-run outputs under site/ not ignored | ACCEPTED | full payloads could be committed | .gitignore lines; runbook | — (auto) | pending |
+| F6 | T07 | LOW | exact stderr match for first run | PARTIALLY_ACCEPTED | wording confirmed on gh 2.92.0 | tolerant match; version noted in runbook | — (auto) | pending |
+| F7 | T07 | NOTE | stale stage label during baseline read | ACCEPTED | cheap | `stage = "baseline"` | — (auto) | pending |
+| F8 | T07 | NOTE | `gates` command records failures | ACCEPTED | avoids confusing local state | skip record_failure | — (auto) | pending |
+| F9 | T08 | NOTE | no GH_REPO env | ACCEPTED | removes checkout dependency | add env | — (auto) | pending |
+| F10 | T07 | NOTE | order deviates from plan, documented | ACCEPTED AS DOCUMENTED | sound | none | — (auto) | no change |
+

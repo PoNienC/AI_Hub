@@ -19,6 +19,7 @@ def test_yaml_schedule_dispatch_permissions_and_concurrency():
     assert set(document["on"]) == {"schedule", "workflow_dispatch"}
     assert document["permissions"] == {"contents": "write", "issues": "write"}
     assert document["concurrency"] == {"group": "refresh", "cancel-in-progress": False}
+    assert document["jobs"]["refresh"]["env"]["GH_REPO"] == "${{ github.repository }}"
 
 
 def test_workflow_checks_then_one_release_round_trip():

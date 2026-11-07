@@ -1,6 +1,8 @@
 # Pipeline state and large re-fetchable data
 state/
 data/readmes/
+site/src/data/*.dry.*
+site/src/data/*.evidence.jsonl
 
 # Codex run logs (large)
 .ai/tasks/*/codex/*.log

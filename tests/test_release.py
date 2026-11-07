@@ -69,13 +69,65 @@ def test_absent_release_is_first_run(fake_gh, tmp_path):
     assert commands(fake_gh) == [["release", "view", "data-latest", "--json", "assets"]]
 
 
-@pytest.mark.parametrize("error", ["HTTP 401 Bad credentials", "HTTP 404 Not Found", "network unavailable"])
+@pytest.mark.parametrize("error", [
+    "HTTP 401 Bad credentials", "HTTP 404 Not Found", "network unavailable",
+    "release not foundry", "release not found\nHTTP 401 Bad credentials",
+])
 def test_other_errors_are_not_first_run(fake_gh, bundle, error):
     before = (bundle / "gateway.sqlite").read_bytes()
     mode(fake_gh, error=error)
     with pytest.raises(release.ReleaseError, match="not a missing release"):
         release.pull(bundle)
     assert (bundle / "gateway.sqlite").read_bytes() == before
+
+
+@pytest.mark.parametrize("diagnostic", [
+    "  RELEASE NOT FOUND\n", "release\t not  found", "release not found.",
+    "release not found: data-latest",
+])
+def test_missing_release_diagnostic_variants(fake_gh, tmp_path, diagnostic):
+    mode(fake_gh, error=diagnostic)
+    assert release.pull(tmp_path / "new-state") is False
+
+
+def test_missing_release_wording_with_other_exit_is_not_first_run(monkeypatch, tmp_path):
+    monkeypatch.setattr(release.shutil, "which", lambda _: "gh")
+    monkeypatch.setattr(release.subprocess, "run", lambda *args, **kwargs:
+                        subprocess.CompletedProcess(args, 2, "", "release not found"))
+    with pytest.raises(release.ReleaseError, match="not a missing release"):
+        release.pull(tmp_path)
+
+
+@pytest.mark.parametrize("configured,expected", [(None, 600), ("1200", 1200)])
+def test_transfer_timeouts_leave_metadata_timeout_unchanged(
+    fake_gh, bundle, tmp_path, monkeypatch, configured, expected,
+):
+    if configured is None:
+        monkeypatch.delenv("AI_HUB_RELEASE_TIMEOUT_SECONDS", raising=False)
+    else:
+        monkeypatch.setenv("AI_HUB_RELEASE_TIMEOUT_SECONDS", configured)
+    original = subprocess.run
+    calls = []
+
+    def recording_run(arguments, **kwargs):
+        calls.append((arguments[2], kwargs["timeout"]))
+        return original(arguments, **kwargs)
+
+    monkeypatch.setattr(release.subprocess, "run", recording_run)
+    release.push(bundle)
+    assert release.pull(tmp_path / "downloaded") is True
+    assert calls == [
+        ("view", 60), ("create", 60), ("upload", expected), ("view", 60),
+        ("view", 60), ("download", expected),
+    ]
+
+
+@pytest.mark.parametrize("configured", ["0", "-1", "invalid", "1.5", "inf"])
+def test_invalid_transfer_timeout_prevents_upload(fake_gh, bundle, monkeypatch, configured):
+    monkeypatch.setenv("AI_HUB_RELEASE_TIMEOUT_SECONDS", configured)
+    with pytest.raises(release.ReleaseError, match="must be a positive integer"):
+        release.push(bundle)
+    assert all(command[1] != "upload" for command in commands(fake_gh))
 
 
 def test_upload_then_download_exact_commands_and_bytes(fake_gh, bundle, tmp_path):

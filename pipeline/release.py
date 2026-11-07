@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import os
+import re
 import shutil
 import sqlite3
 import subprocess
@@ -81,10 +83,18 @@ def _gh(arguments: list[str]) -> subprocess.CompletedProcess[str]:
     executable = shutil.which("gh")
     if executable is None:
         raise ReleaseError("GitHub CLI gh was not found on PATH")
+    timeout = 60
+    if arguments[1] in {"download", "upload"}:
+        try:
+            timeout = int(os.environ.get("AI_HUB_RELEASE_TIMEOUT_SECONDS", "600"))
+            if timeout <= 0:
+                raise ValueError
+        except ValueError:
+            raise ReleaseError("AI_HUB_RELEASE_TIMEOUT_SECONDS must be a positive integer") from None
     try:
         return subprocess.run(
             [executable, *arguments], capture_output=True, text=True,
-            encoding="utf-8", timeout=60, check=False,
+            encoding="utf-8", timeout=timeout, check=False,
         )
     except (OSError, subprocess.TimeoutExpired) as exc:
         raise ReleaseError(f"gh release {arguments[1]} failed: {type(exc).__name__}") from None
@@ -101,8 +111,12 @@ def _assets() -> dict[str, int] | None:
     result = _gh(["release", "view", RELEASE_TAG, "--json", "assets"])
     if result.returncode:
         # Authentication, permission, network and missing-asset errors are not a
-        # first run. gh uses this exact diagnostic for an absent release tag.
-        if result.stderr.strip().lower() == "release not found":
+        # first run. Tolerate case, spacing and a diagnostic suffix around gh's
+        # "release not found" wording, but require its ordinary failure exit.
+        if result.returncode == 1 and re.fullmatch(
+            r"release[ \t]+not[ \t]+found(?:[.:][^\r\n]*)?",
+            result.stderr.strip(), flags=re.IGNORECASE,
+        ):
             return None
         raise ReleaseError(f"gh release view failed (exit {result.returncode}); not a missing release")
     try:

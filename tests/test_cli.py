@@ -2,6 +2,7 @@
 
 import copy
 import json
+import logging
 import sqlite3
 from contextlib import closing
 from datetime import UTC, datetime
@@ -176,11 +177,30 @@ def test_failure_rolls_back_and_appends_once(setup, offline, repo, monkeypatch, 
     assert not Path("state/gateway.work.sqlite").exists()
 
 
-def test_count_uses_previous_success_and_catches_drop(setup, offline, repo):
-    seed_state(setup, repo, count=6)
-    failure = cli.run_pipeline(setup, transfer=False, client=offline[0], limit=5)
+@pytest.mark.parametrize("transfer", [False, True])
+def test_count_uses_previous_success_and_catches_drop(setup, offline, repo, monkeypatch, transfer):
+    paths = seed_state(setup, repo, count=6)
+    before = [path.read_bytes() for path in paths]
+    pulls = []
+    monkeypatch.setattr(release, "pull", lambda directory: pulls.append(directory) or False)
+    monkeypatch.setattr(release, "push", lambda *_: pytest.fail("failed run uploaded"))
+    failure = cli.run_pipeline(setup, transfer=transfer, client=offline[0], limit=5)
     assert failure.failed_step == "gate_3"
     assert (failure.previous_count, failure.rows_in, failure.rows_out) == (6, 5, 5)
+    assert pulls == ([setup.state_dir] if transfer else [])
+    assert [path.read_bytes() for path in paths] == before
+
+
+def test_baseline_failure_has_its_own_stage(setup, offline, monkeypatch):
+    monkeypatch.setattr(release, "pull", lambda *_: False)
+
+    def fail(*args):
+        raise sqlite3.DatabaseError("baseline cannot be read")
+
+    monkeypatch.setattr(cli, "previous_count", fail)
+    failure = cli.run_pipeline(setup, client=offline[0], limit=1)
+    assert failure.failed_step == "baseline"
+    assert not offline[1]
 
 
 def test_stale_copy_preflight_preserves_file_and_names_removal(setup, offline, monkeypatch, caplog):
@@ -234,7 +254,7 @@ def test_output_io_failure_restores_local_database_and_evidence(setup, offline, 
     assert [path.read_bytes() for path in paths] == before
 
 
-@pytest.mark.parametrize("command", [["release", "pull"], ["release", "push"], ["gates"]])
+@pytest.mark.parametrize("command", [["release", "pull"], ["release", "push"]])
 def test_standalone_command_errors_have_issue_files(setup, monkeypatch, command):
     def fail(*args):
         raise release.ReleaseError("Transfer failed")
@@ -242,6 +262,47 @@ def test_standalone_command_errors_have_issue_files(setup, monkeypatch, command)
     monkeypatch.setattr(release, "push", fail)
     assert cli.main(command) == 1
     assert len(failures(setup)) == 1
+
+
+@pytest.mark.parametrize("command", [["run"], ["release", "pull"], ["release", "push"]])
+def test_exception_details_reach_only_diagnostic_file(setup, offline, monkeypatch, caplog, command):
+    detail = "diagnostic detail for the operator"
+
+    def fail(*args, **kwargs):
+        raise ValueError(detail)
+
+    caplog.set_level(logging.DEBUG)
+    if command == ["run"]:
+        monkeypatch.setattr(release, "pull", lambda *_: False)
+        monkeypatch.setattr(cli.GitHubSource, "search", fail)
+    else:
+        monkeypatch.setattr(release, command[1], fail)
+    assert cli.main(command, client=offline[0]) == 1
+    failure = failures(setup)[0]
+    diagnostic = Path(failure.log_path).read_text(encoding="utf-8")
+    assert "Traceback (most recent call last):" in diagnostic
+    assert f"ValueError: {detail}" in diagnostic
+    assert "DEBUG" in diagnostic
+    assert detail not in caplog.text
+    assert detail not in failure.model_dump_json()
+    assert detail not in (setup.state_dir / "failure-body.md").read_text(encoding="utf-8")
+
+
+@pytest.mark.parametrize("existing", [False, True])
+@pytest.mark.parametrize("fault", ["schema", "settings"])
+def test_failed_gates_command_is_read_only(setup, repo, tmp_path, monkeypatch, existing, fault):
+    if existing:
+        seed_state(setup, repo)
+        for name in ("failures.jsonl", "failure-title.txt", "failure-body.md"):
+            (setup.state_dir / name).write_text("previous failure", encoding="utf-8")
+    if fault == "settings":
+        def fail():
+            raise ValueError("invalid settings")
+        monkeypatch.setattr(cli.Settings, "from_env", fail)
+    before = {path: path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()}
+    assert cli.main(["gates", "--path", "missing.json"]) == 1
+    assert {path: path.read_bytes() for path in tmp_path.rglob("*") if path.is_file()} == before
+    assert setup.state_dir.exists() is existing
 
 
 @pytest.mark.parametrize("action", ["pull", "push"])

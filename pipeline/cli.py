@@ -65,6 +65,22 @@ def record_failure(failure: RunFailure, state_dir: Path) -> None:
     (state_dir / "failure-body.md").write_text(failure.issue_body, encoding="utf-8")
 
 
+def _log_exception(log_path: Path, run_id: str, error: Exception) -> None:
+    """Append a diagnostic traceback directly to a file, never to console handlers."""
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    handler = logging.FileHandler(log_path, encoding="utf-8")
+    handler.setLevel(logging.DEBUG)
+    handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s %(message)s"))
+    try:
+        record = LOG.makeRecord(
+            LOG.name, logging.DEBUG, __file__, 0, "Run %s failed", (run_id,),
+            (type(error), error, error.__traceback__),
+        )
+        handler.handle(record)
+    finally:
+        handler.close()
+
+
 def _publish(store: StateStore, staged: Path, output: Path, gates: dict[str, bool]) -> None:
     """Promote state and publish gated files, restoring local files on I/O failure."""
     canonical = store.canonical_path
@@ -120,6 +136,7 @@ def run_pipeline(
         if transfer and not dry_run:
             stage = "release.pull"
             release.pull(state_dir)
+        stage = "baseline"
         baseline = previous_count(state_dir / "gateway.sqlite")
         with TemporaryDirectory(prefix=".run-", dir=state_dir) as temporary:
             staged = Path(temporary)
@@ -196,6 +213,7 @@ def run_pipeline(
         )
         if isinstance(exc, (release.ReleaseError, GitHubResponseError, HttpRequestError)):
             failure.reason = str(exc)
+        _log_exception(log_path, run_id, exc)
         LOG.error("%s\n%s", failure.issue_title, failure.issue_body)
         record_failure(failure, state_dir)
         return failure
@@ -249,16 +267,21 @@ def main(argv: Sequence[str] | None = None, *, client: httpx.Client | None = Non
         return 0
     except EXPECTED_ERRORS as exc:
         state_dir = settings.state_dir if settings is not None else Path("state")
+        run_id = uuid4().hex
+        log_path = state_dir / "logs" / f"{run_id}.log"
         failure = abort_run(
             exc, store=None, stage=f"release.{args.action}" if args.command == "release" else args.command,
-            run_id=uuid4().hex, started=started, finished=_now(), rows_in=0, rows_out=0,
-            log_path=os.environ.get("PIPELINE_LOG_URL", "Actions or terminal command output"),
+            run_id=run_id, started=started, finished=_now(), rows_in=0, rows_out=0,
+            log_path=(os.environ.get("PIPELINE_LOG_URL", "Actions or terminal command output")
+                      if args.command == "gates" else str(log_path)),
         )
         if isinstance(exc, release.ReleaseError):
             failure.reason = str(exc)
         if isinstance(exc, ValidationError):
             failure.reason = "Invalid settings; check AI_HUB_* values"
-        record_failure(failure, state_dir)
+        if args.command != "gates":
+            _log_exception(log_path, run_id, exc)
+            record_failure(failure, state_dir)
         LOG.error("%s\n%s", failure.issue_title, failure.issue_body)
         return 1
 

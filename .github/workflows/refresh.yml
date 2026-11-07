@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 45
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_REPO: ${{ github.repository }}
       UV_CACHE_DIR: ${{ github.workspace }}/_build/uv-cache
       UV_PYTHON_INSTALL_DIR: ${{ github.workspace }}/_build/uv-python
       UV_PROJECT_ENVIRONMENT: ${{ github.workspace }}/.venv

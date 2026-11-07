@@ -38,7 +38,8 @@ The dry-run command still calls source APIs and uses their budgets. It skips
 release transfers, copies any existing local history into temporary state, and
 discards that state afterwards. Its only data outputs are
 `site/src/data/listings.dry.json` and
-`site/src/data/listings.dry.evidence.jsonl`; it never changes production listings,
+`site/src/data/listings.dry.evidence.jsonl`; both are ignored by Git, as are other
+`site/src/data/*.evidence.jsonl` files. It never changes production listings,
 `state/gateway.sqlite` or `state/evidence.jsonl`. Logs and failure records are
 still retained under `state/`. Unit tests inject fixture clients and need no
 network. A limited dry run against a larger local baseline can fail the 90%
@@ -72,9 +73,16 @@ configured per-query cap if smaller). It does not guarantee N unique results.
 `data-latest` is the release tag; its assets are `gateway.sqlite` and
 `evidence.jsonl`. An absent release starts fresh; authentication errors, network
 errors, missing assets, invalid SQLite and mismatched evidence fail the transfer.
+The absent-release diagnostic `release not found` was verified with gh 2.92.0 on
+7 November 2026; matching also tolerates case, spacing and a punctuation-led
+suffix. Before enabling the schedule, manually run `uv run pipeline release pull`
+once in the intended repository to confirm first-run detection and authentication.
 Downloads are staged under `state/` and validated before replacing local files.
 The first push creates the release; later pushes replace the two assets and
 verify their reported sizes. The repository must allow mutable release assets.
+Uploads and downloads allow 600 seconds per command by default; set
+`AI_HUB_RELEASE_TIMEOUT_SECONDS` to a positive integer to change this limit.
+Metadata and release-creation commands retain their 60-second timeout.
 
 The run stages compact listings and full evidence, evaluates gates 2 and 3 on
 the exported file, then promotes. Gate 2 uses `pipeline.export.Listings` and
@@ -97,8 +105,12 @@ stage, reason, row counts, previous count, budgets and log path. The CLI renders
 workflow adds its Actions log URL and opens a `pipeline-failure` issue. A failure
 before the CLI can start uses a workflow diagnostic with unavailable row counts.
 These text files describe the latest failure; the JSONL history is append-only.
-Detailed logs are `state/logs/<run_id>.log`. Unexpected process termination may
-prevent any failure record from being written.
+Detailed logs are `state/logs/<run_id>.log`. Pipeline and standalone release
+failures append a DEBUG traceback to that file only; console output, failure
+records and issue text retain sanitised diagnostics. The `pipeline gates`
+command is read-only, including on failure: it reports to the console without
+writing logs, failure history or issue files. Unexpected process termination
+may prevent any failure record from being written.
 
 CI retains state, full evidence, listings and diagnostics in a
 `refresh-<run_id>-<attempt>` Actions artefact for 14 days, on success or failure.
