@@ -111,6 +111,8 @@ def test_actual_candidate_licences(repo, spdx):
         "AGPL-3.0": (60, "present", "strong_copyleft"),
         "CC-BY-4.0": (None, "unsupported", "unknown"),
     }
+    if spdx not in expected:
+        pytest.fail(f"Unclassified licence in candidate CSV: {spdx!r}")
     value, status, licence_class = expected[spdx]
     result = score_repo(repo.model_copy(update={"licence_spdx": spdx}), [], run_id="run", now=NOW)
     assert result.score.components["licence"] == value

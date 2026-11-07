@@ -145,13 +145,21 @@ from the site file. Tests bound each representative row plus its diagnostics to
 less than 8 KiB, even with large source payloads.
 
 Full evidence, including excluded repositories and unevaluated sources, is
-written first to `state/evidence.jsonl`, already covered by the `state/` Git
-ignore rule and outside the site tree. Each line has `run_id`, `score_version`,
+written first to a sibling `<stem>.evidence.jsonl` derived from the listings
+`path` when `evidence_path` is omitted. The default destinations are
+`site/src/data/listings.json` and `site/src/data/listings.evidence.jsonl`.
+Each line has `run_id`, `score_version`,
 `generated_at` and the original `evidence` object. This is the latest export's
-diagnostic snapshot, replaced rather than appended; it is not shipped to the
-site. The two files are replaced atomically individually, not as a transaction.
+diagnostic snapshot, replaced rather than appended, separate from the compact
+site JSON. Pass an explicit `evidence_path=Path("state/evidence.jsonl")` to keep
+production evidence outside the site tree and covered by the `state/` Git
+ignore rule. The two files are replaced atomically individually, not as a transaction.
 If the site replacement fails after evidence succeeds, the evidence run ID may
 be newer than the site envelope. In-memory scoring results remain unmodified.
 
-Pass both `path` and `evidence_path` to isolate a dry run. No canonical state is
-promoted, release uploaded or site deployed by scoring/export.
+Passing `path=Path("site/src/data/listings.dry.json")` without `evidence_path`
+writes `site/src/data/listings.dry.evidence.jsonl`, leaving production listings
+and evidence, including `state/evidence.jsonl`, untouched. If overriding
+`evidence_path`, use a separate dry-run destination such as
+`Path("state/evidence.dry.jsonl")`. No canonical state is promoted, release
+uploaded or site deployed by scoring/export.

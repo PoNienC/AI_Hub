@@ -9,16 +9,16 @@
 - Allocation approved by the user: 07 November 2026
 - Hand-off: pending <!-- pending | `<commit>`, DD Month YYYY — see REVIEW.md -->
 - Close-out: ask <!-- ask | automatic (approved at the combined gate) -->
-- Running now: B2_fix_r1 (Codex) 15:48 → codex/B2_fix_r1_out.md <!-- B2_audit_r1 done, approved; 12:21 → subagent/B2_audit_r1_out.md <!-- B2_exec done 12:07 → codex/B2_exec_out.md <!-- B1_fix_r1 done 11:59 → codex/B1_fix_r1_out.md <!-- B1_audit_r1 done 11:50 → subagent/B1_audit_r1_out.md <!-- was: B1_exec (Codex) 11:28 → codex/B1_exec_out.md --> <!-- every background job: step, started HH:MM, output file — e.g. "B1_audit_r1 (Codex) 14:05 → codex/B1_audit_r1_out.md" -->
-- Codex tokens so far: 291,384
+- Running now: B2_fix_r2 (Codex) 16:05 → codex/B2_fix_r2_out.md <!-- B2_audit_r2 done; 15:59 → subagent/B2_audit_r2_out.md <!-- B2_fix_r1 done; 15:48 → codex/B2_fix_r1_out.md <!-- B2_audit_r1 done, approved; 12:21 → subagent/B2_audit_r1_out.md <!-- B2_exec done 12:07 → codex/B2_exec_out.md <!-- B1_fix_r1 done 11:59 → codex/B1_fix_r1_out.md <!-- B1_audit_r1 done 11:50 → subagent/B1_audit_r1_out.md <!-- was: B1_exec (Codex) 11:28 → codex/B1_exec_out.md --> <!-- every background job: step, started HH:MM, output file — e.g. "B1_audit_r1 (Codex) 14:05 → codex/B1_audit_r1_out.md" -->
+- Codex tokens so far: 368,408
 
 | Task | Title | Executor | Reviewer | Block | Depends on | Risk | Status | Commit | Audit fix |
 |---|---|---|---|---|---|---|---|---|---|
 |  Package skeleton, models and config | Codex | Claude subagent | B1 | — | low | Pending | Done, audit pending | pending |
 |  State store with safe promotion | Codex | Claude subagent | B1 | T01 | medium | Pending | Done, audit pending | pending |
 |  GitHub GraphQL source and budgets | Codex | Claude subagent | B1 | T01 | high | Pending | Done, audit pending | pending |
-| T04 | Enrichment adapters | Codex | Claude subagent | B2 | T01 | medium | Corrections | 4c87086 | — |
-| T05 | Scoring and export | Codex | Claude subagent | B2 | T02, T03, T04 | high | Corrections | 4c87086 | — |
+| T04 | Enrichment adapters | Codex | Claude subagent | B2 | T01 | medium | Corrections (round 2, LOW) | 4c87086 | 6653b63 |
+| T05 | Scoring and export | Codex | Claude subagent | B2 | T02, T03, T04 | high | Corrections (round 2, LOW) | 4c87086 | 6653b63 |
 | T06 | Gates 2 and 3 and abort rule | Codex | Claude subagent | B3 | T05 | low | Pending | — | — |
 | T07 | Release round trip and CLI | Codex | Claude subagent | B3 | T02, T06 | medium | Pending | — | — |
 | T08 | Workflow, runbook and docs | Codex | Claude subagent | B3 | T07 | low | Pending | — | — |

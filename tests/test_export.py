@@ -105,7 +105,34 @@ def test_default_output_location(repo, labels_path, tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert write_listings(output) == Path("site/src/data/listings.json")
     assert Path("site/src/data/listings.json").is_file()
-    assert Path("state/evidence.jsonl").is_file()
+    assert Path("site/src/data/listings.evidence.jsonl").is_file()
+    assert not Path("state/evidence.jsonl").exists()
+
+
+def test_dry_output_preserves_production_evidence(repo, labels_path, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    legacy_evidence = Path("state/evidence.jsonl")
+    legacy_evidence.parent.mkdir()
+    legacy_evidence.write_bytes(b"previous production evidence")
+    output = document([repo], [score(repo)], labels_path)
+    path = write_listings(output)
+    evidence_path = Path("site/src/data/listings.evidence.jsonl")
+    previous_listing = path.read_bytes()
+    previous_evidence = evidence_path.read_bytes()
+
+    dry_output = build_listings(
+        [repo], [score(repo, 1, run_id="dry-run")], run_id="dry-run",
+        generated_at=NOW, labels_path=labels_path,
+    )
+    dry_path = Path("site/src/data/listings.dry.json")
+    assert write_listings(dry_output, dry_path) == dry_path
+    assert Listings.model_validate_json(dry_path.read_text(encoding="utf-8")) == dry_output
+    dry_evidence = json.loads(Path("site/src/data/listings.dry.evidence.jsonl").read_text(encoding="utf-8"))
+    assert dry_evidence["run_id"] == "dry-run"
+    assert Evidence.model_validate(dry_evidence["evidence"]) == dry_output.scoring_details[repo.github_id].evidence[0]
+    assert path.read_bytes() == previous_listing
+    assert evidence_path.read_bytes() == previous_evidence
+    assert legacy_evidence.read_bytes() == b"previous production evidence"
 
 
 @pytest.mark.parametrize("csv_text", [
@@ -159,6 +186,7 @@ def test_export_schema_rejects_inconsistent_rows(repo, labels_path, mode):
     elif mode == "null_score":
         row["score"]["total"] = None
     elif mode == "coverage":
+        row["coverage"] = 0
         row["score"]["coverage"] = 0
     elif mode == "row_coverage":
         row["coverage"] = 0.7
@@ -182,7 +210,8 @@ def test_export_schema_rejects_inconsistent_rows(repo, labels_path, mode):
         details["evidence"][0]["repo_id"] = "other"
     else:
         data["score_version"] = "v999"
-    with pytest.raises(ValidationError):
+    match = "Published listings require evaluated scores" if mode == "coverage" else None
+    with pytest.raises(ValidationError, match=match):
         Listings.model_validate(data)
 
 

@@ -19,7 +19,6 @@ from pipeline.sources._enrichment import utc_time
 
 DEFAULT_LABELS_PATH = Path("data/labelled_repos_for_review.csv")
 DEFAULT_OUTPUT_PATH = Path("site/src/data/listings.json")
-DEFAULT_EVIDENCE_PATH = Path("state/evidence.jsonl")
 SUMMARY_LINK_LIMIT = 3
 SUMMARY_TEXT_LIMIT = 256
 
@@ -213,15 +212,18 @@ def _write_atomic(path: Path, chunks: Iterable[str]) -> Path:
 
 def write_listings(
     listings: Listings, path: Path = DEFAULT_OUTPUT_PATH, *,
-    evidence_path: Path = DEFAULT_EVIDENCE_PATH,
+    evidence_path: Path | None = None,
 ) -> Path:
     """Write full local evidence first, then atomically replace compact site JSON.
 
     Both files are validated before writing and replaced individually. Evidence
     is a diagnostic snapshot, tagged with run ID; it is not canonical state.
-    Pass a separate evidence_path as well as path for an isolated dry run.
+    Evidence defaults to a sibling <stem>.evidence.jsonl derived from path,
+    keeping dry-run output separate unless evidence_path is explicitly shared.
     """
-    if Path(path).resolve() == Path(evidence_path).resolve():
+    path = Path(path)
+    evidence_path = path.with_suffix(".evidence.jsonl") if evidence_path is None else Path(evidence_path)
+    if path.resolve() == evidence_path.resolve():
         raise ValueError("Listings and full evidence require separate paths")
     validated = Listings.model_validate_json(listings.model_dump_json())
     compact = validated.model_copy(update={"scoring_details": {

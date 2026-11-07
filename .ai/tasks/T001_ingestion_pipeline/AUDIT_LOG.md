@@ -41,7 +41,7 @@ Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user) · closed
 ## B2 (T04-T05) — round 1 · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
 
 Range: `9793c48..4c87086` (base `9793c48`, end `4c87086`)
-Review: ask_high · HIGH present → reviewed by the user 07 November 2026: "A Approve as proposed" (every proposed resolution stands) · raw report: subagent/B2_audit_r1_out.md
+Review: ask_high · HIGH present → reviewed by the user 07 November 2026: "A Approve as proposed" (every proposed resolution stands) · Codex resolutions: F1 ACCEPTED, F2 PARTIALLY_ACCEPTED (coverage on row), F3 ACCEPTED, F4 ACCEPTED, F5 ACCEPTED, F6 ACCEPTED, F7 ACCEPTED, F8 DEFERRED to T09, F9 PARTIALLY_ACCEPTED · fixes in `6653b63` · round 2 re-check of the fix commit running · raw report: subagent/B2_audit_r1_out.md
 
 **In short:** PASS_WITH_FINDINGS · findings B/H/M/L/N: 0/1/3/4/1 · needs you: yes (one HIGH)
 
@@ -57,13 +57,34 @@ Review: ask_high · HIGH present → reviewed by the user 07 November 2026: "A A
 
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
-| F1 | T05 | HIGH | copyleft SPDX ids from GitHub (`GPL-3.0`, `AGPL-3.0`, `LGPL-2.1`) never match; copyleft repos lose the licence weight | ACCEPTED | ranking bias on about 9% of repos; proven by own CSVs | normalise suffixes and add GitHub ids; parametrised test over real licence values; docs fix | approve | pending |
-| F2 | T04/T05 | MEDIUM | advisories component always unsupported; max coverage 0.70; not visible on the row | PARTIALLY_ACCEPTED | design limit of deps.dev project endpoint; weight change belongs with request 4 | add `coverage` to the listing row; DECISIONS entry; request 4 resolves packages or rebalances | approve (partial: coverage on the row; rest to request 4) | pending |
-| F3 | T05 | MEDIUM | full adapter payloads serialised into the site JSON | ACCEPTED | multi-megabyte site file | compact summary in listings.json; full evidence to state/evidence.jsonl; size test | approve | pending |
-| F4 | T04 | MEDIUM | HN hit with null url raises and fails the component | ACCEPTED | benign input | skip null-url hits; fixture | approve | pending |
-| F5 | T04 | LOW | 404 from HF or HN search mapped to absent | ACCEPTED | silent signal loss | `absent_statuses` parameter | approve | pending |
-| F6 | T04 | LOW | deps.dev project identity not verified | ACCEPTED | parity with Scorecard | `links_repo` check | approve | pending |
-| F7 | T05 | LOW | provisional labels join by full_name only | ACCEPTED (docs) | gold labels not yet available | note in docs/scoring.md | approve (docs) | pending |
-| F8 | T04 | LOW | live API shapes unverified | DEFERRED | only T09 can confirm | record real fixtures in T09 | approve (defer to T09) | pending |
-| F9 | cross | NOTE | line-length advisory; unclosed client in a test | PARTIALLY_ACCEPTED | cosmetic | `with` on the client | approve (partial) | pending |
+| F1 | T05 | HIGH | copyleft SPDX ids from GitHub (`GPL-3.0`, `AGPL-3.0`, `LGPL-2.1`) never match; copyleft repos lose the licence weight | ACCEPTED | ranking bias on about 9% of repos; proven by own CSVs | normalise suffixes and add GitHub ids; parametrised test over real licence values; docs fix | approve | fixed in `6653b63` |
+| F2 | T04/T05 | MEDIUM | advisories component always unsupported; max coverage 0.70; not visible on the row | PARTIALLY_ACCEPTED | design limit of deps.dev project endpoint; weight change belongs with request 4 | add `coverage` to the listing row; DECISIONS entry; request 4 resolves packages or rebalances | approve (partial: coverage on the row; rest to request 4) | fixed in `6653b63` |
+| F3 | T05 | MEDIUM | full adapter payloads serialised into the site JSON | ACCEPTED | multi-megabyte site file | compact summary in listings.json; full evidence to state/evidence.jsonl; size test | approve | fixed in `6653b63` |
+| F4 | T04 | MEDIUM | HN hit with null url raises and fails the component | ACCEPTED | benign input | skip null-url hits; fixture | approve | fixed in `6653b63` |
+| F5 | T04 | LOW | 404 from HF or HN search mapped to absent | ACCEPTED | silent signal loss | `absent_statuses` parameter | approve | fixed in `6653b63` |
+| F6 | T04 | LOW | deps.dev project identity not verified | ACCEPTED | parity with Scorecard | `links_repo` check | approve | fixed in `6653b63` |
+| F7 | T05 | LOW | provisional labels join by full_name only | ACCEPTED (docs) | gold labels not yet available | note in docs/scoring.md | approve (docs) | fixed in `6653b63` |
+| F8 | T04 | LOW | live API shapes unverified | DEFERRED | only T09 can confirm | record real fixtures in T09 | approve (defer to T09) | fixed in `6653b63` |
+| F9 | cross | NOTE | line-length advisory; unclosed client in a test | PARTIALLY_ACCEPTED | cosmetic | `with` on the client | approve (partial) | fixed in `6653b63` |
 
+
+## B2 (T04-T05) — round 2 (re-check of the fix commit) · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
+
+Range: `4c87086..6653b63` (base `4c87086`, end `6653b63`) · raw report: subagent/B2_audit_r2_out.md
+Review: ask_high · no BLOCKER or HIGH → auto · the last automatic round; the LOW fixes below get no further audit
+
+**In short:** PASS_WITH_FINDINGS · round-1 HIGH resolved and verified · findings B/H/M/L/N: 0/0/0/3/2 · needs you: no
+
+- **F1 (LOW, T05) Zero-coverage envelope rule no longer tested** → ACCEPTED: set both row and score coverage to 0 in the test mode.
+- **F2 (LOW, T05→T07) Dry-run evidence can overwrite the real file** → ACCEPTED: derive the evidence path from the listings path; T07 brief names both paths.
+- **F3 (LOW, T05→T07/T08) Full evidence lost on the CI runner** → DEFERRED to T07: upload `evidence.jsonl` alongside the SQLite asset; in the B3 brief.
+- **F4 (NOTE, T05→T06) Exported rows are `PublishedListing`, not `Listing`** → DEFERRED to T06: gate 2 validates `pipeline.export.Listings`; in the B3 brief.
+- **F5 (NOTE, T05) Licence canary fails with a bare KeyError** → ACCEPTED: `pytest.fail` with a clear message.
+
+| ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| F1 | T05 | LOW | coverage test mode no longer reaches the envelope rule | ACCEPTED | lost regression guard | set row and score coverage to 0 | — (auto) | pending |
+| F2 | T05→T07 | LOW | default evidence path shared by dry and real runs | ACCEPTED | silent overwrite | derive from listings path | — (auto) | pending |
+| F3 | T05→T07/T08 | LOW | evidence.jsonl discarded on the Actions runner | DEFERRED | belongs to the release round trip | T07 uploads it with the SQLite asset | — (auto) | deferred |
+| F4 | T05→T06 | NOTE | gate 2 must validate PublishedListing | DEFERRED | T06 not written yet | in the B3 brief | — (auto) | deferred |
+| F5 | T05 | NOTE | licence canary raises KeyError | ACCEPTED | clearer failure | pytest.fail message | — (auto) | pending |
