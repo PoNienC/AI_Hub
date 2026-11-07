@@ -1,0 +1,18 @@
+# Pipeline state and large re-fetchable data
+state/
+data/readmes/
+
+# Codex run logs (large)
+.ai/tasks/*/codex/*.log
+
+# Personal note, never committed
+/HANDOVER.md
+
+# Environments and caches
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.*
+site/dist/
