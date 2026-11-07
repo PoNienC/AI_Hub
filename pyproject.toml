@@ -7,13 +7,14 @@ name = "ai-hub-pipeline"
 version = "0.1.0"
 description = "Repository ingestion and evidence for the AI Hub gateway"
 requires-python = ">=3.13"
-dependencies = ["httpx>=0.28,<1", "pydantic>=2.10,<3"]
+dependencies = ["httpx>=0.28,<1", "pydantic>=2.10,<3", "jinja2>=3.1,<4", "markdown-it-py>=3,<5"]
 
 [project.scripts]
 pipeline = "pipeline.cli:main"
 
 [dependency-groups]
 dev = [
+    "pip-audit>=2.9,<3",
     "pytest>=8,<10",
     "pytest-cov>=6,<8",
     "pyyaml>=6,<7",
@@ -22,6 +23,9 @@ dev = [
 
 [tool.setuptools.packages.find]
 include = ["pipeline*"]
+
+[tool.setuptools.package-data]
+"pipeline.site" = ["templates/*.html"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

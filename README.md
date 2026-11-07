@@ -19,8 +19,9 @@ uv run pipeline gates --path site/src/data/listings.dry.json
 ```
 
 Dry runs use live source APIs, temporary state and separate
-`listings.dry.json` / `listings.dry.evidence.jsonl` outputs. The production command
-pulls state, ingests, enriches, scores, exports, gates, promotes and uploads:
+`listings.dry.json` / `listings.dry.evidence.jsonl` outputs, with static pages in
+`site/dist.dry/`. The production command pulls state, ingests, enriches, scores,
+exports, builds the site, gates, promotes and uploads:
 
 ```powershell
 uv run pipeline run
@@ -43,6 +44,43 @@ database and `evidence.jsonl`. Full evidence stays outside the production site
 data. Gate or budget failures retain the last good files and append diagnostics
 to `state/failures.jsonl`.
 
+## Live site
+
+The production URL after go-live is [AI Hub](https://ponienc.github.io/AI_Hub/).
+The current site uses Jinja2 templates and a small level filter; repository
+routes use stable GitHub IDs. Data age is calculated in the browser. Labels and
+test statuses remain explicit, and scores preserve the exported order.
+
+Preview the bundled 50-row sample locally without credentials or source APIs:
+
+```powershell
+uv run pipeline site build --input tests/fixtures/listings_sample.json --output site/dist.dry
+uv run python -m http.server 8000 --bind 127.0.0.1 --directory site/dist.dry
+```
+
+Open `http://127.0.0.1:8000/`. To preview a live dry run, substitute
+`site/src/data/listings.dry.json` for the sample input. The default
+`uv run pipeline site build` reads `site/src/data/listings.json` and replaces
+`site/dist/`; it needs an existing export but no credentials or state store.
+
+Owner go-live steps, after review:
+
+1. Merge the approved request branch into `main` and make `main` the default
+   branch, so the scheduled workflow can run there.
+2. Make the repository public at go-live, as agreed. GitHub Free requires a
+   public repository for Pages; private-repository Pages requires an eligible
+   paid plan. A private repository alone does not make the website private.
+   See the [Pages visibility entry](docs/runbook.md#pages-visibility).
+3. In **Settings → Pages → Build and deployment**, select **GitHub Actions**
+   as the source. Check that the `github-pages` environment permits `main`.
+4. In **Actions → Refresh repository data → Run workflow**, select `main` for
+   the first dispatch. Confirm both `refresh` and `deploy` succeed and open the
+   production URL. The existing six-hour schedule then refreshes it.
+
+CI uses the built-in token; no personal token secret is needed. The Pages
+upload follows the verified release push and a final site build/check. Only
+the deploy job receives Pages/OIDC write permissions and deploys from `main`.
+
 ## Checks
 
 After creating `_build/pytest` and setting `PYTEST_DEBUG_TEMPROOT` as described
@@ -64,13 +102,15 @@ they never call live APIs. No separate type-check command is configured.
 | `tests/` | Offline unit and integration tests, recorded JSON and fake CLI fixtures |
 | `data/` | Candidate repositories and provisional label CSVs |
 | `state/` | Ignored SQLite state, full evidence and run/failure diagnostics |
-| `site/src/data/` | Generated listings; the frontend is a later request |
-| `.github/workflows/refresh.yml` | Six-hourly/manual gated refresh and failure reporting |
+| `pipeline/site/` | Static site builder, packaged templates and light gate 5 |
+| `site/src/data/` | Generated listings consumed by the static builder |
+| `site/dist/`, `site/dist.dry/` | Ignored production and preview pages |
+| `.github/workflows/refresh.yml` | Six-hourly/manual gated refresh, failure reporting and Pages deploy |
 | `.github/dependabot.yml` | Weekly uv and GitHub Actions dependency updates |
 | `docs/` | Architecture, scoring policy and operational runbook |
 | `.ai/` | Shared dual-agent plans and handovers |
 
 Read the [scoring policy](docs/scoring.md) for weights, evidence limits and
 unevaluated checks, and the [runbook](docs/runbook.md) for setup, failures and
-rollback. Labelling, sandbox runs, the trust layer and static-site deployment
-arrive in subsequent requests.
+rollback. Labelling, sandbox runs, the trust layer and a richer frontend arrive
+in subsequent requests.

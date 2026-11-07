@@ -75,7 +75,10 @@ def seed_state(settings, repo, count=5):
     output = Path("site/src/data/listings.json")
     output.parent.mkdir(parents=True)
     output.write_bytes(b"previous listings")
-    return [settings.state_dir / "gateway.sqlite", settings.state_dir / "evidence.jsonl", output]
+    index = Path("site/dist/index.html")
+    index.parent.mkdir(parents=True)
+    index.write_bytes(b"previous site")
+    return [settings.state_dir / "gateway.sqlite", settings.state_dir / "evidence.jsonl", output, index]
 
 
 def failures(settings):
@@ -96,6 +99,13 @@ def test_dry_run_offline_limit_five_preserves_production(setup, offline, repo, m
     output = Path("site/src/data/listings.dry.json")
     document = Listings.model_validate_json(output.read_bytes())
     assert len(document.listings) == 5
+    dist = Path("site/dist.dry")
+    assert len(list((dist / "repos").glob("*.html"))) == 5
+    assert (dist / "index.html").is_file()
+    assert Path("site/dist").exists() is existing
+    status = json.loads((dist / "status.json").read_text(encoding="utf-8"))
+    assert status["run_id"] == document.run_id
+    assert {check["name"] for check in status["checks"]} == {"listings_schema", "gate_2", "gate_3", "gate_5"}
     lines = output.with_suffix(".evidence.jsonl").read_text(encoding="utf-8").splitlines()
     assert len(lines) == 20
     assert {json.loads(line)["run_id"] for line in lines} == {document.run_id}
@@ -110,6 +120,7 @@ def test_real_run_order_and_success_log(setup, offline, monkeypatch):
     for owner, name, event in [
         (cli.GitHubSource, "search", "ingest"), (cli, "score_repo", "score"),
         (cli, "write_listings", "export"), (cli, "check_gates", "gates"),
+        (cli, "build_site", "site"), (cli, "gate_5", "gate_5"),
         (StateStore, "promote", "promote"),
     ]:
         original = getattr(owner, name)
@@ -135,24 +146,33 @@ def test_real_run_order_and_success_log(setup, offline, monkeypatch):
 
     monkeypatch.setattr(release, "push", pushed)
     assert cli.main(["run", "--limit", "1"], client=offline[0]) == 0
-    assert events == ["pull", "ingest", *(["enrich"] * 4), "score", "export", "gates", "promote", "push"]
+    assert events == ["pull", "ingest", *(["enrich"] * 4), "score", "export", "site", "gates", "gate_5", "promote", "push"]
     with closing(sqlite3.connect(setup.state_dir / "gateway.sqlite")) as conn:
         status, rows_in, rows_out, gates = conn.execute(
             "SELECT status, rows_in, rows_out, gate_results_json FROM run_log"
         ).fetchone()
         assert (status, rows_in, rows_out) == ("succeeded", 1, 1)
-        assert json.loads(gates) == {"gate_2": True, "gate_3": True}
+        assert json.loads(gates) == {"gate_2": True, "gate_3": True, "gate_5": True}
         assert conn.execute("SELECT COUNT(*) FROM snapshots").fetchone()[0] == 1
         assert conn.execute("SELECT COUNT(*) FROM scores").fetchone()[0] == 1
     assert cli.main(["gates"]) == 0
 
 
-@pytest.mark.parametrize("fault", ["gate_2", "gate_3", "github_budget", "http_budget", "export"])
+@pytest.mark.parametrize("fault", ["gate_2", "gate_3", "gate_5", "github_budget", "http_budget", "export"])
 def test_failure_rolls_back_and_appends_once(setup, offline, repo, monkeypatch, fault):
     paths = seed_state(setup, repo)
     before = [path.read_bytes() for path in paths]
     monkeypatch.setattr(release, "push", lambda *_: pytest.fail("failed run uploaded"))
-    if fault.startswith("gate_"):
+    if fault == "gate_5":
+        original = cli.build_site
+
+        def broken(*args, **kwargs):
+            dist = original(*args, **kwargs)
+            (dist / "broken.html").write_text('<a href="missing.html">broken</a>', encoding="utf-8")
+            return dist
+
+        monkeypatch.setattr(cli, "build_site", broken)
+    elif fault.startswith("gate_"):
         def rejected(*args, **kwargs):
             raise GateFailure(fault, "fixture", "rejected")
         monkeypatch.setattr(cli, "check_gates", rejected)
@@ -173,6 +193,9 @@ def test_failure_rolls_back_and_appends_once(setup, offline, repo, monkeypatch, 
         assert (setup.state_dir / "failure-title.txt").read_text(encoding="utf-8").strip() == latest.issue_title
         assert (setup.state_dir / "failure-body.md").read_text(encoding="utf-8") == latest.issue_body
         assert "offline-secret" not in latest.model_dump_json()
+        if fault == "gate_5":
+            assert latest.failed_step == "gate_5"
+            assert "broken.html" in latest.reason
     assert recorded[0].run_id != recorded[1].run_id
     assert not Path("state/gateway.work.sqlite").exists()
 
@@ -327,3 +350,50 @@ def test_invalid_limit_exits_two(setup, value):
     with pytest.raises(SystemExit) as caught:
         cli.main(["run", "--limit", value])
     assert caught.value.code == 2
+
+
+@pytest.mark.parametrize("defaults", [False, True])
+def test_site_build_needs_no_settings_or_credentials(tmp_path, monkeypatch, defaults):
+    sample = Path(__file__).parent / "fixtures/listings_sample.json"
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(cli.Settings, "from_env", lambda: pytest.fail("site build loaded settings"))
+    monkeypatch.delenv("GH_TOKEN", raising=False)
+    if defaults:
+        source = Path("site/src/data/listings.json")
+        source.parent.mkdir(parents=True)
+        source.write_bytes(sample.read_bytes())
+        args, output = ["site", "build"], Path("site/dist")
+    else:
+        output = tmp_path / "preview"
+        args = ["site", "build", "--input", str(sample), "--output", str(output)]
+    assert cli.main(args) == 0
+    assert (output / "index.html").is_file()
+    assert not Path("state").exists()
+
+
+def test_failed_site_build_returns_one_and_retains_site(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    output = Path("site/dist")
+    output.mkdir(parents=True)
+    (output / "index.html").write_bytes(b"previous")
+    assert cli.main(["site", "build", "--input", "missing.json"]) == 1
+    assert (output / "index.html").read_bytes() == b"previous"
+    assert not Path("state").exists()
+
+
+def test_site_swap_failure_rolls_back_without_promotion(setup, offline, repo, monkeypatch):
+    paths = seed_state(setup, repo)
+    before = [path.read_bytes() for path in paths]
+    original = Path.replace
+
+    def locked(self, destination):
+        if self.name == "site" and self.parent.name.startswith(".pipeline-site-"):
+            raise PermissionError("site locked")
+        return original(self, destination)
+
+    monkeypatch.setattr(Path, "replace", locked)
+    monkeypatch.setattr(StateStore, "promote", lambda *_: pytest.fail("site swap failed before promotion"))
+    failure = cli.run_pipeline(setup, transfer=False, client=offline[0], limit=5)
+    assert failure.failed_step == "promote"
+    assert [path.read_bytes() for path in paths] == before
+    assert not list(Path("site").glob(".*-site-*"))

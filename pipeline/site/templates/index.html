@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Find your next AI tool</h1>
+<p>Explore repositories by topic and skill level. Scores reflect evaluated evidence and coverage.</p>
+<label for="level">Skill level</label>
+<select id="level"><option value="all">All levels</option>{% for level in levels %}<option value="{{ level }}">{{ level | replace('_', ' ') }}</option>{% endfor %}<option value="pending">Pending</option></select>
+{% for topic, rows in groups.items() %}
+<section data-topic="{{ topic }}">
+  <h2><a href="topics/{{ topic }}.html">{{ topic | replace('_', ' ') | capitalize }}</a></h2>
+  <ol>{% for row in rows[:10] %}
+    <li data-level="{{ row.level or 'pending' }}"><a href="repos/{{ row.repo.github_id }}.html">{{ row.repo.full_name }}</a> — {{ '%.1f' | format(row.score.total) }}/100 · {{ '%.0f' | format(row.coverage * 100) }}% coverage · {{ row.level or 'pending' }} · {{ row.label_status }} · {{ row.tested }}</li>
+  {% endfor %}</ol>
+  <p class="empty"{% if rows %} hidden{% endif %}>No entries for this topic and level.</p>
+</section>
+{% endfor %}
+{% endblock %}
+{% block scripts %}
+<script>
+  document.getElementById('level').addEventListener('change', event => {
+    document.querySelectorAll('[data-level]').forEach(row => { row.hidden = event.target.value !== 'all' && row.dataset.level !== event.target.value; });
+    document.querySelectorAll('[data-topic]').forEach(section => { section.querySelector('.empty').hidden = !!section.querySelector('[data-level]:not([hidden])'); });
+  });
+</script>
+{% endblock %}

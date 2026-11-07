@@ -2,14 +2,16 @@
 
 import json
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 
 import pytest
 
 from pipeline.budgets import BudgetExceeded
 from pipeline.export import build_listings, write_listings
 from pipeline.failure import RunFailure, abort_run
-from pipeline.gates import GateFailure, check_gates, gate_2, gate_3
+from pipeline.gates import GateFailure, check_gates, gate_2, gate_3, gate_5
 from pipeline.scoring import score_repo
+from pipeline.site.builder import build
 from pipeline.store import StateStore
 
 NOW = datetime(2026, 11, 7, 12, tzinfo=UTC)
@@ -150,3 +152,34 @@ def test_abort_preserves_canonical_and_uses_one_record(tmp_path, repo, error, st
     assert "Rows out: 8" in failure.issue_body
     assert "state/logs/failed_run.log" in failure.issue_body
     assert "secret payload" not in failure.issue_body
+
+
+@pytest.fixture
+def site(tmp_path):
+    return build(Path(__file__).parent / "fixtures/listings_sample.json", tmp_path / "dist")
+
+
+def test_gate_5_clean_site(site):
+    assert gate_5(site) is None
+
+
+@pytest.mark.parametrize("fault,rule,page", [
+    ("link", "links", "topics/coding_agent.html"),
+    ("size", "size", "repos/oversize.html"),
+    ("topics", "topics", "index.html"),
+    ("index", "index", "index.html"),
+])
+def test_gate_5_rejects_site_and_names_page(site, fault, rule, page):
+    path = site / page
+    if fault == "link":
+        path.write_text('<a href="../missing.html">broken</a>', encoding="utf-8")
+    elif fault == "size":
+        path.write_text("x" * 200_001, encoding="utf-8")
+    elif fault == "topics":
+        path.write_text("<h1>No topics</h1>", encoding="utf-8")
+    else:
+        path.unlink()
+    with pytest.raises(GateFailure) as caught:
+        gate_5(site)
+    assert (caught.value.gate, caught.value.rule) == ("gate_5", rule)
+    assert page in str(caught.value)

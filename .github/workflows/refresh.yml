@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
       UV_CACHE_DIR: ${{ github.workspace }}/_build/uv-cache
       UV_PYTHON_INSTALL_DIR: ${{ github.workspace }}/_build/uv-python
@@ -30,7 +30,7 @@ jobs:
       - name: Check out source
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ github.token }}
           persist-credentials: false
       - name: Set up uv
         uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
@@ -51,6 +51,15 @@ jobs:
         run: uv run pipeline run --no-release
       - name: Upload and verify promoted state
         run: uv run pipeline release push
+      - name: Build published site
+        run: uv run pipeline site build
+      - name: Check published site and data
+        run: uv run pipeline gates
+      - name: Upload Pages artefact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: site/dist/
+          retention-days: 14
       - name: Report failure
         if: failure()
         shell: bash
@@ -78,3 +87,20 @@ jobs:
             state/failure-body.md
             state/logs/
             site/src/data/listings.json
+            site/dist/
+
+  deploy:
+    needs: refresh
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

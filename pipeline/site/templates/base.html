@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }} · AI Hub</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.6; }
+    body { max-width: 70rem; margin: auto; padding: 1.5rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    a { color: light-dark(#164db0, #a2c7ff); }
+    h1, h2 { line-height: 1.25; } section { margin-block: 2.5rem; }
+    li { margin-block: .8rem; } .note, footer { color: light-dark(#515969, #bbc1cc); }
+    dt { font-weight: 650; } dd { margin: 0 0 1rem; }
+    table { border-collapse: collapse; display: block; overflow-x: auto; }
+    th, td { text-align: left; padding: .5rem; border-bottom: 1px solid #888; }
+    pre { overflow-x: auto; } p, li, dd, td { overflow-wrap: anywhere; }
+    select { padding: .4rem; font: inherit; } [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main"><a href="{{ root }}index.html">AI Hub</a><a href="{{ root }}how_we_grade.html">How we grade</a><a href="{{ root }}status.json">Build status</a></nav>
+  <p class="note">Provisional labels are unreviewed; pending labels are unassigned; untested means no dated sandbox run.</p>
+  <main>{% block content %}{% endblock %}</main>
+  <footer>
+    <p>Data generated <time id="data-time" datetime="{{ document.generated_at.isoformat() }}">{{ document.generated_at.isoformat() }}</time> · <span id="data-age"></span></p>
+    <p>Score {{ document.score_version }} · Run {{ document.run_id }} · {{ document.listings | length }} listings</p>
+  </footer>
+  <script>
+    const generated = Date.parse(document.getElementById('data-time').dateTime);
+    const showAge = () => { document.getElementById('data-age').textContent = Math.max(0, Math.floor((Date.now() - generated) / 60000)) + ' minutes old'; };
+    showAge(); setInterval(showAge, 60000);
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

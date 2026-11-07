@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ topic | replace('_', ' ') | capitalize }}</h1>
+<ol>{% for row in rows %}
+  <li><a href="../repos/{{ row.repo.github_id }}.html">{{ row.repo.full_name }}</a> — {{ '%.1f' | format(row.score.total) }}/100 · {{ '%.0f' | format(row.coverage * 100) }}% coverage · {{ row.level or 'pending' }} · {{ row.label_status }} · {{ row.tested }}</li>
+{% else %}<li>No entries for this topic.</li>{% endfor %}</ol>
+{% endblock %}

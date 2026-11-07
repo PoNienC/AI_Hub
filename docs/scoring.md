@@ -52,7 +52,7 @@ presence separately from `advisories_status: unsupported` and
 zero vulnerabilities. The scoring contract accepts a future, separately verified
 package assessment only when `advisories_status` is explicitly `present` and
 `advisory_count` is a non-negative integer. Package resolution and such assessment
-are not implemented by these tasks; ordinary T04 output leaves this 20% unevaluated.
+are not implemented by the current adapters; ordinary output leaves this 20% unevaluated.
 
 B1 provides one `latestRelease`. That cannot establish cadence. The scorer
 accepts optional `release_history` timestamps, deduplicates them and includes the
@@ -64,7 +64,7 @@ creation fail the component. These tasks do not fetch release history, so B1
 alone leaves this 10% unevaluated too.
 With the current adapters and no release history, maximum coverage is 0.70.
 Weights and score version remain unchanged; package resolution and any weight
-rebalance are deferred to request 4 (the trust layer).
+rebalance are deferred to request 5 (the trust layer).
 
 Licence classes are an explicit discovery policy, not a legal assessment.
 Recognised permissive identifiers are MIT, Apache-2.0, BSD-2-Clause,
@@ -125,7 +125,7 @@ have null topic/level and `pending`. Invalid categories, duplicate names,
 missing columns or a missing CSV fail export; no labels are silently invented.
 This provisional name-based join does not follow renames: a renamed repository
 loses its provisional label and becomes `pending` until the CSV is updated.
-Gold labels in request 2 will be keyed by the stable `github_id`.
+Gold labels in request 3 will be keyed by the stable `github_id`.
 
 Rows sort by descending total then descending push time, with unknown push
 times last. Name and stable ID break remaining ties. Raw stars and velocity
@@ -166,13 +166,23 @@ uploaded or site deployed by scoring/export.
 
 ## CLI publication and release retention
 
-`pipeline run` stages the export and validates the on-disk `Listings` envelope
-with gates 2 and 3 before replacing production files. The CLI explicitly routes
+`pipeline run` stages the export and Jinja2 site, validates the on-disk `Listings`
+envelope with gates 2 and 3 and checks site links, page sizes and topic navigation
+with light gate 5 before replacing production files. The CLI explicitly routes
 full production evidence to `state/evidence.jsonl` and uploads it alongside
 `state/gateway.sqlite` on the `data-latest` release. It never relies on
 `write_listings`' default sibling evidence path for production publication.
-`pipeline run --dry-run` uses temporary state and writes only
-`site/src/data/listings.dry.json` and `listings.dry.evidence.jsonl` as data
-outputs, with no promotion or release transfer. Run diagnostics remain in
+`pipeline run --dry-run` uses temporary state and writes
+`site/src/data/listings.dry.json`, `listings.dry.evidence.jsonl` and the static
+site in `site/dist.dry/`, with no promotion or release transfer. Run diagnostics remain in
 `state/`. See the [runbook](runbook.md) for gates, failure history, publication
 ordering and recovery from interrupted multi-file updates.
+
+The MVP site (request 2) reads only the validated export. It preserves its order,
+shows the top ten entries per topic on the index and links repository pages by
+stable `github_id`. Repository pages show score, coverage, component statuses,
+licence class, push/release dates, label status and `untested`. Pending labels
+have their own topic page. All repository text is escaped and outbound links
+are restricted to HTTPS GitHub destinations. This policy is rendered to
+`how_we_grade.html`; unresolved local and non-GitHub links are stripped while
+their text remains. The richer Astro frontend is deferred to request 6.

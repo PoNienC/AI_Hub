@@ -1,0 +1,6359 @@
+{
+  "generated_at": "2026-11-07T17:06:43.075027Z",
+  "score_version": "v0",
+  "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+  "listings": [
+    {
+      "repo": {
+        "github_id": "R_kgDOOGQl_g",
+        "full_name": "Kilo-Org/kilocode",
+        "html_url": "https://github.com/Kilo-Org/kilocode",
+        "description": "Kilo is the all-in-one agentic engineering platform. Build, ship, and iterate faster with the most popular open source coding agent.",
+        "language": "TypeScript",
+        "stars": 27898,
+        "forks": 3344,
+        "open_issues": 667,
+        "created_at": "2025-03-10T15:34:26Z",
+        "pushed_at": "2026-11-07T17:03:54Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "ai-coding",
+          "vscode",
+          "vscode-extension",
+          "ai-developer-tools",
+          "chatgpt",
+          "claude",
+          "gemini",
+          "sonnet",
+          "ai",
+          "ai-age",
+          "cli",
+          "jetbrains"
+        ],
+        "release_tag": "v7.8.27",
+        "release_published_at": "2026-11-05T12:40:58Z",
+        "contributor_count": 1191,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "a1944bab3c3e6b5586f5a9065bd5df1cd7cc1e28",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOGQl_g",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99946514854452,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.99979943070419
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQxs0bQ",
+        "full_name": "can1357/oh-my-pi",
+        "html_url": "https://github.com/can1357/oh-my-pi",
+        "description": "⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
+        "language": "TypeScript",
+        "stars": 38128,
+        "forks": 4306,
+        "open_issues": 2724,
+        "created_at": "2025-12-31T14:01:28Z",
+        "pushed_at": "2026-11-07T17:03:22Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "bun",
+          "cli",
+          "typescript",
+          "ai-agent",
+          "coding-assistant",
+          "llm",
+          "ai-coding-agent",
+          "anthropic",
+          "claude",
+          "mcp",
+          "multi-provider",
+          "openai",
+          "rust",
+          "terminal",
+          "tui"
+        ],
+        "release_tag": "v18.18.0",
+        "release_published_at": "2026-11-07T01:49:16Z",
+        "contributor_count": 830,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "f2d2f46beec167df596820335d692289b245706c",
+        "query_tags": [
+          "coding_agent",
+          "mcp"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQxs0bQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99936367721017,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.9997613789538
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQBkEfw",
+        "full_name": "getpaseo/paseo",
+        "html_url": "https://github.com/getpaseo/paseo",
+        "description": "Orchestrate multiple coding agents from desktop and mobile",
+        "language": "TypeScript",
+        "stars": 23391,
+        "forks": 2873,
+        "open_issues": 870,
+        "created_at": "2025-10-13T12:27:02Z",
+        "pushed_at": "2026-11-07T16:54:28Z",
+        "licence_spdx": "NOASSERTION",
+        "topics": [
+          "agents",
+          "claude-code",
+          "codex",
+          "opencode",
+          "ade",
+          "copilot",
+          "developer-tools",
+          "mobile",
+          "orchestration",
+          "pi",
+          "android",
+          "hermes",
+          "ios",
+          "linux",
+          "windows"
+        ],
+        "release_tag": "v0.15.3",
+        "release_published_at": "2026-11-06T16:02:49Z",
+        "contributor_count": 357,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "1f6df3c3e4c7fd9af6ffac8976398ec4ce54efe6",
+        "query_tags": [
+          "coding_agent",
+          "agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQBkEfw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": null,
+          "maintenance": 99.99767037431823,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.25,
+        "total": 99.99860222459094
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.25
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOSIatDw",
+        "full_name": "esengine/DeepSeek-Reasonix",
+        "html_url": "https://github.com/esengine/DeepSeek-Reasonix",
+        "description": "A reliable coding agent for complex software engineering tasks.",
+        "language": "Go",
+        "stars": 36129,
+        "forks": 2505,
+        "open_issues": 640,
+        "created_at": "2026-04-21T08:27:02Z",
+        "pushed_at": "2026-11-07T16:27:43Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "agent",
+          "agent-framework",
+          "deepseek",
+          "ink",
+          "llm",
+          "prompt-caching",
+          "r1",
+          "tool-use",
+          "tui",
+          "typescript",
+          "ai-agent",
+          "ai-coding",
+          "cli",
+          "coding-agent",
+          "developer-tools",
+          "terminal",
+          "dsh",
+          "dsh-plugin"
+        ],
+        "release_tag": "studio-v2.58.0",
+        "release_published_at": "2026-11-07T15:54:11Z",
+        "contributor_count": 192,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "23fd6a5a44b1a631f9b1d6319e54b8d6207f337d",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOSIatDw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99258095270484,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.99721785726432
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORYX6aQ",
+        "full_name": "rohitg00/agentmemory",
+        "html_url": "https://github.com/rohitg00/agentmemory",
+        "description": "#1 Persistent memory for AI coding agents based on real-world benchmarks",
+        "language": "TypeScript",
+        "stars": 30187,
+        "forks": 2672,
+        "open_issues": 237,
+        "created_at": "2026-02-25T07:32:52Z",
+        "pushed_at": "2026-11-07T16:18:41Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "agentmemory",
+          "agents",
+          "ai",
+          "claude",
+          "claudecode",
+          "codex",
+          "copilot",
+          "cursor",
+          "genai",
+          "harness",
+          "hermes",
+          "memory",
+          "openclaw",
+          "omp",
+          "opencode",
+          "pi"
+        ],
+        "release_tag": "v0.9.32",
+        "release_published_at": "2026-11-04T19:06:52Z",
+        "contributor_count": 68,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "3686943fc16b7160bad3cd563235a1387bf1c3e0",
+        "query_tags": [
+          "coding_agent",
+          "agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORYX6aQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99086228197932,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.99657335574223
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOJ7brVg",
+        "full_name": "openinterpreter/openinterpreter",
+        "html_url": "https://github.com/openinterpreter/openinterpreter",
+        "description": "A coding agent for open models like Kimi K3 and GLM 5.3",
+        "language": "Rust",
+        "stars": 68826,
+        "forks": 5937,
+        "open_issues": 20,
+        "created_at": "2023-07-14T07:10:44Z",
+        "pushed_at": "2026-11-07T16:17:11Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "coding-agent",
+          "deepseek",
+          "kimi",
+          "qwen",
+          "rust",
+          "acp",
+          "python"
+        ],
+        "release_tag": "rust-v0.0.59",
+        "release_published_at": "2026-11-04T03:22:02Z",
+        "contributor_count": 625,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "6be2f5c02341f3284d97594800672e0d2551d0c2",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOJ7brVg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99057689385147,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.99646633519428
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQAyAEg",
+        "full_name": "gastownhall/beads",
+        "html_url": "https://github.com/gastownhall/beads",
+        "description": "Beads - A memory upgrade for your coding agent",
+        "language": "Go",
+        "stars": 28572,
+        "forks": 1936,
+        "open_issues": 1052,
+        "created_at": "2025-10-12T03:09:46Z",
+        "pushed_at": "2026-11-07T16:12:11Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "agents",
+          "claude-code",
+          "coding"
+        ],
+        "release_tag": "v1.3.4",
+        "release_published_at": "2026-11-04T09:22:51Z",
+        "contributor_count": 482,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "b34cb72474469a485ab88af5d0329656eb8cb108",
+        "query_tags": [
+          "coding_agent",
+          "agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQAyAEg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.98962560009195,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.99610960003447
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQ2bIeQ",
+        "full_name": "Yeachan-Heo/oh-my-claudecode",
+        "html_url": "https://github.com/Yeachan-Heo/oh-my-claudecode",
+        "description": "Teams-first Multi-agent orchestration for Claude Code",
+        "language": "TypeScript",
+        "stars": 40663,
+        "forks": 3639,
+        "open_issues": 14,
+        "created_at": "2026-01-09T03:36:29Z",
+        "pushed_at": "2026-11-07T16:06:05Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "agentic-coding",
+          "ai-agents",
+          "claude",
+          "claude-code",
+          "oh-my-opencode",
+          "opencode",
+          "vibe-coding",
+          "automation",
+          "multi-agent-systems",
+          "parallel-execution"
+        ],
+        "release_tag": "v5.7.30",
+        "release_published_at": "2026-11-02T03:59:05Z",
+        "contributor_count": 166,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "7a1a9200c91db333588fbc979cce0ef8c32c973c",
+        "query_tags": [
+          "coding_agent",
+          "ai_agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQ2bIeQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.98846502170535,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.99567438313949
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOOuNPoA",
+        "full_name": "langchain-ai/open-swe",
+        "html_url": "https://github.com/langchain-ai/open-swe",
+        "description": "An Open-Source Asynchronous Coding Agent",
+        "language": "Python",
+        "stars": 11178,
+        "forks": 1316,
+        "open_issues": 0,
+        "created_at": "2025-05-21T21:44:24Z",
+        "pushed_at": "2026-11-07T14:40:39Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "agent",
+          "ai",
+          "anthropic",
+          "claudecode",
+          "llm",
+          "openai",
+          "agents",
+          "llms"
+        ],
+        "release_tag": "desktop-v0.3.13",
+        "release_published_at": "2026-11-06T21:18:53Z",
+        "contributor_count": 71,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "99e72dec8e63889aa69686582a5b0981349de9ce",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOuNPoA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.97221058233447,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.98957896837541
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORUQ5bw",
+        "full_name": "Leonxlnx/taste-skill",
+        "html_url": "https://github.com/Leonxlnx/taste-skill",
+        "description": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages",
+        "language": "JavaScript",
+        "stars": 111515,
+        "forks": 7496,
+        "open_issues": 6,
+        "created_at": "2026-02-19T21:44:05Z",
+        "pushed_at": "2026-11-07T12:34:18Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "claude-code",
+          "codex",
+          "frontend",
+          "agent-skills",
+          "ai-agents",
+          "anti-slop",
+          "cursor",
+          "design-system",
+          "landing-page",
+          "ui-design",
+          "web-design"
+        ],
+        "release_tag": "v2.5.1",
+        "release_published_at": "2026-11-07T12:34:31Z",
+        "contributor_count": 22,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "137884559496d80f0ba21cdbc4af9fe7c82c68b0",
+        "query_tags": [
+          "coding_agent",
+          "ai_agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORUQ5bw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.94817138903159,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.98056427088684
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOMUOeoQ",
+        "full_name": "CodebuffAI/freebuff",
+        "html_url": "https://github.com/CodebuffAI/freebuff",
+        "description": "The free coding agent",
+        "language": "TypeScript",
+        "stars": 14008,
+        "forks": 1496,
+        "open_issues": 159,
+        "created_at": "2024-07-09T21:21:56Z",
+        "pushed_at": "2026-11-07T09:35:49Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 33,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "8822d561239fe8a067c06f0c0c874c5e5b49ea25",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOMUOeoQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.91421337279617,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.96783001479855
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOSzNzqQ",
+        "full_name": "alphaXiv/OpenResearch",
+        "html_url": "https://github.com/alphaXiv/OpenResearch",
+        "description": "Turn your coding agents into research agents",
+        "language": "Rust",
+        "stars": 7971,
+        "forks": 536,
+        "open_issues": 38,
+        "created_at": "2026-06-07T01:51:39Z",
+        "pushed_at": "2026-11-07T05:09:36Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v0.2.25",
+        "release_published_at": "2026-11-07T01:29:21Z",
+        "contributor_count": 38,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "0722dd027a636ccabf0b9ab55bdafac67fddcab2",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOSzNzqQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.8635633220605,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.9488362457727
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQz8JRg",
+        "full_name": "1jehuang/jcode",
+        "html_url": "https://github.com/1jehuang/jcode",
+        "description": "High performance coding agent harness written in Rust, built for heavy multi-agent dev workflows",
+        "language": "Rust",
+        "stars": 21591,
+        "forks": 2511,
+        "open_issues": 606,
+        "created_at": "2026-01-05T09:43:36Z",
+        "pushed_at": "2026-11-07T03:22:39Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "ai",
+          "claude",
+          "cli",
+          "coding-agent",
+          "llm",
+          "mcp",
+          "openai",
+          "rust",
+          "terminal",
+          "tui",
+          "ai-agent",
+          "ai-coding-agent"
+        ],
+        "release_tag": "v0.99.1",
+        "release_published_at": "2026-10-22T14:56:09Z",
+        "contributor_count": 51,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "920837df818f7b08cc94f2089685d3969d670f20",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQz8JRg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.84321514854452,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.94120568070419
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOMSqWwQ",
+        "full_name": "cline/cline",
+        "html_url": "https://github.com/cline/cline",
+        "description": "Autonomous coding agent as an SDK, IDE extension, or CLI assistant.",
+        "language": "TypeScript",
+        "stars": 71445,
+        "forks": 7890,
+        "open_issues": 937,
+        "created_at": "2024-07-06T07:28:10Z",
+        "pushed_at": "2026-11-07T00:08:40Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": "v4.1.26",
+        "release_published_at": "2026-10-26T09:06:50Z",
+        "contributor_count": 373,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "1b870599c7e12943b5a71b69c975744d61cbc25a",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOMSqWwQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.80630812165462,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.92736554562048
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOGKvm4w",
+        "full_name": "vercel/turborepo",
+        "html_url": "https://github.com/vercel/turborepo",
+        "description": "The build system for coding agents.",
+        "language": "Rust",
+        "stars": 31311,
+        "forks": 2480,
+        "open_issues": 3,
+        "created_at": "2021-10-05T17:37:11Z",
+        "pushed_at": "2026-11-06T23:22:34Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "monorepo",
+          "javascript",
+          "typescript",
+          "build-tool",
+          "build-system"
+        ],
+        "release_tag": "v2.11.10",
+        "release_published_at": "2026-10-20T20:36:23Z",
+        "contributor_count": 772,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "50deb56f99cd57f5b4e3441f69bb80085a828293",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOGKvm4w",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.79753719319191,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.92407644744696
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOSka2Jw",
+        "full_name": "akitaonrails/ai-memory",
+        "html_url": "https://github.com/akitaonrails/ai-memory",
+        "description": "Solution for long term memory for agent coding CLIs and to facilitate handoff between different agent vendors",
+        "language": "Rust",
+        "stars": 15316,
+        "forks": 1116,
+        "open_issues": 28,
+        "created_at": "2026-05-21T23:23:51Z",
+        "pushed_at": "2026-11-06T20:25:29Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v3.4.3",
+        "release_published_at": "2026-11-06T20:51:47Z",
+        "contributor_count": 187,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "1af1bfcfeb15890c42941630174323b8a7a981b4",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOSka2Jw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.76384553920916,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.91144207720342
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOOt6mSA",
+        "full_name": "charmbracelet/crush",
+        "html_url": "https://github.com/charmbracelet/crush",
+        "description": "Glamourous agentic coding for all 💘",
+        "language": "Go",
+        "stars": 28988,
+        "forks": 2358,
+        "open_issues": 290,
+        "created_at": "2025-05-21T12:14:57Z",
+        "pushed_at": "2026-11-07T01:50:19Z",
+        "licence_spdx": "NOASSERTION",
+        "topics": [
+          "agentic-ai",
+          "ai",
+          "llms",
+          "ravishing"
+        ],
+        "release_tag": "v0.100.0",
+        "release_published_at": "2026-11-05T17:47:22Z",
+        "contributor_count": 144,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "a339ba97ef011533c74d93f49b4e49a1ae38d3a0",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOt6mSA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": null,
+          "maintenance": 99.82564792378551,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.25,
+        "total": 99.8953887542713
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.25
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOPt7f_g",
+        "full_name": "ChromeDevTools/chrome-devtools-mcp",
+        "html_url": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+        "description": "Chrome DevTools for coding agents",
+        "language": "TypeScript",
+        "stars": 54929,
+        "forks": 5236,
+        "open_issues": 87,
+        "created_at": "2025-09-11T10:39:55Z",
+        "pushed_at": "2026-11-06T14:30:59Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "mcp-server",
+          "puppeteer",
+          "chrome-devtools",
+          "browser",
+          "chrome",
+          "debugging",
+          "devtools",
+          "mcp"
+        ],
+        "release_tag": "chrome-devtools-mcp-v1.12.0",
+        "release_published_at": "2026-10-22T13:47:54Z",
+        "contributor_count": 165,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "970f869de1a33bfb798e36d3a46976e94c025ae1",
+        "query_tags": [
+          "coding_agent",
+          "mcp",
+          "mcp_server"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOPt7f_g",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.69639881165969,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.88614955437238
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOT-aKmg",
+        "full_name": "hardbeat920/monocode",
+        "html_url": "https://github.com/hardbeat920/monocode",
+        "description": "A GUI for your coding agents",
+        "language": "Rust",
+        "stars": 3718,
+        "forks": 416,
+        "open_issues": 318,
+        "created_at": "2026-08-20T09:16:02Z",
+        "pushed_at": "2026-11-06T12:47:32Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v0.16.0",
+        "release_published_at": "2026-10-19T13:08:45Z",
+        "contributor_count": 89,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "b162262518314bee6d73e78c3acbc47aac69c5b3",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOT-aKmg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.67671654377537,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.87876870391575
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORph4Mg",
+        "full_name": "mattpocock/sandcastle",
+        "html_url": "https://github.com/mattpocock/sandcastle",
+        "description": "Orchestrate sandboxed coding agents in TypeScript with sandcastle.run()",
+        "language": "TypeScript",
+        "stars": 8906,
+        "forks": 962,
+        "open_issues": 96,
+        "created_at": "2026-03-17T14:49:05Z",
+        "pushed_at": "2026-11-06T12:23:02Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v0.14.0",
+        "release_published_at": "2026-11-02T22:13:58Z",
+        "contributor_count": 20,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "1706758baf08a682a9dd51dcac76a3ea62880e6d",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORph4Mg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.67205520435375,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.87702070163266
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOJm0kOQ",
+        "full_name": "continuedev/continue",
+        "html_url": "https://github.com/continuedev/continue",
+        "description": "open-source coding agent",
+        "language": "TypeScript",
+        "stars": 36427,
+        "forks": 5559,
+        "open_issues": 288,
+        "created_at": "2023-05-24T03:39:39Z",
+        "pushed_at": "2026-11-05T15:28:28Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "open-source",
+          "developer-tools",
+          "ai",
+          "agent",
+          "cli"
+        ],
+        "release_tag": "v2.0.0-vscode",
+        "release_published_at": "2026-06-19T00:24:01Z",
+        "contributor_count": 463,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "66477d92b4cdb8772a74e28852cef31cd37019e4",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOJm0kOQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.43336291617516,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.78751109356568
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQk_qIw",
+        "full_name": "mistralai/mistral-vibe",
+        "html_url": "https://github.com/mistralai/mistral-vibe",
+        "description": "Minimal CLI coding agent by Mistral",
+        "language": "Python",
+        "stars": 5331,
+        "forks": 788,
+        "open_issues": 283,
+        "created_at": "2025-12-08T18:56:59Z",
+        "pushed_at": "2026-11-05T13:09:11Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": "v3.1.0",
+        "release_published_at": "2026-11-04T08:16:43Z",
+        "contributor_count": 184,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "ed65047556d9f1846c1fca5f02bde142f18e9810",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQk_qIw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.40686304301434,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.77757364113036
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOO7s21A",
+        "full_name": "BloopAI/vibe-kanban",
+        "html_url": "https://github.com/BloopAI/vibe-kanban",
+        "description": "Get 10X more out of Claude Code, Codex or any coding agent",
+        "language": "Rust",
+        "stars": 28613,
+        "forks": 3054,
+        "open_issues": 388,
+        "created_at": "2025-06-14T19:10:21Z",
+        "pushed_at": "2026-11-04T11:52:09Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "agent",
+          "ai-agents",
+          "kanban",
+          "management",
+          "task-manager"
+        ],
+        "release_tag": "v0.1.44-20260424091429",
+        "release_published_at": "2026-04-24T09:46:55Z",
+        "contributor_count": 70,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "32c6ed4ccd4649a9c78058a694dbbc1297c421a8",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOO7s21A",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.11823417441971,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.66933781540739
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOUicD1g",
+        "full_name": "zai-org/ZCode",
+        "html_url": "https://github.com/zai-org/ZCode",
+        "description": "Z.ai's coding agent harness. Powerful, intelligent, extensible.",
+        "language": "TypeScript",
+        "stars": 8542,
+        "forks": 2663,
+        "open_issues": 0,
+        "created_at": "2026-09-20T12:01:16Z",
+        "pushed_at": "2026-11-04T10:41:06Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": "v3.17.2",
+        "release_published_at": "2026-11-04T10:41:06Z",
+        "contributor_count": 14,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "71eab6644179df85945b985c3cfe141bf2b7fe6d",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOUicD1g",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.10471629009703,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.66426860878637
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORtpoUA",
+        "full_name": "agegr/pi-web",
+        "html_url": "https://github.com/agegr/pi-web",
+        "description": "Web UI for the pi coding agent",
+        "language": "TypeScript",
+        "stars": 8088,
+        "forks": 1215,
+        "open_issues": 26,
+        "created_at": "2026-03-22T13:46:04Z",
+        "pushed_at": "2026-11-04T08:40:15Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v0.15.0",
+        "release_published_at": "2026-11-03T16:26:07Z",
+        "contributor_count": 160,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "37a4993ce288a2809310ff078d9c588ed3e5f5ff",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORtpoUA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.0817235199296,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.6556463199736
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOOpsm6A",
+        "full_name": "HKUDS/DeepCode",
+        "html_url": "https://github.com/HKUDS/DeepCode",
+        "description": "\"DeepCode: Open Agentic Coding (Agent Harness & Loop Engineering & Multi-Agent Orchestration)\"",
+        "language": "Python",
+        "stars": 16815,
+        "forks": 2194,
+        "open_issues": 15,
+        "created_at": "2025-05-14T05:23:02Z",
+        "pushed_at": "2026-11-02T08:25:57Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "agentic-coding",
+          "llm-agent",
+          "harness-engineering"
+        ],
+        "release_tag": "v2.3.1",
+        "release_published_at": "2026-10-12T10:09:09Z",
+        "contributor_count": 44,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "af09eae1b4f1cb8800ed586a9f51fb1852016ad5",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOpsm6A",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 98.53105761429795,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.44914660536173
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORRCyRw",
+        "full_name": "addyosmani/agent-skills",
+        "html_url": "https://github.com/addyosmani/agent-skills",
+        "description": "Production-grade engineering skills for AI coding agents.",
+        "language": "JavaScript",
+        "stars": 113854,
+        "forks": 11897,
+        "open_issues": 57,
+        "created_at": "2026-02-15T20:20:26Z",
+        "pushed_at": "2026-11-01T19:24:49Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "agent-skills",
+          "antigravity",
+          "claude-code",
+          "cursor",
+          "skills",
+          "codex"
+        ],
+        "release_tag": "0.6.15",
+        "release_published_at": "2026-10-31T06:40:31Z",
+        "contributor_count": 81,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "7f610b8ca80ff9bc7ba7f95f3209430c3481891d",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORRCyRw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 98.38244016122843,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 99.39341506046065
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORmDA6Q",
+        "full_name": "JCodesMore/ai-website-cloner-template",
+        "html_url": "https://github.com/JCodesMore/ai-website-cloner-template",
+        "description": "Clone any website with one command using AI coding agents",
+        "language": "TypeScript",
+        "stars": 38788,
+        "forks": 5761,
+        "open_issues": 3,
+        "created_at": "2026-03-13T11:14:39Z",
+        "pushed_at": "2026-10-19T22:56:31Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "ai",
+          "ai-agents",
+          "ai-tools",
+          "automation",
+          "boilerplate",
+          "claude",
+          "claude-code",
+          "clone",
+          "developer-tools",
+          "nextjs",
+          "react",
+          "reverse-engineering",
+          "shadcn-ui",
+          "skills",
+          "tailwindcss",
+          "template",
+          "typescript",
+          "web-scraping",
+          "website-clone"
+        ],
+        "release_tag": "v0.6.1",
+        "release_published_at": "2026-10-05T07:34:26Z",
+        "contributor_count": 15,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "4ed16fd46744c8939f1f70045824f31511daae1c",
+        "query_tags": [
+          "coding_agent",
+          "ai_agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORmDA6Q",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 94.86107410338977,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 98.07290278877115
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOScw2eQ",
+        "full_name": "ayghri/i-have-adhd",
+        "html_url": "https://github.com/ayghri/i-have-adhd",
+        "description": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+        "language": "Python",
+        "stars": 60419,
+        "forks": 3527,
+        "open_issues": 33,
+        "created_at": "2026-05-13T20:42:06Z",
+        "pushed_at": "2026-10-19T19:46:23Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "adhd",
+          "claude-",
+          "claude-code-plugin",
+          "claude-skills",
+          "developer-tools",
+          "productivity"
+        ],
+        "release_tag": "v0.4.1",
+        "release_published_at": "2026-10-19T19:46:23Z",
+        "contributor_count": 49,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "d784a4359d68ae959e85ac7cd22bbebef42cc682",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOScw2eQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 94.8248995726947,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 98.0593373397605
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOSAP_Zw",
+        "full_name": "browser-use/video-use",
+        "html_url": "https://github.com/browser-use/video-use",
+        "description": "Edit videos with coding agents",
+        "language": "Python",
+        "stars": 30687,
+        "forks": 3560,
+        "open_issues": 35,
+        "created_at": "2026-04-12T01:34:42Z",
+        "pushed_at": "2026-10-08T22:17:01Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 10,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "cbdf40f636199d300df78b04c87d8f6a38f1bdb8",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOSAP_Zw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 91.83986025255264,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 96.93994759470723
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOS-b1TA",
+        "full_name": "cloudflare/security-audit-skill",
+        "html_url": "https://github.com/cloudflare/security-audit-skill",
+        "description": "A coding-agent skill for multi-phase security audits with independently verified, machine-readable findings",
+        "language": "JavaScript",
+        "stars": 65228,
+        "forks": 4234,
+        "open_issues": 43,
+        "created_at": "2026-06-18T14:08:44Z",
+        "pushed_at": "2026-09-14T19:29:02Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 74,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "c80305c88cd5087db37f76a0d230c1fc092c864c",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOS-b1TA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 85.23255748745878,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 94.46220905779704
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOPgr4jw",
+        "full_name": "agentsmd/agents.md",
+        "html_url": "https://github.com/agentsmd/agents.md",
+        "description": "AGENTS.md — a simple, open format for guiding coding agents",
+        "language": "TypeScript",
+        "stars": 25379,
+        "forks": 1943,
+        "open_issues": 99,
+        "created_at": "2025-08-19T17:22:54Z",
+        "pushed_at": "2026-09-10T18:46:16Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 23,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "8ce701e74909d5f08e2810380e0ff15f547aa0c8",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOPgr4jw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 84.12853034387683,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 94.04819887895381
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDON91aYw",
+        "full_name": "anthropics/claude-code",
+        "html_url": "https://github.com/anthropics/claude-code",
+        "description": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine tasks, explaining complex code, and handling git workflows - all through natural language commands.",
+        "language": "TypeScript",
+        "stars": 154893,
+        "forks": 25598,
+        "open_issues": 16164,
+        "created_at": "2025-02-22T17:41:21Z",
+        "pushed_at": "2026-11-06T17:04:01Z",
+        "licence_spdx": null,
+        "topics": [],
+        "release_tag": "v2.1.319",
+        "release_published_at": "2026-11-06T17:04:01Z",
+        "contributor_count": 71,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "70754c523454ad5fd94e5ef910cc347cf69e6f6b",
+        "query_tags": [
+          "coding_agent",
+          "claude_code"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDON91aYw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": null,
+          "maintenance": 99.72551474265919,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 60.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.3,
+        "total": 93.19609070466292
+      },
+      "level": "beginner",
+      "topic": "coding_agent",
+      "label_status": "provisional",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.3
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOPbFNkw",
+        "full_name": "earendil-works/pi",
+        "html_url": "https://github.com/earendil-works/pi",
+        "description": "AI agent toolkit: unified LLM API, agent loop, TUI, coding agent CLI",
+        "language": "TypeScript",
+        "stars": 120617,
+        "forks": 15532,
+        "open_issues": 231,
+        "created_at": "2025-08-09T14:03:50Z",
+        "pushed_at": "2026-11-07T16:59:52Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v1.5.0",
+        "release_published_at": "2026-11-02T11:05:31Z",
+        "contributor_count": 310,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "1cc6a371e34cd4f82d2917720577c54b77eaabd7",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOPbFNkw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99869777157852,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 20.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.45,
+        "total": 91.1106770349706
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.45
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOOiiGLw",
+        "full_name": "anomalyco/opencode",
+        "html_url": "https://github.com/anomalyco/opencode",
+        "description": "The open source coding agent.",
+        "language": "TypeScript",
+        "stars": 225230,
+        "forks": 30397,
+        "open_issues": 2631,
+        "created_at": "2025-04-30T20:08:00Z",
+        "pushed_at": "2026-11-07T16:29:19Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": "v1.19.5",
+        "release_published_at": "2026-10-28T06:17:49Z",
+        "contributor_count": 1078,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "79100ce69f4e0740918bdf7f2b9a969c73a1a0db",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOiiGLw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99288536670788,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 20.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.45,
+        "total": 91.1087395666804
+      },
+      "level": "beginner",
+      "topic": "coding_agent",
+      "label_status": "provisional",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.45
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOT1Dosw",
+        "full_name": "vercel-labs/fx",
+        "html_url": "https://github.com/vercel-labs/fx",
+        "description": "Unix like coding agent",
+        "language": "Zig",
+        "stars": 3791,
+        "forks": 433,
+        "open_issues": 89,
+        "created_at": "2026-08-11T08:57:04Z",
+        "pushed_at": "2026-11-07T13:24:02Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": "v0.0.16",
+        "release_published_at": "2026-10-29T21:29:25Z",
+        "contributor_count": 35,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "5a17909636ce23b9731aa34c3526c22a7f1db680",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOT1Dosw",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.95763359095953,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 20.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.45,
+        "total": 91.0969889747643
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.45
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORymbOg",
+        "full_name": "herdrdev/herdr",
+        "html_url": "https://github.com/herdrdev/herdr",
+        "description": "the runtime your coding agents live on",
+        "language": "Rust",
+        "stars": 49013,
+        "forks": 3946,
+        "open_issues": 417,
+        "created_at": "2026-03-27T17:54:33Z",
+        "pushed_at": "2026-11-07T12:32:55Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "agent",
+          "agent-orchestration",
+          "ai",
+          "ai-agents",
+          "claude-code",
+          "cli",
+          "codex",
+          "coding-agents",
+          "developer-tools",
+          "devtools",
+          "multiplexer",
+          "rust",
+          "terminal",
+          "terminal-multiplexer",
+          "terminal-ui",
+          "tmux",
+          "tui",
+          "workspace-manager"
+        ],
+        "release_tag": "v0.9.5",
+        "release_published_at": "2026-10-14T16:07:28Z",
+        "contributor_count": 94,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "55ea278919613ffcd4840c42f343c5fd2ed1aa02",
+        "query_tags": [
+          "coding_agent",
+          "ai_agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORymbOg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.94790819775812,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 20.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.45,
+        "total": 91.09374717703048
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.45
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORL8SIA",
+        "full_name": "zai-org/GLM-5",
+        "html_url": "https://github.com/zai-org/GLM-5",
+        "description": "GLM-5: From Vibe Coding to Agentic Engineering",
+        "language": null,
+        "stars": 7441,
+        "forks": 1017,
+        "open_issues": 19,
+        "created_at": "2026-02-09T08:17:02Z",
+        "pushed_at": "2026-10-15T01:36:08Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "agentic-ai",
+          "coding",
+          "llm",
+          "long-horizon"
+        ],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 7,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "b50da8f1ed05d96f27184200496acd59f3b345fb",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORL8SIA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 93.521579557474,
+          "release_cadence": null,
+          "contributors": 70.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 90.07059233405275
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOSXZbXg",
+        "full_name": "PrimeIntellect-ai/prime-agent",
+        "html_url": "https://github.com/PrimeIntellect-ai/prime-agent",
+        "description": "A self-improving RLM agent for coding workflows and long-running autonomous tasks.",
+        "language": "Rust",
+        "stars": 22616,
+        "forks": 2501,
+        "open_issues": 14,
+        "created_at": "2026-05-08T01:42:41Z",
+        "pushed_at": "2026-11-07T17:03:04Z",
+        "licence_spdx": "NOASSERTION",
+        "topics": [],
+        "release_tag": "v0.10.2",
+        "release_published_at": "2026-10-28T16:03:19Z",
+        "contributor_count": 33,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "58aa00abb81464ea35e71ecfa787a9eea42b1e46",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOSXZbXg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": null,
+          "maintenance": 99.9993065995846,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 20.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.3,
+        "total": 86.66631996645897
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.3
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOOYsS4Q",
+        "full_name": "openai/codex",
+        "html_url": "https://github.com/openai/codex",
+        "description": "Lightweight coding agent that runs in your terminal",
+        "language": "Rust",
+        "stars": 133569,
+        "forks": 21176,
+        "open_issues": 26687,
+        "created_at": "2025-04-13T05:37:54Z",
+        "pushed_at": "2026-11-07T12:41:30Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": "rust-v0.167.0",
+        "release_published_at": "2026-11-06T01:40:00Z",
+        "contributor_count": 732,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "06b02fced7db972084bf0188cb03f60375b51c1c",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOYsS4Q",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": 60.0,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.94954125204528,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": 100.0,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.7,
+        "total": 85.70347312543828
+      },
+      "level": "beginner",
+      "topic": "coding_agent",
+      "label_status": "provisional",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.7
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQM0_hQ",
+        "full_name": "shanraisshan/claude-code-best-practice",
+        "html_url": "https://github.com/shanraisshan/claude-code-best-practice",
+        "description": "from vibe coding to agentic engineering - practice makes claude perfect",
+        "language": "HTML",
+        "stars": 68763,
+        "forks": 6850,
+        "open_issues": 8,
+        "created_at": "2025-10-31T14:15:28Z",
+        "pushed_at": "2026-11-07T06:33:53Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "claude-ai",
+          "claude-code",
+          "best-practices",
+          "claude",
+          "claude-code-best-practices",
+          "agentic-engineering",
+          "anthropic",
+          "claude-code-agents",
+          "claude-code-commands",
+          "claude-code-skills",
+          "vibe-coding",
+          "boris",
+          "agentic-ai",
+          "agentic-coding",
+          "agentic-workflow",
+          "ai",
+          "context-engineering",
+          "pakistan",
+          "pakistani-developer",
+          "ai-agents"
+        ],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 4,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "2dd77404bead639c032ae7e7c93829a4a9613ed9",
+        "query_tags": [
+          "coding_agent",
+          "claude_code",
+          "ai_agents"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQM0_hQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.87959896386668,
+          "release_cadence": null,
+          "contributors": 40.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 84.95484961144999
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOR1lxFQ",
+        "full_name": "Kuberwastaken/claurst",
+        "html_url": "https://github.com/Kuberwastaken/claurst",
+        "description": "Agentic Coding for Builders who Ship",
+        "language": "Rust",
+        "stars": 10341,
+        "forks": 7660,
+        "open_issues": 22,
+        "created_at": "2026-03-31T09:23:58Z",
+        "pushed_at": "2026-10-26T16:08:43Z",
+        "licence_spdx": "GPL-3.0",
+        "topics": [
+          "claude",
+          "claude-code",
+          "cli",
+          "codex",
+          "gemini",
+          "rust",
+          "tui",
+          "claurst"
+        ],
+        "release_tag": "v0.2.1",
+        "release_published_at": "2026-10-26T16:08:44Z",
+        "contributor_count": 35,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "d5e144306dbfa8cc6ccdc51aad729a2d7cf838a1",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOR1lxFQ",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 60.0,
+          "maintenance": 96.70129480354198,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 83.76298555132823
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORCyC_A",
+        "full_name": "zarazhangrui/frontend-slides",
+        "html_url": "https://github.com/zarazhangrui/frontend-slides",
+        "description": "Create beautiful slides on the web using a coding agent's frontend skills",
+        "language": "JavaScript",
+        "stars": 32023,
+        "forks": 2454,
+        "open_issues": 26,
+        "created_at": "2026-01-28T00:42:34Z",
+        "pushed_at": "2026-06-23T20:08:19Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "ai-slides",
+          "anthropic",
+          "claude",
+          "claude-code",
+          "claude-skill",
+          "generative-ui",
+          "html",
+          "presentation",
+          "slides",
+          "vibe-coding"
+        ],
+        "release_tag": "v2.1.0",
+        "release_published_at": "2026-05-26T18:17:56Z",
+        "contributor_count": 8,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "bd4bd929069d569e7dfbe3e8d6be77431bb50e43",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORCyC_A",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 62.50030545803209,
+          "release_cadence": null,
+          "contributors": 80.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 80.93761454676202
+      },
+      "level": "beginner",
+      "topic": "mcp_server_or_skill",
+      "label_status": "provisional",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOSHx4Wg",
+        "full_name": "leigest519/OpenGame",
+        "html_url": "https://github.com/leigest519/OpenGame",
+        "description": "OpenGame: Open Agentic Coding for Games",
+        "language": "TypeScript",
+        "stars": 3051,
+        "forks": 445,
+        "open_issues": 12,
+        "created_at": "2026-04-20T15:28:16Z",
+        "pushed_at": "2026-09-03T17:11:09Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 5,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "91ff882e068e355e1a4232e421f771f0c3a367c8",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOSHx4Wg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 82.19262534641362,
+          "release_cadence": null,
+          "contributors": 50.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 80.8222345049051
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDORHhxQA",
+        "full_name": "MengTo/Skills",
+        "html_url": "https://github.com/MengTo/Skills",
+        "description": "Agent skills for designers and builders using Codex, Claude, Cursor, and other AI coding agents",
+        "language": "HTML",
+        "stars": 7293,
+        "forks": 850,
+        "open_issues": 5,
+        "created_at": "2026-02-03T10:10:55Z",
+        "pushed_at": "2026-11-05T15:47:18Z",
+        "licence_spdx": "MIT",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 2,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "47c3b6e12f3c827864c9d2aba4852a615f106126",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDORHhxQA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.43694612266934,
+          "release_cadence": null,
+          "contributors": 20.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 79.78885479600099
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOPB-92Q",
+        "full_name": "QwenLM/qwen-code",
+        "html_url": "https://github.com/QwenLM/qwen-code",
+        "description": "An open-source AI coding agent that lives in your terminal.",
+        "language": "TypeScript",
+        "stars": 29071,
+        "forks": 3328,
+        "open_issues": 1675,
+        "created_at": "2025-06-26T01:37:46Z",
+        "pushed_at": "2026-11-07T17:04:33Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [
+          "agentic",
+          "ai",
+          "ai-agent",
+          "ai-coding",
+          "cli",
+          "coding-agent",
+          "developer-tools",
+          "llm",
+          "mcp",
+          "qwen",
+          "terminal",
+          "typescript"
+        ],
+        "release_tag": "v0.26.9",
+        "release_published_at": "2026-11-06T16:07:57Z",
+        "contributor_count": 639,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "da3f979ff3f1fe7bf4239373fde8f7fda659ecea",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOPB-92Q",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": 40.0,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 99.99958881673325,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.65,
+        "total": 76.92298203463075
+      },
+      "level": "beginner",
+      "topic": "coding_agent",
+      "label_status": "provisional",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.65
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOQ5ZQsA",
+        "full_name": "21st-dev/1code",
+        "html_url": "https://github.com/21st-dev/1code",
+        "description": "Orchestration layer for coding agents (Claude Code, Codex)",
+        "language": "TypeScript",
+        "stars": 5572,
+        "forks": 606,
+        "open_issues": 26,
+        "created_at": "2026-01-14T02:12:40Z",
+        "pushed_at": "2026-03-06T21:10:12Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": "v0.0.84",
+        "release_published_at": "2026-03-06T21:10:12Z",
+        "contributor_count": 20,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "082960e663c7f0c81b50f002f9bd25b9e929fa1b",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOQ5ZQsA",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 32.649065605165525,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 74.74339960193707
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOTYoztg",
+        "full_name": "xai-org/grok-build",
+        "html_url": "https://github.com/xai-org/grok-build",
+        "description": "SpaceXAI's coding agent harness and TUI. Fullscreen, mouse interactive, extensible.",
+        "language": "Rust",
+        "stars": 27711,
+        "forks": 5239,
+        "open_issues": 0,
+        "created_at": "2026-07-14T20:04:23Z",
+        "pushed_at": "2026-09-29T16:57:13Z",
+        "licence_spdx": "Apache-2.0",
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 0,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "4569db83fe4fee02ba656f8eaa52db22e43e8e63",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOTYoztg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 89.31326207903666,
+          "release_cadence": null,
+          "contributors": 0.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 70.99247327963874
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOOJqz-Q",
+        "full_name": "opencode-ai/opencode",
+        "html_url": "https://github.com/opencode-ai/opencode",
+        "description": "A powerful AI coding agent. Built for the terminal.",
+        "language": "Go",
+        "stars": 13873,
+        "forks": 3163,
+        "open_issues": 116,
+        "created_at": "2025-03-16T23:38:55Z",
+        "pushed_at": "2025-09-18T02:54:28Z",
+        "licence_spdx": "MIT",
+        "topics": [
+          "ai",
+          "claude",
+          "code",
+          "llm",
+          "openai"
+        ],
+        "release_tag": "v0.0.55",
+        "release_published_at": "2025-06-27T06:51:34Z",
+        "contributor_count": 27,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "ea6a8fddd4411ada7263eb2600ace3fb74c726e1",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOOJqz-Q",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": 100.0,
+          "maintenance": 0.0,
+          "release_cadence": null,
+          "contributors": 100.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.4,
+        "total": 62.5
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.4
+    },
+    {
+      "repo": {
+        "github_id": "R_kgDOR1k2vg",
+        "full_name": "sanbuphy/learn-coding-agent",
+        "html_url": "https://github.com/sanbuphy/learn-coding-agent",
+        "description": "Research on Coding Agents",
+        "language": null,
+        "stars": 12310,
+        "forks": 19334,
+        "open_issues": 55,
+        "created_at": "2026-03-31T09:07:08Z",
+        "pushed_at": "2026-04-01T10:55:06Z",
+        "licence_spdx": null,
+        "topics": [],
+        "release_tag": null,
+        "release_published_at": null,
+        "contributor_count": 3,
+        "contributor_source": "mentionable_users",
+        "readme_sha": "49dfc23c45dc42e90e5091c1b75fcaa99ec8f437",
+        "query_tags": [
+          "coding_agent"
+        ]
+      },
+      "score": {
+        "repo_id": "R_kgDOR1k2vg",
+        "run_id": "0f37cde694714cf6a659daaab9bd64f7",
+        "score_version": "v0",
+        "components": {
+          "scorecard": null,
+          "advisories": null,
+          "licence": null,
+          "maintenance": 39.65532511810312,
+          "release_cadence": null,
+          "contributors": 30.0,
+          "hacker_news": null,
+          "stars": null,
+          "velocity": null
+        },
+        "coverage": 0.25,
+        "total": 35.79319507086187
+      },
+      "level": null,
+      "topic": null,
+      "label_status": "pending",
+      "tested": "untested",
+      "score_version": "v0",
+      "unevaluated_checks": [
+        "fake_stars",
+        "typosquat",
+        "sandbox_test"
+      ],
+      "coverage": 0.25
+    }
+  ],
+  "scoring_details": {
+    "R_kgDOGKvm4w": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 31311,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOGKvm4w",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:08.153029Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOGKvm4w",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:08.203084Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOGKvm4w",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:08.526238Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOGKvm4w",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:08.722349Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:08.722349+00:00",
+            "window_end": "2026-11-07T17:06:08.722349+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOJ7brVg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 68826,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOJ7brVg",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:21.360824Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOJ7brVg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:21.406303Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOJ7brVg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:21.605253Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOJ7brVg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:21.728411Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:21.728411+00:00",
+            "window_end": "2026-11-07T17:06:21.728411+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOJm0kOQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 36427,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOJm0kOQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:01.210535Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOJm0kOQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:01.257765Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOJm0kOQ",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:01.421533Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 1,
+            "links_truncated": false,
+            "links": [
+              {
+                "type": "model",
+                "id": "RichardErkhov/TechxGenus_-_CursorCore-Yi-1.5B-SR-awq",
+                "url": "https://huggingface.co/RichardErkhov/TechxGenus_-_CursorCore-Yi-1.5B-SR-awq"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOJm0kOQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:01.780119Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:01.780119+00:00",
+            "window_end": "2026-11-07T17:06:01.780119+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOMSqWwQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 71445,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOMSqWwQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:10.571501Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOMSqWwQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:10.621471Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOMSqWwQ",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:10.834782Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 30,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit",
+                "url": "https://huggingface.co/cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit"
+              },
+              {
+                "type": "model",
+                "id": "cyankiwi/Devstral-2-123B-Instruct-2512-AWQ-4bit",
+                "url": "https://huggingface.co/cyankiwi/Devstral-2-123B-Instruct-2512-AWQ-4bit"
+              },
+              {
+                "type": "model",
+                "id": "ExaltedSlayer/mistralai-devstral-small-2-24b-instruct-2512-mlx-mxfp4",
+                "url": "https://huggingface.co/ExaltedSlayer/mistralai-devstral-small-2-24b-instruct-2512-mlx-mxfp4"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOMSqWwQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:12.347188Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:12.347188+00:00",
+            "window_end": "2026-11-07T17:06:12.347188+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOMUOeoQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 14008,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOMUOeoQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:07.542560Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOMUOeoQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:07.595733Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOMUOeoQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:07.764018Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOMUOeoQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:07.877330Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:07.877330+00:00",
+            "window_end": "2026-11-07T17:06:07.877330+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDON91aYw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "present",
+        "licence": "absent",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "absent",
+      "stars": 154893,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDON91aYw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:40.656984Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDON91aYw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:40.707776Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDON91aYw",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:40.724737Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 60,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "redponike/MiniMax-M2-GGUF",
+                "url": "https://huggingface.co/redponike/MiniMax-M2-GGUF"
+              },
+              {
+                "type": "model",
+                "id": "a2s-ai/MiniMax-M2-AWQ",
+                "url": "https://huggingface.co/a2s-ai/MiniMax-M2-AWQ"
+              },
+              {
+                "type": "model",
+                "id": "QuixiAI/MiniMax-M2.1-bf16",
+                "url": "https://huggingface.co/QuixiAI/MiniMax-M2.1-bf16"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDON91aYw",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:42.391784Z",
+          "data": {
+            "mention_count": 3,
+            "window_start": "2026-10-08T17:06:42.391784+00:00",
+            "window_end": "2026-11-07T17:06:42.391784+00:00",
+            "top_item": {
+              "id": "50385272",
+              "title": "Claude Code sends your email address to websites",
+              "url": "https://github.com/anthropics/claude-code/issues/107757",
+              "discussion_url": "https://news.ycombinator.com/item?id=50385272",
+              "points": 1583,
+              "created_at_i": 1793917035
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOO7s21A": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 28613,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOO7s21A",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:18.355901Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOO7s21A",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:18.405002Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOO7s21A",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:18.513503Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOO7s21A",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:18.622276Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:18.622276+00:00",
+            "window_end": "2026-11-07T17:06:18.622276+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOGQl_g": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 27898,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOGQl_g",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:35.720482Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOGQl_g",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:35.764632Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOOGQl_g",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:35.771369Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 28,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit",
+                "url": "https://huggingface.co/cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit"
+              },
+              {
+                "type": "model",
+                "id": "cyankiwi/Devstral-2-123B-Instruct-2512-AWQ-4bit",
+                "url": "https://huggingface.co/cyankiwi/Devstral-2-123B-Instruct-2512-AWQ-4bit"
+              },
+              {
+                "type": "model",
+                "id": "ExaltedSlayer/mistralai-devstral-small-2-24b-instruct-2512-mlx-mxfp4",
+                "url": "https://huggingface.co/ExaltedSlayer/mistralai-devstral-small-2-24b-instruct-2512-mlx-mxfp4"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOGQl_g",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:36.768032Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:36.768032+00:00",
+            "window_end": "2026-11-07T17:06:36.768032+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOJqz-Q": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 13873,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOJqz-Q",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:18.868629Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOJqz-Q",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:18.916088Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOOJqz-Q",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:19.016033Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 4,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "TendieLabs/Frank-26B-A4B-GGUFs",
+                "url": "https://huggingface.co/TendieLabs/Frank-26B-A4B-GGUFs"
+              },
+              {
+                "type": "model",
+                "id": "jackasda211233/Qwen3.5-27B-Uncensored-RYS-Reasoner-GGUF",
+                "url": "https://huggingface.co/jackasda211233/Qwen3.5-27B-Uncensored-RYS-Reasoner-GGUF"
+              },
+              {
+                "type": "model",
+                "id": "danielcherubini/Qwen3.5-DeltaCoder-9B",
+                "url": "https://huggingface.co/danielcherubini/Qwen3.5-DeltaCoder-9B"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOJqz-Q",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:19.267860Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:19.267860+00:00",
+            "window_end": "2026-11-07T17:06:19.267860+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOYsS4Q": {
+      "component_statuses": {
+        "scorecard": "present",
+        "advisories": "unsupported",
+        "hacker_news": "present",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 133569,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOYsS4Q",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:02.023722Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOYsS4Q",
+          "source": "scorecard",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:02.075947Z",
+          "data": {
+            "score": 6,
+            "date": "2026-10-26"
+          },
+          "detail": null
+        },
+        {
+          "repo_id": "R_kgDOOYsS4Q",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:02.085790Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 9,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "AbdulElahGwaith/context7",
+                "url": "https://huggingface.co/AbdulElahGwaith/context7"
+              },
+              {
+                "type": "model",
+                "id": "MitakaKuma/BaT-Qwen3.5-9B-0815",
+                "url": "https://huggingface.co/MitakaKuma/BaT-Qwen3.5-9B-0815"
+              },
+              {
+                "type": "model",
+                "id": "MitakaKuma/BaT-Qwen3.5-4B-0815",
+                "url": "https://huggingface.co/MitakaKuma/BaT-Qwen3.5-4B-0815"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOYsS4Q",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:02.514326Z",
+          "data": {
+            "mention_count": 6,
+            "window_start": "2026-10-08T17:06:02.514326+00:00",
+            "window_end": "2026-11-07T17:06:02.514326+00:00",
+            "top_item": {
+              "id": "50060694",
+              "title": "Codex CLI installs a persistent, self-updating background daemon by default",
+              "url": "https://github.com/openai/codex/issues/48195",
+              "discussion_url": "https://news.ycombinator.com/item?id=50060694",
+              "points": 610,
+              "created_at_i": 1791829744
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOiiGLw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "present",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 225230,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOiiGLw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:05:57.252867Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOiiGLw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:05:57.457230Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOOiiGLw",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:05:57.919551Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 52,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "huihui-ai/Huihui-Qwen3-Coder-Next-abliterated",
+                "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3-Coder-Next-abliterated"
+              },
+              {
+                "type": "model",
+                "id": "huihui-ai/Huihui-Qwen3.5-35B-A3B-abliterated",
+                "url": "https://huggingface.co/huihui-ai/Huihui-Qwen3.5-35B-A3B-abliterated"
+              },
+              {
+                "type": "model",
+                "id": "bakosh/Huihui-Qwen3.5-35B-A3B-abliterated",
+                "url": "https://huggingface.co/bakosh/Huihui-Qwen3.5-35B-A3B-abliterated"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOiiGLw",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:05:58.822510Z",
+          "data": {
+            "mention_count": 1,
+            "window_start": "2026-10-08T17:05:58.822510+00:00",
+            "window_end": "2026-11-07T17:05:58.822510+00:00",
+            "top_item": {
+              "id": "50075319",
+              "title": "Major security regression merged into OpenCode V2",
+              "url": "https://github.com/anomalyco/opencode/pull/54921",
+              "discussion_url": "https://news.ycombinator.com/item?id=50075319",
+              "points": 18,
+              "created_at_i": 1791912049
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOpsm6A": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 16815,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOpsm6A",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:06.021751Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOpsm6A",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:06.072396Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOOpsm6A",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:06.200836Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOpsm6A",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:06.482904Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:06.482904+00:00",
+            "window_end": "2026-11-07T17:06:06.482904+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOt6mSA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "absent",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "absent",
+      "stars": 28988,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOt6mSA",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:08.999689Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOt6mSA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:09.052541Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOOt6mSA",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:09.215245Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 2,
+            "links_truncated": false,
+            "links": [
+              {
+                "type": "model",
+                "id": "AbdulElahGwaith/context7",
+                "url": "https://huggingface.co/AbdulElahGwaith/context7"
+              },
+              {
+                "type": "model",
+                "id": "SaylorTwift/crush",
+                "url": "https://huggingface.co/SaylorTwift/crush"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOt6mSA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:09.404040Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:09.404040+00:00",
+            "window_end": "2026-11-07T17:06:09.404040+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOOuNPoA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 11178,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOOuNPoA",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:15.417536Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOOuNPoA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:15.468881Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOOuNPoA",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:15.579252Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOOuNPoA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:15.952110Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:15.952110+00:00",
+            "window_end": "2026-11-07T17:06:15.952110+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOPB-92Q": {
+      "component_statuses": {
+        "scorecard": "present",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 29071,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOPB-92Q",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:23.016233Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOPB-92Q",
+          "source": "scorecard",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:23.067410Z",
+          "data": {
+            "score": 4,
+            "date": "2026-11-02"
+          },
+          "detail": null
+        },
+        {
+          "repo_id": "R_kgDOPB-92Q",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:23.235951Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": true,
+            "link_count": 100,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "Biomanticus/RYS-Qwen3.5-27B-gguf",
+                "url": "https://huggingface.co/Biomanticus/RYS-Qwen3.5-27B-gguf"
+              },
+              {
+                "type": "model",
+                "id": "zed122/Qwen3.5-4Bqwen35-4b-sft-adapter",
+                "url": "https://huggingface.co/zed122/Qwen3.5-4Bqwen35-4b-sft-adapter"
+              },
+              {
+                "type": "model",
+                "id": "Biomanticus/Biomanticus-ClaudeOpus4.6-Qwen3.5-27B_finetuned",
+                "url": "https://huggingface.co/Biomanticus/Biomanticus-ClaudeOpus4.6-Qwen3.5-27B_finetuned"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOPB-92Q",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:27.380603Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:27.380603+00:00",
+            "window_end": "2026-11-07T17:06:27.380603+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOPbFNkw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "present",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 120617,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOPbFNkw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:05:59.448488Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOPbFNkw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:05:59.504284Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOPbFNkw",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:05:59.549004Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 17,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "SaylorTwift/pi",
+                "url": "https://huggingface.co/SaylorTwift/pi"
+              },
+              {
+                "type": "space",
+                "id": "RoboAgentLab/README",
+                "url": "https://huggingface.co/spaces/RoboAgentLab/README"
+              },
+              {
+                "type": "model",
+                "id": "vincespeed/llm-runner-aio",
+                "url": "https://huggingface.co/vincespeed/llm-runner-aio"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOPbFNkw",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:00.219717Z",
+          "data": {
+            "mention_count": 1,
+            "window_start": "2026-10-08T17:06:00.219717+00:00",
+            "window_end": "2026-11-07T17:06:00.219717+00:00",
+            "top_item": {
+              "id": "50241468",
+              "title": "Chord, distributed objects and hot reload for pi-durable",
+              "url": "https://github.com/earendil-works/pi/blob/main/packages/chord/README.md",
+              "discussion_url": "https://news.ycombinator.com/item?id=50241468",
+              "points": 1,
+              "created_at_i": 1793009120
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOPgr4jw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 25379,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOPgr4jw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:29.916245Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOPgr4jw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:29.978062Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOPgr4jw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:30.132171Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOPgr4jw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:30.247392Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:30.247392+00:00",
+            "window_end": "2026-11-07T17:06:30.247392+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOPt7f_g": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 54929,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOPt7f_g",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:02.801505Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOPt7f_g",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:02.856654Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOPt7f_g",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:02.971478Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOPt7f_g",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:03.302843Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:03.302843+00:00",
+            "window_end": "2026-11-07T17:06:03.302843+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQ2bIeQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 40663,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQ2bIeQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:30.492673Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQ2bIeQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:30.541230Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQ2bIeQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:30.636485Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQ2bIeQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:30.770246Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:30.770246+00:00",
+            "window_end": "2026-11-07T17:06:30.770246+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQ5ZQsA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 5572,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQ5ZQsA",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:32.936966Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQ5ZQsA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:32.992301Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQ5ZQsA",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:33.195779Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQ5ZQsA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:33.343305Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:33.343305+00:00",
+            "window_end": "2026-11-07T17:06:33.343305+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQAyAEg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 28572,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQAyAEg",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:16.306229Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQAyAEg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:16.358750Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQAyAEg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:16.565672Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQAyAEg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:16.686432Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:16.686432+00:00",
+            "window_end": "2026-11-07T17:06:16.686432+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQBkEfw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "absent",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "absent",
+      "stars": 23391,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQBkEfw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:13.233360Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQBkEfw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:13.281717Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQBkEfw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:13.468899Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQBkEfw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:13.583560Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:13.583560+00:00",
+            "window_end": "2026-11-07T17:06:13.583560+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQM0_hQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 68763,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQM0_hQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:09.678931Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQM0_hQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:09.727961Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQM0_hQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:09.821819Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQM0_hQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:10.322313Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:10.322313+00:00",
+            "window_end": "2026-11-07T17:06:10.322313+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQk_qIw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 5331,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQk_qIw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:28.201206Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQk_qIw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:28.220046Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQk_qIw",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:28.310822Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 52,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit",
+                "url": "https://huggingface.co/cyankiwi/Devstral-Small-2-24B-Instruct-2512-AWQ-4bit"
+              },
+              {
+                "type": "model",
+                "id": "cyankiwi/Devstral-2-123B-Instruct-2512-AWQ-4bit",
+                "url": "https://huggingface.co/cyankiwi/Devstral-2-123B-Instruct-2512-AWQ-4bit"
+              },
+              {
+                "type": "model",
+                "id": "cyankiwi/Mistral-Medium-3.5-128B-AWQ-INT4",
+                "url": "https://huggingface.co/cyankiwi/Mistral-Medium-3.5-128B-AWQ-INT4"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQk_qIw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:29.659299Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:29.659299+00:00",
+            "window_end": "2026-11-07T17:06:29.659299+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQxs0bQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 38128,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQxs0bQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:20.365374Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQxs0bQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:20.415363Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQxs0bQ",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:20.515757Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 6,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "Infatoshi/DeepSeek-V4.1-Flash-1017-MXFP4-uncensored",
+                "url": "https://huggingface.co/Infatoshi/DeepSeek-V4.1-Flash-1017-MXFP4-uncensored"
+              },
+              {
+                "type": "model",
+                "id": "0xSojalSec/DeepSeek-V4.1-Flash-1017-MXFP4-uncensored",
+                "url": "https://huggingface.co/0xSojalSec/DeepSeek-V4.1-Flash-1017-MXFP4-uncensored"
+              },
+              {
+                "type": "model",
+                "id": "Lordking998/DeepSeek-V4.1-Flash-1017-MXFP4-uncensored",
+                "url": "https://huggingface.co/Lordking998/DeepSeek-V4.1-Flash-1017-MXFP4-uncensored"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQxs0bQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:21.107614Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:21.107614+00:00",
+            "window_end": "2026-11-07T17:06:21.107614+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOQz8JRg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 21591,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOQz8JRg",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:17.585725Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOQz8JRg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:17.635204Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOQz8JRg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:17.826391Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOQz8JRg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:18.106415Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:18.106415+00:00",
+            "window_end": "2026-11-07T17:06:18.106415+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOR1k2vg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "absent",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "absent",
+      "stars": 12310,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOR1k2vg",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:00.475915Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOR1k2vg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:00.517818Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOR1k2vg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:00.855186Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOR1k2vg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:00.958556Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:00.958556+00:00",
+            "window_end": "2026-11-07T17:06:00.958556+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOR1lxFQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "strong_copyleft",
+      "stars": 10341,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOR1lxFQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:05.329816Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOR1lxFQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:05.375455Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOR1lxFQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:05.586123Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOR1lxFQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:05.713972Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:05.713972+00:00",
+            "window_end": "2026-11-07T17:06:05.713972+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORCyC_A": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 32023,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORCyC_A",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.040509Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORCyC_A",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.070112Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORCyC_A",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.200643Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORCyC_A",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.324328Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:37.324328+00:00",
+            "window_end": "2026-11-07T17:06:37.324328+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORHhxQA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 7293,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORHhxQA",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:40.049721Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORHhxQA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:40.081203Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORHhxQA",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:40.215030Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORHhxQA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:40.353329Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:40.353329+00:00",
+            "window_end": "2026-11-07T17:06:40.353329+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORL8SIA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 7441,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORL8SIA",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:31.031942Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDORL8SIA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:31.081351Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORL8SIA",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:31.172716Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": true,
+            "link_count": 100,
+            "links_truncated": true,
+            "links": [
+              {
+                "type": "model",
+                "id": "QuantTrio/GLM-5.1-AWQ",
+                "url": "https://huggingface.co/QuantTrio/GLM-5.1-AWQ"
+              },
+              {
+                "type": "model",
+                "id": "QuantTrio/GLM-5.2-Int4-Int8Mix",
+                "url": "https://huggingface.co/QuantTrio/GLM-5.2-Int4-Int8Mix"
+              },
+              {
+                "type": "model",
+                "id": "cyankiwi/GLM-5.3-AWQ-INT4",
+                "url": "https://huggingface.co/cyankiwi/GLM-5.3-AWQ-INT4"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORL8SIA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:32.004057Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:32.004057+00:00",
+            "window_end": "2026-11-07T17:06:32.004057+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORRCyRw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 113854,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORRCyRw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:03.650089Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDORRCyRw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:03.700354Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORRCyRw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:03.801845Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORRCyRw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:04.077497Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:04.077497+00:00",
+            "window_end": "2026-11-07T17:06:04.077497+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORUQ5bw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 111515,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORUQ5bw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:14.714923Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDORUQ5bw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:14.773656Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORUQ5bw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:14.873653Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORUQ5bw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:15.136801Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:15.136801+00:00",
+            "window_end": "2026-11-07T17:06:15.136801+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORYX6aQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 30187,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORYX6aQ",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:32.292048Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORYX6aQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:32.319291Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORYX6aQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:32.412645Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORYX6aQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:32.677208Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:32.677208+00:00",
+            "window_end": "2026-11-07T17:06:32.677208+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORmDA6Q": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 38788,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORmDA6Q",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:12.589987Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDORmDA6Q",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:12.640153Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORmDA6Q",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:12.801353Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORmDA6Q",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:12.920627Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:12.920627+00:00",
+            "window_end": "2026-11-07T17:06:12.920627+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORph4Mg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 8906,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORph4Mg",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:35.223889Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORph4Mg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:35.256759Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORph4Mg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:35.303666Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORph4Mg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:35.425043Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:35.425043+00:00",
+            "window_end": "2026-11-07T17:06:35.425043+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORtpoUA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 8088,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORtpoUA",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:22.491582Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDORtpoUA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:22.537714Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORtpoUA",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:22.635555Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORtpoUA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:22.754736Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:22.754736+00:00",
+            "window_end": "2026-11-07T17:06:22.754736+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDORymbOg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "present",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 49013,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDORymbOg",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:06.870839Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDORymbOg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:06.921196Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDORymbOg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:07.065328Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDORymbOg",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:07.203584Z",
+          "data": {
+            "mention_count": 1,
+            "window_start": "2026-10-08T17:06:07.203584+00:00",
+            "window_end": "2026-11-07T17:06:07.203584+00:00",
+            "top_item": {
+              "id": "50030359",
+              "title": "Herdr does not accept unsolicited pull requests",
+              "url": "https://github.com/herdrdev/herdr/blob/master/CONTRIBUTING.md",
+              "discussion_url": "https://news.ycombinator.com/item?id=50030359",
+              "points": 2,
+              "created_at_i": 1791614793
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOS-b1TA": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 65228,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOS-b1TA",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:34.272843Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOS-b1TA",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:34.300737Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOS-b1TA",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:34.431303Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 3,
+            "links_truncated": false,
+            "links": [
+              {
+                "type": "model",
+                "id": "ThakiCloud/Thaki-SecProof-27B-V1",
+                "url": "https://huggingface.co/ThakiCloud/Thaki-SecProof-27B-V1"
+              },
+              {
+                "type": "model",
+                "id": "ThakiCloud/Thaki-SecProof-8B-Preview",
+                "url": "https://huggingface.co/ThakiCloud/Thaki-SecProof-8B-Preview"
+              },
+              {
+                "type": "model",
+                "id": "ThakiCloud/Thaki-SecProof-4B-Preview",
+                "url": "https://huggingface.co/ThakiCloud/Thaki-SecProof-4B-Preview"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOS-b1TA",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:34.583926Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:34.583926+00:00",
+            "window_end": "2026-11-07T17:06:34.583926+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOSAP_Zw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 30687,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOSAP_Zw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:04.347818Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOSAP_Zw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:04.397873Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSAP_Zw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:04.530057Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOSAP_Zw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:04.652556Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:04.652556+00:00",
+            "window_end": "2026-11-07T17:06:04.652556+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOSHx4Wg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 3051,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOSHx4Wg",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:39.414170Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSHx4Wg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:39.442654Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSHx4Wg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:39.591823Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOSHx4Wg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:39.740832Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:39.740832+00:00",
+            "window_end": "2026-11-07T17:06:39.740832+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOSIatDw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 36129,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOSIatDw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:16.925890Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOSIatDw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:16.973784Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSIatDw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:17.070636Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOSIatDw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:17.343724Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:17.343724+00:00",
+            "window_end": "2026-11-07T17:06:17.343724+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOSXZbXg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "present",
+        "licence": "absent",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "absent",
+      "stars": 22616,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOSXZbXg",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:38.740268Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOSXZbXg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:38.789807Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSXZbXg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:38.988385Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOSXZbXg",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:39.168221Z",
+          "data": {
+            "mention_count": 1,
+            "window_start": "2026-10-08T17:06:39.168221+00:00",
+            "window_end": "2026-11-07T17:06:39.168221+00:00",
+            "top_item": {
+              "id": "50046425",
+              "title": "Self-improving RLM agent for coding workflows and long-running autonomous tasks",
+              "url": "https://github.com/PrimeIntellect-ai/prime-agent",
+              "discussion_url": "https://news.ycombinator.com/item?id=50046425",
+              "points": 1,
+              "created_at_i": 1791744251
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOScw2eQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 60419,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOScw2eQ",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:33.728786Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOScw2eQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:33.756231Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOScw2eQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:33.885149Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOScw2eQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:33.995534Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:33.995534+00:00",
+            "window_end": "2026-11-07T17:06:33.995534+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOSka2Jw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 15316,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOSka2Jw",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:38.148731Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOSka2Jw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:38.202715Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSka2Jw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:38.297811Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOSka2Jw",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:38.423296Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:38.423296+00:00",
+            "window_end": "2026-11-07T17:06:38.423296+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOSzNzqQ": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 7971,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOSzNzqQ",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:14.035153Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOSzNzqQ",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:14.085985Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOSzNzqQ",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:14.291516Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOSzNzqQ",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:14.414940Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:14.414940+00:00",
+            "window_end": "2026-11-07T17:06:14.414940+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOT-aKmg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 3718,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOT-aKmg",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.571724Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOT-aKmg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.604781Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOT-aKmg",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.761988Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOT-aKmg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:37.878801Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:37.878801+00:00",
+            "window_end": "2026-11-07T17:06:37.878801+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOT1Dosw": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "absent",
+        "hacker_news": "present",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 3791,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOT1Dosw",
+          "source": "deps_dev",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:27.644842Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOT1Dosw",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:27.673231Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOT1Dosw",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:27.842841Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOT1Dosw",
+          "source": "hacker_news",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:27.953983Z",
+          "data": {
+            "mention_count": 1,
+            "window_start": "2026-10-08T17:06:27.953983+00:00",
+            "window_end": "2026-11-07T17:06:27.953983+00:00",
+            "top_item": {
+              "id": "50194530",
+              "title": "fx: Unix Like Coding Agent from Vercel Labs",
+              "url": "https://github.com/vercel-labs/fx",
+              "discussion_url": "https://news.ycombinator.com/item?id=50194530",
+              "points": 2,
+              "created_at_i": 1792672831
+            }
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOTYoztg": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "absent",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 27711,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOTYoztg",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:19.522165Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOTYoztg",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:19.569217Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOTYoztg",
+          "source": "hugging_face",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:19.576110Z",
+          "data": {
+            "link_status": "present",
+            "search_truncated": false,
+            "link_count": 2,
+            "links_truncated": false,
+            "links": [
+              {
+                "type": "model",
+                "id": "SaylorTwift/grok-build",
+                "url": "https://huggingface.co/SaylorTwift/grok-build"
+              },
+              {
+                "type": "model",
+                "id": "Takenoko12345678/NeoHorse-1-9B-Math-SFT",
+                "url": "https://huggingface.co/Takenoko12345678/NeoHorse-1-9B-Math-SFT"
+              }
+            ]
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOTYoztg",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:19.790299Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:19.790299+00:00",
+            "window_end": "2026-11-07T17:06:19.790299+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    },
+    "R_kgDOUicD1g": {
+      "component_statuses": {
+        "scorecard": "absent",
+        "advisories": "unsupported",
+        "hacker_news": "absent",
+        "licence": "present",
+        "maintenance": "present",
+        "release_cadence": "unsupported",
+        "contributors": "present"
+      },
+      "failed_components": [],
+      "licence_class": "permissive",
+      "stars": 8542,
+      "velocity": null,
+      "evidence": [
+        {
+          "repo_id": "R_kgDOUicD1g",
+          "source": "deps_dev",
+          "status": "present",
+          "fetched_at": "2026-11-07T17:06:22.054608Z",
+          "data": {
+            "advisories_status": "unsupported",
+            "advisory_count": null
+          },
+          "detail": "Project endpoint does not evaluate package-version advisories"
+        },
+        {
+          "repo_id": "R_kgDOUicD1g",
+          "source": "scorecard",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:22.107645Z",
+          "data": {},
+          "detail": "HTTP 404"
+        },
+        {
+          "repo_id": "R_kgDOUicD1g",
+          "source": "hugging_face",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:22.117200Z",
+          "data": {
+            "link_status": "absent",
+            "search_truncated": false,
+            "link_count": 0,
+            "links_truncated": false,
+            "links": []
+          },
+          "detail": "Card links only; no execution or compatibility check"
+        },
+        {
+          "repo_id": "R_kgDOUicD1g",
+          "source": "hacker_news",
+          "status": "absent",
+          "fetched_at": "2026-11-07T17:06:22.232299Z",
+          "data": {
+            "mention_count": 0,
+            "window_start": "2026-10-08T17:06:22.232299+00:00",
+            "window_end": "2026-11-07T17:06:22.232299+00:00",
+            "top_item": null
+          },
+          "detail": null
+        }
+      ]
+    }
+  }
+}

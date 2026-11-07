@@ -22,24 +22,28 @@ uv sync --frozen
 
 Export `GH_TOKEN` securely into the shell; never put its value in a command
 example, committed file or issue. The GraphQL source needs it even if `gh` is
-already authenticated. On GitHub Actions the only secret read is `GH_TOKEN`.
-It must have read access to public repository metadata and contents write /
-issues write access to this repository for releases and failure issues. Workflow
-`permissions` do not grant additional privileges to a personal token.
+already authenticated. A local token needs public metadata access and, for
+release transfers, contents write access to this repository. On GitHub Actions,
+`GH_TOKEN` is supplied by `${{ github.token }}` and `GH_REPO` by
+`${{ github.repository }}`. No personal token secret is read by the workflow.
+The refresh job has contents/issue write permissions; Pages and OIDC write
+permissions are granted only to the deploy job.
 
 ```powershell
 uv run pytest --cov=pipeline --cov-fail-under=80
 uv run ruff check .
+uv run pip-audit
 uv run pipeline run --dry-run --limit 5
 uv run pipeline gates --path site/src/data/listings.dry.json
 ```
 
 The dry-run command still calls source APIs and uses their budgets. It skips
 release transfers, copies any existing local history into temporary state, and
-discards that state afterwards. Its only data outputs are
+discards that state afterwards. Its data outputs are
 `site/src/data/listings.dry.json` and
-`site/src/data/listings.dry.evidence.jsonl`; both are ignored by Git, as are other
-`site/src/data/*.evidence.jsonl` files. It never changes production listings,
+`site/src/data/listings.dry.evidence.jsonl`, with the generated site in
+`site/dist.dry/`; all are ignored by Git, as are other
+`site/src/data/*.evidence.jsonl` files. It never changes `site/dist/`, production listings,
 `state/gateway.sqlite` or `state/evidence.jsonl`. Logs and failure records are
 still retained under `state/`. Unit tests inject fixture clients and need no
 network. A limited dry run against a larger local baseline can fail the 90%
@@ -58,6 +62,8 @@ The equivalent split used in CI is:
 uv run pipeline release pull
 uv run pipeline run --no-release
 uv run pipeline release push
+uv run pipeline site build
+uv run pipeline gates
 ```
 
 `--no-release` publishes locally and skips both transfers, preventing duplicate
@@ -84,13 +90,32 @@ Uploads and downloads allow 600 seconds per command by default; set
 `AI_HUB_RELEASE_TIMEOUT_SECONDS` to a positive integer to change this limit.
 Metadata and release-creation commands retain their 60-second timeout.
 
-The run stages compact listings and full evidence, evaluates gates 2 and 3 on
-the exported file, then promotes. Gate 2 uses `pipeline.export.Listings` and
+The run stages compact listings, full evidence and the generated site, evaluates
+gates 2 and 3 on the exported file and gate 5 on the staged site, then promotes.
+Gate 5 requires every internal href/src to resolve to a file inside the site,
+HTML pages no larger than 200,000 bytes and at least one topic link on the index.
+The builder loads only listings and the scoring policy, never SQLite. It builds
+beside its destination and swaps the complete directory, restoring the previous
+site if an ordinary publication error occurs. Directory renames are individually
+atomic; replacing an existing tree on Windows requires two renames, so abrupt
+process termination between them is not a filesystem transaction.
+Gate 2 uses `pipeline.export.Listings` and
 its `PublishedListing` rows, including coverage. Gate 3 requires a non-future
 timestamp no older than seven hours, at least 90% of the previous successful
 count (no count baseline on the first run), score, licence status and `untested`.
 Explicit `unknown`/`absent` licence status is allowed; no licence is invented.
-`REQUIRE_LABELS` stays false until request 2. No sandbox result exists yet.
+`REQUIRE_LABELS` stays false until request 3. No sandbox result exists yet.
+
+`pipeline site build [--input PATH] [--output PATH]` renders an existing export
+without settings, credentials or network access; defaults are
+`site/src/data/listings.json` and `site/dist/`. It validates the schema but does
+not certify freshness or run gate 5. `pipeline gates` checks production data and
+`site/dist/`; a `--path` ending in `.dry.json` checks `site/dist.dry/` instead.
+For a custom preview directory, call `pipeline.gates.gate_5(Path(...))` directly.
+The CI build after release push is checked again before its Pages artefact is
+uploaded. `status.json` identifies the export run and lists completed checks;
+standalone builds record schema validation only, while `pipeline run` also
+records gates 2, 3 and 5. The browser calculates age from `generated_at`.
 
 The successful `run_log` row is finalised in the working SQLite copy immediately
 before promotion: the B1 store closes on promotion. It records local gated
@@ -116,8 +141,44 @@ CI retains state, full evidence, listings and diagnostics in a
 `refresh-<run_id>-<attempt>` Actions artefact for 14 days, on success or failure.
 Failure history is local to each runner/worktree; download the run artefacts to
 retain history across ephemeral runners. Full evidence also travels with the
-release and never belongs in the site JSON. There is no site deploy in this
-request; site and later gates arrive in subsequent requests.
+release and never belongs in the site JSON. The Pages artefact contains only
+`site/dist/` and is retained for 14 days. Deployment depends on the refresh job
+succeeding and runs only on `main`. Build and refresh failures use the existing
+failure issue step; deployment-job failures are visible in the Actions run and
+`github-pages` environment and do not execute that earlier issue step.
+
+### Built-in token limits
+
+The built-in token's GraphQL allowance is normally 1,000 points per hour per
+repository, shared by workflows using that repository's token (enterprise
+resources have a higher allowance). This remote limit is separate from the
+pipeline's 2,500-point per-run ceiling; the ceiling does not grant additional
+GitHub capacity. Inspect remaining allowance, reduce the search/limit or wait
+for reset when it is exhausted. See [GitHub's GraphQL limits](https://docs.github.com/en/graphql/overview/rate-limits-and-query-limits-for-the-graphql-api).
+
+The token is scoped to this repository. `GH_REPO` selects this repository's
+`data-latest` release; the token cannot write release assets in an unrelated
+repository. See [GITHUB_TOKEN scope](https://docs.github.com/en/actions/concepts/security/github_token).
+
+### Pages visibility
+
+GitHub Free supports Pages from public repositories. Private repositories need
+an eligible paid plan; private source does not by itself restrict access to the
+published site. The agreed go-live route is to make `PoNienC/AI_Hub` public,
+choose **GitHub Actions** as the Pages source, and dispatch from the default
+`main` branch. These are owner actions, not performed by this implementation.
+See [Pages availability](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages)
+and [Pages access control](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site).
+
+### Site rollback
+
+Pause competing refreshes, select the last green workflow run in Actions, and
+re-run its **deploy job only** while its `github-pages` artefact remains available
+(14-day retention). This reuses the retained site without re-ingesting or
+changing the release state. Re-running all jobs performs a fresh ingestion and
+is not an exact site rollback. If the artefact has expired, recover `site/dist/`
+from a retained green diagnostic artefact or rebuild that run's matching listings
+and code, then arrange a reviewed deployment. Do not redeploy mismatched runs.
 
 ## Incident entries
 
@@ -151,15 +212,15 @@ request; site and later gates arrive in subsequent requests.
   inspect the named query and reproduce with a sanitised fixture before changing
   its fields; run the project checks and retry. Do not bypass errors or budgets.
 
-### BigQuery quota exceeded — from request 4
+### BigQuery quota exceeded — from request 5
 
 - **Symptom:** the future GH Archive job reports a scanned-byte or quota error.
 - **Cause:** the selected archive window exceeds its allowance.
 - **Fix:** reduce the GH Archive window to seven days and retry within budget.
   BigQuery is not called by the current pipeline; this entry becomes operational
-  when request 4 adds it.
+  when request 5 adds it.
 
-### Labeller API error or drift — from request 2
+### Labeller API error or drift — from request 3
 
 - **Symptom:** the future labeller fails or gate 4 agreement drops below its
   approved gold-set thresholds.
@@ -167,9 +228,9 @@ request; site and later gates arrive in subsequent requests.
 - **Fix:** inspect the disagreeing rows with Po and the API diagnostics. Preserve
   the last approved labels, correct the cause and rerun the approved labeller
   gate. The current CSV labels are provisional and gate 4 is not implemented.
-  Any future degraded-publishing policy must be explicit in request 2.
+  Any future degraded-publishing policy must be explicit in request 3.
 
-### Sandbox timeout — from request 3
+### Sandbox timeout — from request 4
 
 - **Symptom:** future sandbox runs time out for many repositories.
 - **Cause:** an unsuitable runner image, infrastructure failure or the time cap.
@@ -220,6 +281,7 @@ gates, evidence run IDs and both uploaded sizes.
 `uv run pipeline gates` can check a recently restored listing, but an export
 older than seven hours correctly fails freshness. Restoring historical state
 does not make it fresh: run a normal refresh after resolving the incident.
-Re-running a green workflow performs a new ingestion, not an exact rollback.
+Re-running all jobs of a green workflow performs a new ingestion, not an exact rollback.
 Keep a good artefact beyond the 14-day retention window if longer rollback
-history is required. Frontend rollback through Cloudflare belongs to request 5.
+history is required. Restore the matching `site/dist/` for a local site rollback;
+for the deployed site, follow [Site rollback](#site-rollback).

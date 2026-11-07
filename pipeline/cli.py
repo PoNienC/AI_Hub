@@ -3,18 +3,20 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 import os
 import shutil
 import sqlite3
 from collections.abc import Callable, Sequence
-from contextlib import closing
+from contextlib import ExitStack, closing
 from datetime import UTC, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from uuid import uuid4
 
 import httpx
+from jinja2 import TemplateError
 from pydantic import ValidationError
 
 from pipeline import release
@@ -22,10 +24,11 @@ from pipeline.budgets import Budget, BudgetExceeded
 from pipeline.config import Settings
 from pipeline.export import DEFAULT_LABELS_PATH, DEFAULT_OUTPUT_PATH, build_listings, write_listings
 from pipeline.failure import RunFailure, abort_run
-from pipeline.gates import GateFailure, check_gates, gate_2
+from pipeline.gates import GateFailure, check_gates, gate_2, gate_5
 from pipeline.http import HttpClient, HttpRequestError
 from pipeline.models import Snapshot
 from pipeline.scoring import score_repo
+from pipeline.site.builder import DEFAULT_DIST, build as build_site, replace_directory
 from pipeline.sources import deps_dev, hacker_news, hugging_face, scorecard
 from pipeline.sources.github import GitHubResponseError, GitHubSource
 from pipeline.store import PromotionError, StateStore
@@ -34,7 +37,7 @@ LOG = logging.getLogger("pipeline.cli")
 ADAPTERS = (deps_dev, scorecard, hugging_face, hacker_news)
 EXPECTED_ERRORS = (
     OSError, ValueError, sqlite3.Error, BudgetExceeded, GateFailure,
-    HttpRequestError, GitHubResponseError, PromotionError, release.ReleaseError,
+    HttpRequestError, GitHubResponseError, PromotionError, release.ReleaseError, TemplateError,
 )
 
 
@@ -112,7 +115,7 @@ def run_pipeline(
 
     A limit caps unique repositories enriched and bounds each search query. Dry
     runs copy local history into temporary state, never contact gh and write only
-    listings.dry.json and its sibling evidence. Successful run_log is finalised
+    listings.dry.json, its sibling evidence and site/dist.dry. Successful run_log is finalised
     before promotion because B1 closes the store on promotion. Transfer failures
     after promotion are recorded separately and leave the local gated bundle.
     """
@@ -138,7 +141,7 @@ def run_pipeline(
             release.pull(state_dir)
         stage = "baseline"
         baseline = previous_count(state_dir / "gateway.sqlite")
-        with TemporaryDirectory(prefix=".run-", dir=state_dir) as temporary:
+        with TemporaryDirectory(prefix=".run-", dir=state_dir) as temporary, ExitStack() as site_stack:
             staged = Path(temporary)
             working_dir = staged / "state" if dry_run else state_dir
             if dry_run:
@@ -184,22 +187,36 @@ def run_pipeline(
                 document = build_listings(repos, results, run_id=run_id, generated_at=clock(), labels_path=labels_path)
                 rows_out = len(document.listings)
                 path = write_listings(document, staged / "listings.json", evidence_path=staged / "evidence.jsonl")
+                stage = "site.build"
+                site_output = DEFAULT_DIST.with_name("dist.dry") if dry_run else DEFAULT_DIST
+                site_output.parent.mkdir(parents=True, exist_ok=True)
+                site_temporary = site_stack.enter_context(TemporaryDirectory(
+                    prefix=".pipeline-site-", dir=site_output.parent,
+                ))
+                site_staged = build_site(path, Path(site_temporary) / "site")
                 stage = "gates"
                 gates = check_gates(path, previous_count=baseline, now=clock())
+                gate_5(site_staged)
+                gates["gate_5"] = True
+                status_path = site_staged / "status.json"
+                status = json.loads(status_path.read_text(encoding="utf-8"))
+                status["checks"].extend({"name": name, "status": "passed"} for name in gates)
+                status_path.write_text(json.dumps(status, indent=2) + "\n", encoding="utf-8")
                 LOG.info("Run %s: gates passed; rows_in=%d rows_out=%d budgets=%s", run_id, rows_in, rows_out, budget.snapshot())
-                if dry_run:
-                    output = output_path.with_name(output_path.stem + ".dry.json")
-                    release.replace_bundle([
-                        (path, output),
-                        (staged / "evidence.jsonl", output.with_suffix(".evidence.jsonl")),
-                    ], staged)
-                else:
-                    stage = "promote"
-                    store.finish_run(
-                        run_id, finished_at=clock(), status="succeeded", budgets=budget.snapshot(),
-                        rows_in=rows_in, rows_out=rows_out, gate_results=gates,
-                    )
-                    _publish(store, staged, output_path, gates)
+                stage = "publish.dry" if dry_run else "promote"
+                with replace_directory(site_staged, site_output):
+                    if dry_run:
+                        output = output_path.with_name(output_path.stem + ".dry.json")
+                        release.replace_bundle([
+                            (path, output),
+                            (staged / "evidence.jsonl", output.with_suffix(".evidence.jsonl")),
+                        ], staged)
+                    else:
+                        store.finish_run(
+                            run_id, finished_at=clock(), status="succeeded", budgets=budget.snapshot(),
+                            rows_in=rows_in, rows_out=rows_out, gate_results=gates,
+                        )
+                        _publish(store, staged, output_path, gates)
             if transfer and not dry_run:
                 stage = "release.push"
                 release.push(state_dir)
@@ -231,7 +248,7 @@ def _positive(value: str) -> int:
 
 
 def main(argv: Sequence[str] | None = None, *, client: httpx.Client | None = None) -> int:
-    """Expose run, gates and release commands; return 1 on an operational failure."""
+    """Expose run, gates, release and site commands; return 1 on operational failure."""
     parser = argparse.ArgumentParser(prog="pipeline")
     commands = parser.add_subparsers(dest="command", required=True)
     run = commands.add_parser("run", help="Ingest, gate and publish repository data")
@@ -243,11 +260,20 @@ def main(argv: Sequence[str] | None = None, *, client: httpx.Client | None = Non
     gates.add_argument("--path", type=Path, default=DEFAULT_OUTPUT_PATH)
     releases = commands.add_parser("release", help="Transfer the promoted state and evidence")
     releases.add_argument("action", choices=("pull", "push"))
+    site = commands.add_parser("site", help="Build static pages without credentials")
+    site_commands = site.add_subparsers(dest="action", required=True)
+    site_build = site_commands.add_parser("build", help="Render the validated listings")
+    site_build.add_argument("--input", type=Path, default=DEFAULT_OUTPUT_PATH)
+    site_build.add_argument("--output", type=Path, default=DEFAULT_DIST)
     args = parser.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
     started = _now()
     settings = None
     try:
+        if args.command == "site":
+            build_site(args.input, args.output)
+            LOG.info("Site built: %s", args.output)
+            return 0
         settings = Settings.from_env()
         if args.command == "run":
             return int(run_pipeline(
@@ -258,7 +284,8 @@ def main(argv: Sequence[str] | None = None, *, client: httpx.Client | None = Non
             document = gate_2(args.path)
             baseline = previous_count(settings.state_dir / "gateway.sqlite", exclude_run_id=document.run_id)
             check_gates(args.path, previous_count=baseline)
-            LOG.info("Gates 2 and 3 passed")
+            gate_5(DEFAULT_DIST.with_name("dist.dry") if args.path.stem.endswith(".dry") else DEFAULT_DIST)
+            LOG.info("Gates 2, 3 and 5 passed")
         elif args.action == "pull":
             LOG.info("Release %s", "downloaded" if release.pull(settings.state_dir) else "absent; first run")
         else:
@@ -266,6 +293,9 @@ def main(argv: Sequence[str] | None = None, *, client: httpx.Client | None = Non
             LOG.info("Release upload verified")
         return 0
     except EXPECTED_ERRORS as exc:
+        if args.command == "site":
+            LOG.error("Site build failed: %s", type(exc).__name__)
+            return 1
         state_dir = settings.state_dir if settings is not None else Path("state")
         run_id = uuid4().hex
         log_path = state_dir / "logs" / f"{run_id}.log"

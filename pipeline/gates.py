@@ -8,6 +8,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from pipeline.export import Listings
+from pipeline.site.links import SiteCheckError, check
 from pipeline.sources._enrichment import utc_time
 
 REQUIRE_LABELS = False
@@ -71,3 +72,13 @@ def check_gates(
     listings = gate_2(path)
     gate_3(listings, previous_count=previous_count, now=now, require_labels=require_labels)
     return {"gate_2": True, "gate_3": True}
+
+
+def gate_5(dist: Path) -> None:
+    """Reject broken site links, oversize pages or an index without a topic."""
+    try:
+        check(dist)
+    except SiteCheckError as exc:
+        raise GateFailure("gate_5", exc.rule, str(exc)) from None
+    except OSError as exc:
+        raise GateFailure("gate_5", "site", f"Cannot inspect site: {type(exc).__name__}") from None
