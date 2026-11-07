@@ -1,0 +1,28 @@
+{
+  "deps_dev": {
+    "present": {"status_code": 200, "body": {"projectKey": {"id": "github.com/example/agent"}, "license": "MIT", "starsCount": 100}},
+    "absent": {"status_code": 404, "body": {"message": "Not found"}},
+    "failed": {"status_code": 503, "body": {"message": "Service unavailable"}}
+  },
+  "scorecard": {
+    "present": {"status_code": 200, "body": {"date": "2026-11-01", "repo": {"name": "github.com/example/agent", "commit": "abc123"}, "score": 7.8, "checks": []}},
+    "absent": {"status_code": 404, "body": {"message": "Not found"}},
+    "failed": {"status_code": 503, "body": {"message": "Service unavailable"}}
+  },
+  "hugging_face": {
+    "present": {"status_code": 200, "body": {"estimatedTotalHits": 2, "hits": [
+      {"name": "example/model", "type": "model", "isReadmeFile": true, "formatted": {"fileContent": [{"text": "[Code](https://github.com/", "type": "text"}, {"text": "example/agent", "type": "highlight"}, {"text": ")", "type": "text"}]}},
+      {"name": "example/demo", "type": "space", "isReadmeFile": true, "formatted": {"fileContent": [{"text": "Code: https://github.com/example/agent/tree/main/demo", "type": "text"}]}}
+    ]}},
+    "absent": {"status_code": 404, "body": {"error": "Not found"}},
+    "failed": {"status_code": 503, "body": {"error": "Service unavailable"}}
+  },
+  "hacker_news": {
+    "present": {"status_code": 200, "body": {"nbHits": 2, "exhaustiveNbHits": true, "hits": [
+      {"objectID": "1001", "title": "Agent launch", "url": "https://github.com/example/agent", "points": 10, "created_at_i": 1793923200},
+      {"objectID": "1002", "title": "Agent discussion", "url": "https://github.com/example/agent/", "points": 50, "created_at_i": 1793836800}
+    ]}},
+    "absent": {"status_code": 404, "body": {"message": "Not found"}},
+    "failed": {"status_code": 503, "body": {"message": "Service unavailable"}}
+  }
+}

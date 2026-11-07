@@ -15,7 +15,7 @@ Audit mode: per_block (overlap on) · Audit review: ask_high.
 ## B1 (T01-T03) — round 1 · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
 
 Range: `ac9cffe..501f79e` (base `ac9cffe`, end `501f79e`)
-Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user) · raw report: subagent/B1_audit_r1_out.md
+Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user) · closed 07 November 2026, fixes in `9793c48` (Codex resolutions: F1 ACCEPTED, F2 PARTIALLY_ACCEPTED docstring, F3 ACCEPTED, F4 ACCEPTED, F5 DEFERRED, F6 DEFERRED, F7 PARTIALLY_ACCEPTED a and c) · raw report: subagent/B1_audit_r1_out.md
 
 **In short:** PASS_WITH_FINDINGS · findings B/H/M/L/N: 0/0/2/2/3 · needs you: no
 
@@ -29,11 +29,11 @@ Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user) · raw re
 
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
-| F1 | T03 | MEDIUM | GraphQL retries abort the run in every realistic failure case (reservation never settled when the error body has no rateLimit) | ACCEPTED | real 5xx bodies lack `data.rateLimit`; retries are dead code | estimate cost on answered non-success responses, log it, keep abort for transport errors; new test | — (auto) | pending |
-| F2 | T03 | MEDIUM | `X-GitHub-Api-Version: 2026-03-10` not a documented version | PARTIALLY_ACCEPTED | verified live 07 Nov 2026: accepted by REST and GraphQL | docstring: verification date, fallback to 2022-11-28 if rejected | — (auto) | pending |
-| F3 | T01 | LOW | Ruff rule selection not pinned | ACCEPTED | CI and local must agree | `[tool.ruff.lint] select`, `line-length` | — (auto) | pending |
-| F4 | T01 | LOW | Listing.score_version can disagree with score.score_version | ACCEPTED | publication contract | after-validator and test | — (auto) | pending |
+| F1 | T03 | MEDIUM | GraphQL retries abort the run in every realistic failure case (reservation never settled when the error body has no rateLimit) | ACCEPTED | real 5xx bodies lack `data.rateLimit`; retries are dead code | estimate cost on answered non-success responses, log it, keep abort for transport errors; new test | — (auto) | fixed in `9793c48` |
+| F2 | T03 | MEDIUM | `X-GitHub-Api-Version: 2026-03-10` not a documented version | PARTIALLY_ACCEPTED | verified live 07 Nov 2026: accepted by REST and GraphQL | docstring: verification date, fallback to 2022-11-28 if rejected | — (auto) | fixed in `9793c48` |
+| F3 | T01 | LOW | Ruff rule selection not pinned | ACCEPTED | CI and local must agree | `[tool.ruff.lint] select`, `line-length` | — (auto) | fixed in `9793c48` |
+| F4 | T01 | LOW | Listing.score_version can disagree with score.score_version | ACCEPTED | publication contract | after-validator and test | — (auto) | fixed in `9793c48` |
 | F5 | T02→T07 | NOTE | failed runs leave no trace in run_log | DEFERRED | design choice belongs to T07 | append-only failure log; B3 brief | — (auto) | deferred |
 | F6 | T02→T07/T08 | NOTE | stale working copy blocks every later run | DEFERRED | CLI and runbook belong to T07/T08 | pre-flight message; runbook entry; B3 brief | — (auto) | deferred |
-| F7 | T01 | NOTE | config and test-isolation rough edges | ACCEPTED (a, c) | cheap now | ValueError wrap; explicit mapping in test | — (auto) | pending |
+| F7 | T01 | NOTE | config and test-isolation rough edges | ACCEPTED (a, c) | cheap now | ValueError wrap; explicit mapping in test | — (auto) | fixed in `9793c48` |
 
