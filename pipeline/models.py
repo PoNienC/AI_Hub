@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Self
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, HttpUrl, JsonValue
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, HttpUrl, JsonValue, model_validator
 
 Level = Literal["beginner", "intermediate", "advanced", "not_runnable"]
 Topic = Literal[
@@ -100,3 +100,10 @@ class Listing(Record):
     unevaluated_checks: list[UnevaluatedCheck] = Field(
         default_factory=lambda: ["fake_stars", "typosquat", "sandbox_test"]
     )
+
+    @model_validator(mode="after")
+    def matching_score_version(self) -> Self:
+        """Require the published version to match the embedded score's version."""
+        if self.score_version != self.score.score_version:
+            raise ValueError("listing score_version must match score.score_version")
+        return self

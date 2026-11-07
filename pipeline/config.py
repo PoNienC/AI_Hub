@@ -71,6 +71,17 @@ class Settings(BaseModel):
             raise ValueError("query_names must contain recognised query names")
         return list(dict.fromkeys(value))
 
+    @field_validator("http_call_limits", mode="before")
+    @classmethod
+    def parse_limits(cls, value: object) -> object:
+        """Parse environment JSON within the settings validation boundary."""
+        if isinstance(value, str):
+            try:
+                return json.loads(value)
+            except json.JSONDecodeError as exc:
+                raise ValueError("http_call_limits must be a valid JSON object") from exc
+        return value
+
     @field_validator("http_call_limits")
     @classmethod
     def valid_limits(cls, value: dict[str, int]) -> dict[str, int]:
@@ -98,8 +109,6 @@ class Settings(BaseModel):
             raw = env[key]
             if name == "query_names":
                 values[name] = [part.strip() for part in raw.split(",")]
-            elif name == "http_call_limits":
-                values[name] = json.loads(raw)
             else:
                 values[name] = raw
         return cls.model_validate(values)

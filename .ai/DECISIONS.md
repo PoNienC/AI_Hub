@@ -8,3 +8,4 @@ Format: date · decision · context · alternatives · consequences
 - 07 November 2026 · No "tested" badge without a dated sandbox run · every competitor's "verified" meant paid placement or publisher identity · README-signal proxies · nightly sandbox job, request 3.
 - 07 November 2026 · Batch pipeline plus static site, no servers · solo maintainer, free tiers · API back end · GitHub Actions every 6 hours, Cloudflare Pages.
 - 07 November 2026 · GitHub account `PoNienC` for this project · personal project · work account `PoNienChenPP` · recorded in `.ai/PROJECT.md`.
+- 07 November 2026 · Failed pipeline runs are recorded in an append-only failure log outside the promoted SQLite database · B1 audit finding F5: rollback deletes the working copy, so run_log cannot hold failures · promote a run-log-only change · T07 implements the log; T06 failure text and T08 runbook read from it.

@@ -185,7 +185,7 @@ def test_repeated_cursor_aborts(load_fixture):
         assert source.budget.http_calls["github"] == 2
 
 
-def test_retry_response_costs_are_counted(load_fixture, caplog):
+def test_reported_retry_response_costs_are_counted(load_fixture, caplog):
     calls = []
     caplog.set_level(logging.DEBUG)
 
@@ -201,15 +201,75 @@ def test_retry_response_costs_are_counted(load_fixture, caplog):
         assert source.search() == []
         assert source.budget.github_points == 2 and source.budget.http_calls["github"] == 2
     assert TOKEN not in caplog.text
+    assert "Estimated GitHub GraphQL cost" not in caplog.text
 
 
-def test_lost_response_reservation_is_visible_and_aborts(load_fixture):
+@pytest.mark.parametrize("status,body", [
+    (502, f"<html>Bad gateway: {TOKEN}</html>"),
+    (503, json.dumps({"message": f"Service unavailable: {TOKEN}"})),
+    (429, json.dumps({"message": f"Too many requests: {TOKEN}"})),
+    (500, "[]"),
+    (504, ""),
+])
+def test_answered_http_error_retry_recovers_with_estimated_cost(load_fixture, caplog, status, body):
+    calls, sleeps = [], []
+    caplog.set_level(logging.DEBUG)
+
+    def handler(request):
+        calls.append(request)
+        if len(calls) == 1:
+            return httpx.Response(status, text=body, headers={"Retry-After": "3"})
+        return httpx.Response(200, json=load_fixture("github_page_1.json"))
+
+    with (
+        httpx.Client(transport=httpx.MockTransport(handler)) as client,
+        GitHubSource(settings(), client=client, sleep=sleeps.append) as source,
+    ):
+        records = source.search(per_query_cap=2)
+        assert [record.github_id for record in records] == ["R_1", "R_2"]
+        assert source.budget.github_points == 6  # Four estimated plus two reported.
+        assert source.budget.http_calls["github"] == len(calls) == 2
+        assert source.budget.github_unmeasured_calls == 0
+        assert source.rate_limit_remaining == 4998
+    assert sleeps == [3]
+    assert f"Estimated GitHub GraphQL cost as 4 points for HTTP {status}" in caplog.text
+    assert TOKEN not in caplog.text
+
+
+@pytest.mark.parametrize("spent", [2496, 2497])
+def test_estimated_error_cost_stops_at_budget_limit(spent):
+    calls = []
+    budget = Budget()
+    budget.charge_github(spent)
+
+    def handler(request):
+        calls.append(request)
+        return httpx.Response(502, text="<html>Bad gateway</html>")
+
+    with (
+        httpx.Client(transport=httpx.MockTransport(handler)) as client,
+        GitHubSource(settings(), budget=budget, client=client, sleep=lambda _: None) as source,
+    ):
+        with pytest.raises(BudgetExceeded, match="2501 > 2500"):
+            source.search()
+        assert budget.github_points == spent + 4
+        assert budget.github_unmeasured_calls == 0
+        assert budget.http_calls["github"] == len(calls) == 1
+        with pytest.raises(BudgetExceeded):
+            source.search()
+        assert len(calls) == 1
+
+
+@pytest.mark.parametrize("answered_error", [False, True])
+def test_lost_response_reservation_is_visible_and_aborts(load_fixture, answered_error):
     calls = []
 
     def handler(request):
         calls.append(request)
         if len(calls) == 1:
             raise httpx.ReadTimeout(TOKEN)
+        if answered_error and len(calls) == 2:
+            return httpx.Response(502, text="<html>Bad gateway</html>")
         return httpx.Response(200, json=load_fixture("github_empty.json"))
 
     with (
@@ -218,7 +278,8 @@ def test_lost_response_reservation_is_visible_and_aborts(load_fixture):
     ):
         with pytest.raises(GitHubResponseError, match="unmeasured"):
             source.search()
-        assert source.budget.github_points == 2
+        assert source.budget.github_points == (6 if answered_error else 2)
+        assert source.budget.http_calls["github"] == len(calls) == (3 if answered_error else 2)
         assert source.budget.github_unmeasured_calls == 1
 
 

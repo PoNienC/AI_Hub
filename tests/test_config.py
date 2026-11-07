@@ -29,10 +29,9 @@ def test_niche_and_all_queries():
     assert Settings().query_names == NICHE_DEFAULT
 
 
-def test_environment_overrides(monkeypatch):
-    monkeypatch.setenv("AI_HUB_PER_QUERY_CAP", "42")
-    assert Settings.from_env().per_query_cap == 42
+def test_environment_overrides():
     settings = Settings.from_env({
+        "AI_HUB_PER_QUERY_CAP": "42",
         "GH_TOKEN": "secret-token", "GITHUB_TOKEN": "ignored-token",
         "AI_HUB_STATE_DIR": "custom_state", "AI_HUB_QUERY_NAMES": "mcp, agents,mcp",
         "AI_HUB_GITHUB_POINT_LIMIT": "1200", "AI_HUB_ALL_QUERIES": "true",
@@ -41,6 +40,7 @@ def test_environment_overrides(monkeypatch):
         "AI_HUB_CONTRIBUTOR_FALLBACK": "true",
     })
     assert settings.github_token.get_secret_value() == "secret-token"
+    assert settings.per_query_cap == 42
     assert "secret-token" not in repr(settings)
     assert "secret-token" not in settings.model_dump_json()
     assert settings.state_dir.name == "custom_state"
@@ -53,6 +53,20 @@ def test_environment_overrides(monkeypatch):
     assert settings.http_retries == 1
     assert settings.contributor_fallback
     assert Settings.from_env({"GITHUB_TOKEN": "fallback"}).github_token.get_secret_value() == "fallback"
+
+
+def test_default_environment_source(monkeypatch):
+    monkeypatch.setattr("pipeline.config.os.environ", {"AI_HUB_PER_QUERY_CAP": "42"})
+    assert Settings.from_env().per_query_cap == 42
+
+
+@pytest.mark.parametrize("raw", ['{"github":', "[]", "null"])
+def test_invalid_environment_http_limits(raw):
+    with pytest.raises(ValidationError) as exc:
+        Settings.from_env({"AI_HUB_HTTP_CALL_LIMITS": raw})
+    assert exc.value.errors()[0]["loc"] == ("http_call_limits",)
+    if raw == '{"github":':
+        assert "http_call_limits must be a valid JSON object" in str(exc.value)
 
 
 @pytest.mark.parametrize("overrides", [

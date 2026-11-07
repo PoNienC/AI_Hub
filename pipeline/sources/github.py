@@ -8,9 +8,17 @@ repository after search. REST results may be cached and include anonymous users.
 
 GitHub reports actual GraphQL cost only after execution. Reserve one point per
 attempt and reconcile every reported cost before accepting data, including
-partial-error responses. Lost responses retain a minimum-cost reservation and
-an unmeasured-call counter; a later successful response cannot make such a run
-acceptable, so the source aborts. No call is sent once the budget is exhausted.
+partial-error responses. Answered non-success responses without rateLimit use
+a logged four-point estimate for this bounded search query. This conservative
+estimate covers up to 100 repositories with three child connections each; it
+is not a measured charge and must be revisited if SEARCH_QUERY changes.
+Lost responses retain a minimum-cost reservation and an unmeasured-call
+counter; a later successful response cannot make such a run acceptable, so
+the source aborts. No call is sent once the budget is exhausted.
+
+Project verification on 07 November 2026 confirmed that REST and GraphQL
+accept X-GitHub-Api-Version: 2026-03-10. If GitHub rejects that value, change
+the shared header to 2022-11-28 as the fallback.
 
 References:
 https://docs.github.com/en/graphql/reference/repos
@@ -20,6 +28,7 @@ https://docs.github.com/en/rest/repos/repos#list-repository-contributors
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Callable, Mapping
 from types import TracebackType
 from typing import Any, Self
@@ -32,7 +41,10 @@ from pipeline.config import Settings
 from pipeline.http import HttpClient, HttpRequestError
 from pipeline.models import RepoRecord
 
+LOG = logging.getLogger(__name__)
 GRAPHQL_URL = "https://api.github.com/graphql"
+# About three points from (1 + 3 * 100) / 100, plus one point of headroom.
+GRAPHQL_ERROR_COST_ESTIMATE = 4
 SEARCH_QUERY = """
 query RepositorySearch($query: String!, $first: Int!, $after: String) {
   search(query: $query, type: REPOSITORY, first: $first, after: $after) {
@@ -113,9 +125,11 @@ class GitHubSource:
         except ValueError:
             if response.is_success:
                 raise GitHubResponseError(query_name, "invalid JSON response") from None
-            return
+            payload = {}
         if not isinstance(payload, dict):
-            raise GitHubResponseError(query_name, "response must be an object")
+            if response.is_success:
+                raise GitHubResponseError(query_name, "response must be an object")
+            payload = {}
         data = payload.get("data") or {}
         rate = data.get("rateLimit") if isinstance(data, dict) else None
         if rate is not None:
@@ -125,6 +139,12 @@ class GitHubSource:
                 raise GitHubResponseError(query_name, "invalid rateLimit counters")
             self.budget.record_graphql_cost(rate["cost"])
             self.rate_limit_remaining = rate["remaining"]
+        elif not response.is_success:
+            LOG.warning(
+                "Estimated GitHub GraphQL cost as %d points for HTTP %d response without rateLimit counters",
+                GRAPHQL_ERROR_COST_ESTIMATE, response.status_code,
+            )
+            self.budget.record_graphql_cost(GRAPHQL_ERROR_COST_ESTIMATE)
         if payload.get("errors"):
             raise GraphQLError(query_name, "GraphQL returned errors; partial data discarded")
         if response.is_success and rate is None:

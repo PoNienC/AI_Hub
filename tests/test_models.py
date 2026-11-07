@@ -57,6 +57,13 @@ def test_listing_requires_explicit_status_and_version(required, repo, score):
         Listing.model_validate(data)
 
 
+def test_listing_rejects_mismatched_score_version(repo, score):
+    # Simulate a score from a future version without widening today's allowed values.
+    future_score = score.model_copy(update={"score_version": "v1"})
+    with pytest.raises(ValidationError, match="listing score_version must match score.score_version"):
+        Listing(repo=repo, score=future_score, tested="untested", score_version="v0")
+
+
 @pytest.mark.parametrize("change", [{"coverage": 1.1}, {"total": -1}, {"total": 101}, {"total": float("nan")}])
 def test_score_bounds(change, score):
     with pytest.raises(ValidationError):

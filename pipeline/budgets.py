@@ -28,9 +28,10 @@ class Budget:
     """Count all HTTP attempts, including retries, and reconcile GraphQL costs.
 
     GraphQL cost is only known after a response. Reserve its minimum one point
-    before sending, then record the reported cost, raising immediately on an
-    overrun. A lost response retains that reservation and is explicitly counted
-    as unmeasured; it must not be mistaken for an exact billed total.
+    before sending, then record the reported cost or an explicitly logged
+    source estimate, raising immediately on an overrun. A lost response retains
+    that reservation and is explicitly counted as unmeasured; it must not be
+    mistaken for an exact billed total.
     """
 
     def __init__(
@@ -72,7 +73,7 @@ class Budget:
         self.github_unmeasured_calls += 1
 
     def record_graphql_cost(self, cost: int) -> None:
-        """Replace one reservation with actual cost, retaining any billed overrun."""
+        """Settle one reservation with reported or logged estimated cost, retaining overruns."""
         _non_negative_integer(cost)
         if self.github_unmeasured_calls == 0:
             raise ValueError("GraphQL cost requires an outstanding reservation")

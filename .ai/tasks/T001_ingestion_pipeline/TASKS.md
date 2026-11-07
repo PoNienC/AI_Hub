@@ -9,7 +9,7 @@
 - Allocation approved by the user: 07 November 2026
 - Hand-off: pending <!-- pending | `<commit>`, DD Month YYYY — see REVIEW.md -->
 - Close-out: ask <!-- ask | automatic (approved at the combined gate) -->
-- Running now: none <!-- was: B1_exec (Codex) 11:28 → codex/B1_exec_out.md --> <!-- every background job: step, started HH:MM, output file — e.g. "B1_audit_r1 (Codex) 14:05 → codex/B1_audit_r1_out.md" -->
+- Running now: B1_fix_r1 (Codex) 11:59 → codex/B1_fix_r1_out.md <!-- B1_audit_r1 done 11:50 → subagent/B1_audit_r1_out.md <!-- was: B1_exec (Codex) 11:28 → codex/B1_exec_out.md --> <!-- every background job: step, started HH:MM, output file — e.g. "B1_audit_r1 (Codex) 14:05 → codex/B1_audit_r1_out.md" -->
 - Codex tokens so far: 128,179
 
 | Task | Title | Executor | Reviewer | Block | Depends on | Risk | Status | Commit | Audit fix |
