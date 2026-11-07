@@ -691,7 +691,7 @@ The live T09 dry run has not been repeated; Claude’s review remains pending. N
 
 ### Scoring observations for request 4
 - Coverage per row: min 0.25, median 0.40, max 0.70. Most rows evaluate only licence, maintenance and contributors.
-- Totals saturate: median 99.6, 8 rows at 100.0, min 35.8. With three evaluated components the weighted mean rewards any maintained, permissively licensed repo equally. Weights v0 need rebalancing once Scorecard coverage and the fraud checks exist (request 4), as already recorded in DECISIONS.md.
+- Totals saturate: median 99.55, no exact 100 (maximum 99.9998), 11 rows round to 100.0 at one decimal place, min 35.8. With three evaluated components the weighted mean rewards any maintained, permissively licensed repo equally. Weights v0 need rebalancing once Scorecard coverage and the fraud checks exist (request 4), as already recorded in DECISIONS.md.
 - Ordering by score differs from ordering by stars: only 2 of the top 10 overlap.
 - Labels: 5 rows provisional (from data/labelled_repos_for_review.csv), 45 pending, as expected before request 2. All rows `untested`, as expected before request 3.
 

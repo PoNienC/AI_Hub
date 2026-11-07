@@ -134,3 +134,19 @@ Evidence (Claude probes, 07 November 2026, token-authenticated, header 2026-03-1
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
 | F1 | T03 | MEDIUM | 50-node GraphQL pages exceed GitHub's resource limit with `mentionableUsers` | ACCEPTED | every real run of the niche would fail at ingest | default page 25 (`AI_HUB_GITHUB_PAGE_SIZE`), adaptive halving on RESOURCE_LIMITS_EXCEEDED, tests | — (auto) | fixed in `898b859`; dry run attempt 2 passed |
+
+## B4 (T09) — round 1 · executor: Claude · reviewer: Codex (gpt-6-astra, xhigh) · 07 November 2026
+
+Range: `898b859..4f743c1` (base `898b859`, end `4f743c1`) · raw report: codex/B4_audit_r1_out.md (357 s, 97,174 tokens)
+Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026
+
+**In short:** PASS_WITH_FINDINGS · acceptance met, every number in the record reproduced by Codex · findings B/H/M/L/N: 0/0/0/2/0 · needs you: no
+
+- **F1 (LOW, T09) Live-response fixtures still outstanding (B2 F8)** → DEFERRED to request 2: capture one sanitised raw response per adapter with capture metadata and run the offline adapter tests on them; recorded as a carry-forward in STATE.md and the request 2 brief.
+- **F2 (LOW, T09) Saturation count rounding** → ACCEPTED: handover now states "no exact 100; 11 rows round to 100.0 at one decimal place".
+
+| ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
+|---|---|---|---|---|---|---|---|---|
+| F1 | T09 | LOW | real adapter responses not yet recorded as fixtures | DEFERRED | needs network capture plus test wiring; request 2 touches the same tests | request 2 brief | — (auto) | deferred |
+| F2 | T09 | LOW | "8 rows at 100.0" not reproducible | ACCEPTED | precision | handover wording | — (auto) | fixed in the close-out commit |
+
