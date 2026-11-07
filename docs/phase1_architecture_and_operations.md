@@ -74,6 +74,8 @@ Pull requests run gates 1, 2, 5 and 6 on a sample dataset in under five minutes.
 - Monthly check by Po (15 minutes): read the month's issues, the run log summary and the labeller agreement trend.
 
 ## 6. What Po must do, and when
+
+Order changed 07 November 2026: request 2 is the MVP site on GitHub Pages (Jinja2, built-in token, no external accounts); labeller, sandbox, trust layer and the Astro site follow as requests 3 to 6. The owner steps below keep their triggers, now tied to those numbers.
 - Now: run `/dual_dev_init` in this folder (it will ask before `git init`), then paste request 1 from `docs/dual_dev_requests.md`.
 - After request 1 is committed and before request 2 starts: review `data/labelled_repos_for_review.csv` into `data/gold_labels.csv` (about one hour). Claude will say when.
 - Before request 5: choose the domain name and create the Cloudflare account; add the four secrets to GitHub.
