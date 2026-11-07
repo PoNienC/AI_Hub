@@ -7,7 +7,11 @@
 - Work in flight: none. Next: go-live steps (owner), then request 3 (labeller and gold-set gate) from `docs/dual_dev_requests.md`.
 - Local preview: `.claude/launch.json` entries `docs_static` (port 8765, docs) and `site_preview` (port 8766, site/dist.dry).
 
-## Go-live steps for Po (each asked separately by Claude)
+## Go-live — DONE 07 November 2026 23:05 UTC
+- All four steps done: branches pushed; `main` created from T002 and set default; repo public; Pages enabled (workflow); first dispatch run 42422871149 succeeded (refresh and deploy jobs). Live site https://ponienc.github.io/AI_Hub/ with 498 listings; release `data-latest` holds gateway.sqlite (905 KB) and evidence.jsonl (3.1 MB). Schedule now runs every 6 hours.
+- This STATE update is committed on `dual_dev/T002_mvp_site_live` only; merge or cherry-pick to `main` next session.
+
+## Go-live steps as planned (kept for the record)
 1. Push the T001 reorder commit and the T002 branch (PoNienC account).
 2. Merge `dual_dev_setup` → T001 → T002 into `main` (fast-forward) and make `main` the default branch on GitHub.
 3. Make the repository public (GitHub Pages on the free plan), then Settings → Pages → Source "GitHub Actions".
