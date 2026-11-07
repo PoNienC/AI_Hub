@@ -15,7 +15,7 @@ Audit mode: per_block (overlap on) · Audit review: ask_high.
 ## B1 (T01-T03) — round 1 · executor: Codex · reviewer: Claude subagent (dual_dev_auditor, session model) · 07 November 2026
 
 Range: `d73a1d2..abc99df` (base `d73a1d2`, end `abc99df`) · raw report: subagent/B1_audit_r1_out.md
-Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user)
+Review: ask_high · no BLOCKER or HIGH → auto · closed 07 November 2026, fixes in `1eee812` (Codex: F1-F5, F7, C1-C4 ACCEPTED; F6 PARTIALLY_ACCEPTED)
 
 **In short:** PASS_WITH_FINDINGS · findings B/H/M/L/N: 0/1/3/3/0 (plus coordinator C1-C4 below) · needs you: no
 
@@ -29,17 +29,17 @@ Review: ask_high · no BLOCKER or HIGH → auto (no stop for the user)
 
 | ID | Task | Severity | Finding | Proposed resolution | Reason | Planned fix | Your decision | Outcome |
 |---|---|---|---|---|---|---|---|---|
-| F1 | T02/T03 | MEDIUM | CI rebuilds the site after promotion; deployed status.json loses gate records | ACCEPTED | named deliverable misreported on the live site | drop the rebuild step; docs and tests aligned | — (auto) | pending |
-| F2 | T01 | LOW | topic pages unbounded vs 200 KB gate | ACCEPTED | self-inflicted outage at scale | paginate at 200 rows; large-row test | — (auto) | pending |
-| F3 | T01 | LOW | Windows clean-up error after swap; temp dirs not ignored | ACCEPTED | T04 runs on Windows with a preview server | ignore_cleanup_errors; .gitignore | — (auto) | pending |
-| F4 | T03 | LOW | architecture doc targets replaced | ACCEPTED | document is the target for every request | restore targets with current notes | — (auto) | pending |
-| F5 | T03 | NOTE | README CI steps inconsistent | ACCEPTED | follows F1 | align | — (auto) | pending |
-| F6 | T01 | NOTE | packaging, stripped reference links, topic capitalisation | PARTIALLY_ACCEPTED | cosmetic and policy | display names; host allow-list; docstring note | — (auto) | pending |
-| F7 | T02 | NOTE | case-insensitive path check on Windows | ACCEPTED | cheap | exact-name comparison | — (auto) | pending |
-| C1 | T01 | MEDIUM | index lists eleven empty topics | ACCEPTED | MVP reads as empty | only topics with entries; Pending last | — (auto) | pending |
-| C2 | T01 | LOW | "pending · pending" rows | ACCEPTED | clarity | "level not yet labelled" once | — (auto) | pending |
-| C3 | T01 | LOW | duplicated page title | ACCEPTED | polish | index title = site name | — (auto) | pending |
-| C4 | T01 | LOW | raw ISO timestamps | ACCEPTED | readability | DD Mon YYYY in templates | — (auto) | pending |
+| F1 | T02/T03 | MEDIUM | CI rebuilds the site after promotion; deployed status.json loses gate records | ACCEPTED | named deliverable misreported on the live site | drop the rebuild step; docs and tests aligned | — (auto) | fixed in `1eee812` |
+| F2 | T01 | LOW | topic pages unbounded vs 200 KB gate | ACCEPTED | self-inflicted outage at scale | paginate at 200 rows; large-row test | — (auto) | fixed in `1eee812` |
+| F3 | T01 | LOW | Windows clean-up error after swap; temp dirs not ignored | ACCEPTED | T04 runs on Windows with a preview server | ignore_cleanup_errors; .gitignore | — (auto) | fixed in `1eee812` |
+| F4 | T03 | LOW | architecture doc targets replaced | ACCEPTED | document is the target for every request | restore targets with current notes | — (auto) | fixed in `1eee812` |
+| F5 | T03 | NOTE | README CI steps inconsistent | ACCEPTED | follows F1 | align | — (auto) | fixed in `1eee812` |
+| F6 | T01 | NOTE | packaging, stripped reference links, topic capitalisation | PARTIALLY_ACCEPTED | cosmetic and policy | display names; host allow-list; docstring note | — (auto) | fixed in `1eee812` |
+| F7 | T02 | NOTE | case-insensitive path check on Windows | ACCEPTED | cheap | exact-name comparison | — (auto) | fixed in `1eee812` |
+| C1 | T01 | MEDIUM | index lists eleven empty topics | ACCEPTED | MVP reads as empty | only topics with entries; Pending last | — (auto) | fixed in `1eee812` |
+| C2 | T01 | LOW | "pending · pending" rows | ACCEPTED | clarity | "level not yet labelled" once | — (auto) | fixed in `1eee812` |
+| C3 | T01 | LOW | duplicated page title | ACCEPTED | polish | index title = site name | — (auto) | fixed in `1eee812` |
+| C4 | T01 | LOW | raw ISO timestamps | ACCEPTED | readability | DD Mon YYYY in templates | — (auto) | fixed in `1eee812` |
 
 
 Coordinator observations from a local build (Claude, 07 November 2026, `pipeline site build --input site/src/data/listings.dry.json --output site/dist.dry`, 68 files, 321 KB, viewed in the browser). To be fixed by Codex in the B1 corrections round together with the audit findings; IDs C1 to C4 so they do not clash with the auditor's F numbers.

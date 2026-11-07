@@ -198,3 +198,15 @@ Live deployment and T04 acceptance remain outstanding. No staging, commits, bran
 - `uv run pytest --cov=pipeline --cov-fail-under=80`: 535 passed, coverage 98.34%.
 - `uv run ruff check .`: clean.
 - Codex run: 860 s, 93,193 tokens, weekly limit 33% used.
+
+## T04 — Local acceptance run (Claude), 07 November 2026
+
+### Summary
+- `uv run pipeline run --dry-run --limit 20` with the real network: exit 0, 51 s, 20 in / 20 out, 6 GitHub points, 20 calls per enrichment source, gates passed; the run itself built `site/dist.dry/` with gates 2, 3 and 5 recorded.
+- `uv run pipeline site build --input site/src/data/listings.dry.json --output site/dist.dry` rebuilt it standalone: 37 HTML pages (index, how_we_grade, 15 topic pages, 20 repo pages), 185 KB, no page over 100 KB. `uv run pipeline gates --path site/src/data/listings.dry.json`: gates 2, 3 and 5 passed.
+- Browser check (http://localhost:8766/index.html, the `site_preview` launch entry): only populated topics shown ("Coding agent" with two provisional-beginner rows, "Pending" last); rows read "beginner (provisional)" or "level not yet labelled"; title "AI Hub"; repo links route by GitHub id; level filter present. No rendering defect seen.
+- Pins verified live with `gh api`: actions/upload-pages-artifact 56afc609e74202658d3ffba0e8f6dda462b719fa = v3.0.1; actions/deploy-pages d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e = v4 (v4.0.5).
+
+### Acceptance
+- At least 20 repo pages: 20. Index present. Gate 5 passed. Under 5 minutes: 51 s run plus about 2 s build. Pins verified.
+- Full suite and ruff on the final tree: run at hand-off, see REVIEW.md.
