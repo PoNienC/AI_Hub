@@ -4,12 +4,12 @@
 - Remote: https://github.com/PoNienC/AI_Hub (private). Pushed: `dual_dev_setup`, `dual_dev/T001_ingestion_pipeline` (up to 3d044bc). NOT yet pushed: the request-reorder commit d73a1d2 on the T001 branch and the whole T002 branch. Pushes need `gh auth switch -u PoNienC` first, then switch back to PoNienChenPP.
 - Request T001 (ingestion pipeline): COMPLETE. Request T002 (MVP site and live schedule): COMPLETE. 535 tests, coverage 98.34 per cent, ruff clean. Live 20-repo dry run plus site build verified in the browser.
 - Codex totals: T001 765,096 tokens; T002 327,251 tokens; weekly limit 34 per cent used (resets Wednesday 11 November 10:05).
-- Work in flight: none. Next: go-live steps (owner), then request 3 (labeller and gold-set gate) from `docs/dual_dev_requests.md`.
+- Work in flight: none. Next: request 3 = design and discovery (approved 08 November 2026, scope in `docs/request_3_scope.md`), run after this week's other Codex items per the Geospatial_Dev integration plan; then 4 labeller, 5 sandbox and starter kits, 6 trust and weights v1, 7 domain and Cloudflare.
 - Local preview: `.claude/launch.json` entries `docs_static` (port 8765, docs) and `site_preview` (port 8766, site/dist.dry).
 
 ## Go-live — DONE 07 November 2026 23:05 UTC
 - All four steps done: branches pushed; `main` created from T002 and set default; repo public; Pages enabled (workflow); first dispatch run 42422871149 succeeded (refresh and deploy jobs). Live site https://ponienc.github.io/AI_Hub/ with 498 listings; release `data-latest` holds gateway.sqlite (905 KB) and evidence.jsonl (3.1 MB). Schedule now runs every 6 hours.
-- This STATE update is committed on `dual_dev/T002_mvp_site_live` only; merge or cherry-pick to `main` next session.
+- Merged to `main` on 08 November 2026.
 
 ## Go-live steps as planned (kept for the record)
 1. Push the T001 reorder commit and the T002 branch (PoNienC account).
